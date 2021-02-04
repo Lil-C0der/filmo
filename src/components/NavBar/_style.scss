@@ -1,0 +1,57 @@
+@import '~styles/var';
+@import '~styles/mixins';
+@import '~styles/extends';
+
+.navbar {
+  height: 128px;
+  &_wrapper {
+    width: 100%;
+    background-color: $headerBg;
+  }
+  &_primary {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 1200px;
+    height: 88px;
+    line-height: 88px;
+    margin: 0 auto;
+    .navbar_logo {
+      @include bg('~@/logo.png', 200px, 100%);
+      padding: 4px 0;
+    }
+    .navbar_search {
+      display: inline-flex;
+      align-items: center;
+      height: 40px;
+      font-size: $fontSize;
+      color: $fontColor-black;
+      &_input {
+        width: 480px;
+        height: 100%;
+        padding: 8px;
+        outline: none;
+        border: 1px solid $borderColor;
+        border-radius: $borderRadius;
+        font-size: inherit;
+        &:hover {
+          border-color: $borderColor-hover;
+        }
+        &:focus {
+          border-color: $borderColor-hover;
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+        }
+      }
+      &_btn {
+        width: 80px;
+        line-height: 40px;
+
+        @extend .btn;
+        svg {
+          text-stroke: 1px gray;
+          font-weight: 100;
+        }
+      }
+    }
+  }
+}

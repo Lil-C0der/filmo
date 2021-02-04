@@ -1,0 +1,22 @@
+@import './var';
+
+.btn {
+  display: inline-flex;
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  padding: 0 1.14em;
+  font-size: $fontSize;
+  color: $fontColor-black;
+  border: 1px solid darken($white, 15%);
+  border-radius: $borderRadius;
+  background-color: $white;
+  box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.15);
+  &:hover {
+    background-color: darken($white, 15%);
+  }
+  &:active {
+    color: $fontColor-white;
+  }
+}

@@ -1,0 +1,20 @@
+@import './var';
+
+@mixin borderStyle {
+  // background-color: #f5f5f5;
+  // color: #333;
+  border: 1px solid $borderColor;
+  border-radius: $borderRadius;
+}
+@mixin borderStyle_hover {
+  // background-color: #f1f1f1;
+  border-color: $borderColor-hover;
+  box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+@mixin bg($url, $width, $height) {
+  background: url($url);
+  width: $width;
+  height: $height;
+  background-size: contain;
+}

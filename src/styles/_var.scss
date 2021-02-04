@@ -1,0 +1,47 @@
+$height: 32px;
+$fontSize: 14px;
+$borderRadius: 4px;
+
+// 背景颜色
+$headerBg: #bcc2d7;
+$contentBg: #eff1fe;
+$footerBg: #546c8c;
+$siderBg: #8895b1;
+
+// 常用颜色
+$black: #333;
+$white: #f5f5f5;
+$grey: #5c5c5c;
+$blue: #98bcd5;
+
+// $pink: #e2a5ad;
+// $green: #89d7bc;
+// $yellow: #f1dca7;
+
+// 字体颜色
+$fontColor-black: $black;
+$fontColor-grey: $grey;
+$fontColor-white: #fefefe;
+$disabled-color: #a0a0a0;
+$fontColor-link: $blue;
+$fontColor-link-hover: darken($fontColor-link, 15%);
+$fontColor-link-active: darken($fontColor-link, 20%);
+
+// $fontColor-code: $pink;
+// $active-menu-item-color: #8895b1;
+
+// 边框颜色
+$borderColor: #dedde2;
+$borderColor-light: lighten($borderColor, 5%);
+$borderColor-hover: #c0c4cc;
+$borderColor-disabled: #c3c3c3;
+
+// fontFamily
+$font-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !default;
+
+$font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+  'Courier New', monospace !default;
+
+$fontFamily-base: $font-sans-serif !default;

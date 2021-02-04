@@ -1,0 +1,16 @@
+@import '../../styles/mixins';
+
+.navbar {
+  height: 128px;
+  &_primary {
+    width: 100%;
+    height: 88px;
+    background-color: #ccc;
+    .navbar_logo {
+      // @include bg('../../logo.png', 200px, 100%);
+      // @include bg('../logo.png', 200px, 100%);
+      // background: url('../../logo.png');
+      // background-size: contain;
+    }
+  }
+}

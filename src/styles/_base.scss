@@ -1,0 +1,35 @@
+@import './var';
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+body {
+  color: $fontColor-black;
+  font-size: $fontSize;
+  font-family: $fontFamily-base;
+}
+
+a {
+  color: $fontColor-link;
+  &:hover {
+    color: $fontColor-link-hover;
+  }
+}
+
+// pre,
+// code,
+// kbd,
+// samp {
+//   font-family: $font-monospace;
+//   font-size: 1em;
+//   color: $fontColor-code;
+// }

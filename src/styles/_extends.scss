@@ -13,10 +13,34 @@
   border-radius: $borderRadius;
   background-color: $white;
   box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.15);
+  user-select: none;
+  cursor: default;
   &:hover {
     background-color: darken($white, 15%);
   }
   &:active {
     color: $fontColor-white;
+  }
+}
+
+.link {
+  display: inline-flex;
+  justify-self: center;
+  align-items: center;
+  height: 32px;
+  padding: 0 1.14em;
+  color: $fontColor-link;
+  text-decoration: none;
+  box-shadow: none;
+  background-color: transparent;
+  border-bottom: 2px solid $fontColor-link;
+  cursor: pointer;
+  &:hover {
+    color: $fontColor-link-hover;
+    border-bottom-color: $fontColor-link-hover;
+  }
+  &:active {
+    color: $fontColor-link-active;
+    border-bottom-color: $fontColor-link-active;
   }
 }

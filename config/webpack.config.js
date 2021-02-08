@@ -331,8 +331,10 @@ module.exports = function (webpackEnv) {
         }),
         ...(modules.webpackAliases || {}),
         '@': path.resolve(__dirname, '../src'),
-        styles: path.resolve(__dirname, '../src/styles'),
-        views: path.resolve(__dirname, '../src/views')
+        '@styles': path.resolve(__dirname, '../src/styles'),
+        '@views': path.resolve(__dirname, '../src/views'),
+        '@cpnt': path.resolve(__dirname, '../src/components'),
+        '@network': path.resolve(__dirname, '../src/network')
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

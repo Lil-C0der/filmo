@@ -25,6 +25,8 @@
       "@/*": ["*"],
       "@styles/*": ["styles/*"],
       "@views/*": ["views/*"],
+      "@cpnt/*": ["components/*"],
+      "@network/*": ["network/*"]
     }
   },
   "include": [

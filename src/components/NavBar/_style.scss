@@ -3,16 +3,19 @@
 @import '~styles/extends';
 
 .navbar {
-  height: 128px;
+  height: 144px;
+  background-color: $headerBg;
   &_wrapper {
-    width: 100%;
-    background-color: $headerBg;
+    margin: 0 auto;
+    padding-top: 16px;
+    border-bottom: 1px solid $borderColor;
   }
+  // 导航栏上半部分 logo & 搜索栏
   &_primary {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
     max-width: 1200px;
+    justify-content: space-between;
+    align-items: center;
     height: 88px;
     line-height: 88px;
     margin: 0 auto;
@@ -43,15 +46,32 @@
         }
       }
       &_btn {
-        width: 80px;
         line-height: 40px;
-
+        margin-left: 8px;
+        font-size: 16px;
         @extend .btn;
         svg {
-          text-stroke: 1px gray;
-          font-weight: 100;
+          margin-left: 4px;
+          font-size: 16px;
         }
       }
+    }
+  }
+
+  // 导航栏下半部分 常用连接
+  &_secondary {
+    height: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    ul {
+      display: flex;
+      // justify-content: space-between;
+    }
+    .navbar_item {
+      // color: $fontColor-link;
+      @extend .link;
+      color: $fontColor-white;
+      margin-right: 40px;
     }
   }
 }

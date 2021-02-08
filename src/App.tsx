@@ -1,13 +1,15 @@
 import React from 'react';
-import NavBar from './components/NavBar/NavBar';
+import NavBar from '@/components/NavBar';
+import Home from '@/views/Home';
+
 import './App.css';
 import './styles/index.scss';
 
 function App() {
   return (
     <div className="App">
-      <NavBar></NavBar>
-      <header className="App-header">
+      <NavBar />
+      {/* <header className="App-header">
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -19,7 +21,8 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+      <Home></Home>
     </div>
   );
 }

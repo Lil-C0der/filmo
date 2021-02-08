@@ -1,9 +1,15 @@
 import instance from './request';
 
+export function getAllCities() {
+  return instance({
+    url: 'maoyan/cities',
+    method: 'GET'
+  });
+}
+
 export function getHotMovie() {
   return instance({
-    // url: '/hotmovie',
-    url: 'movieOnInfoList',
+    url: 'maoyan/movieOnInfoList',
     method: 'GET'
   });
 }

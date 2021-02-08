@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
-import { getHotMovie } from '@network/movie';
-
 import './_style.scss';
 
 library.add(fas);
@@ -20,17 +18,7 @@ const NavBar: FC<NavBarProps> = (props) => {
 
   const onSearchBtnClick = () => {
     const inputVal = inputRef.current?.value;
-    console.log('搜索框的内容：', inputVal);
-    // fetch(
-    //   'https://api.doubans.com/v2/search/douban/tips?offset=0&limit=10&keyword=' +
-    //     inputVal
-    // ).then((res) => {
-    //   console.log('res', res);
-    // });
-
-    getHotMovie().then((res) => {
-      console.log(res);
-    });
+    inputVal && console.log('搜索框的内容：', inputVal);
   };
 
   return (

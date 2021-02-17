@@ -1,6 +1,6 @@
 import React from 'react';
-import NavBar from '@/components/NavBar';
-import Home from '@/views/Home';
+import NavBar from '@cpnt/NavBar';
+import Home from '@views/Home';
 
 import './App.css';
 import './styles/index.scss';

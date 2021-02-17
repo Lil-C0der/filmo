@@ -1,0 +1,36 @@
+@import '~styles/var';
+
+.slide {
+  display: block;
+  position: relative;
+  overflow-x: hidden;
+}
+.slide_wrapper {
+  height: 220px;
+  position: relative;
+}
+.slide_arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-0.5em);
+  background-color: $white;
+  z-index: 9;
+  svg {
+    font-size: 10px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+.slide_arrow_l {
+  left: 16px;
+}
+.slide_arrow_r {
+  right: 16px;
+}

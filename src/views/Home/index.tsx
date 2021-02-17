@@ -1,4 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
+import Slide from '@cpnt/Slide';
+import SlideItem from '@cpnt/Slide/SlideItem';
+
 import { getHotMovies, getCommingMovie } from '@network/movie';
 
 import './_style.scss';
@@ -8,8 +11,6 @@ const Home: FC = (props) => {
 
   useEffect(() => {
     getHotMovies().then((res: dataTypes.hotMoviesResponseData) => {
-      console.log(res.total, res.movieList.length);
-
       setMovieList(res.movieList);
     });
   }, []);
@@ -37,6 +38,28 @@ const Home: FC = (props) => {
 
   return (
     <div className="homepage">
+      <Slide className="slide">
+        <SlideItem index={0}>1</SlideItem>
+        <SlideItem index={1}>2</SlideItem>
+        <SlideItem index={2}>3</SlideItem>
+
+        {/* <div className="slide_item">
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+        </div>
+        <div className="slide_item">
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+        </div>
+        <div className="slide_item">
+          <li>7</li>
+          <li>8</li>
+          <li>9</li>
+        </div> */}
+      </Slide>
+
       <div className="hotMovies_title">正在热映</div>
       <ul className="hotMovies_list">{renderHotMovieList()}</ul>
     </div>

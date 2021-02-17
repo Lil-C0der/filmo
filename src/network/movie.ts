@@ -1,5 +1,7 @@
 import instance from './request';
 
+// import  from './dataTypes';
+
 export function getAllCities() {
   return instance({
     url: 'maoyan/cities',
@@ -7,8 +9,8 @@ export function getAllCities() {
   });
 }
 
-export function getHotMovie() {
-  return instance({
+export function getHotMovies() {
+  return instance<dataTypes.hotMoviesResponseData>({
     url: 'maoyan/movieOnInfoList',
     method: 'GET'
   });

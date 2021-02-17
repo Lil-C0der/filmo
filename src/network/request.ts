@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 const axiosInstance = axios.create({
   // baseURL: 'https://api.doubans.com/v2/movie/'
@@ -9,11 +9,9 @@ const axiosInstance = axios.create({
   baseURL: '/api'
 });
 
-axios.interceptors.request.use((config) => {
-  config.withCredentials = true;
-  return config;
-});
-
-axiosInstance.interceptors.response.use();
+axiosInstance.interceptors.response.use(
+  (result: AxiosResponse) => result.data,
+  (error) => Promise.reject(error)
+);
 
 export default axiosInstance;

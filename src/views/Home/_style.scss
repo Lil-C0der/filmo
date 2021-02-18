@@ -1,25 +1,33 @@
 @import '~styles/var';
 
 .homepage {
-  max-width: 1200px;
+  width: 1200px;
+  min-width: 1200px;
   margin: 0 auto;
 }
 .hotMovies_title {
   height: 64px;
+  margin-top: 16px;
   line-height: 64px;
   font-size: 24px;
   color: $fontColor-grey;
+  border-bottom: 1px solid $borderColor;
 }
+
+.slide {
+  width: 800px;
+  margin-left: 0;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
 .hotMovies_list {
   display: flex;
-  flex-wrap: wrap;
-  max-width: 1200px;
-
+  justify-content: space-around;
+  flex-wrap: nowrap;
   .movieList_item {
     display: flex;
     flex-direction: column;
-    margin-right: 40px;
-    margin-bottom: 8px;
     position: relative;
     &_img {
       width: 160px;
@@ -51,38 +59,3 @@
     }
   }
 }
-
-.slide {
-  width: 160px;
-  height: 220px;
-  li {
-    width: 100%;
-    height: 100%;
-    // position: absolute;
-    text-align: center;
-    font-size: 22px;
-    color: $fontColor-white;
-    &:nth-child(2n) {
-      background-color: #8895b1;
-    }
-    &:nth-child(2n + 1) {
-      background-color: #546c8c;
-    }
-  }
-}
-
-// .slide_item {
-//   // display: flex;
-//   // flex-direction: row;
-//   border: 1px solid #000;
-//   li {
-//     width: 160px;
-//     height: 220px;
-//     &:nth-child(2n) {
-//       background-color: #8895b1;
-//     }
-//     &:nth-child(2n + 1) {
-//       background-color: #546c8c;
-//     }
-//   }
-// }

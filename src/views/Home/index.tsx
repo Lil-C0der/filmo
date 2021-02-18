@@ -10,10 +10,9 @@ const Home: FC = (props) => {
   let [movieList, setMovieList] = useState<Array<dataTypes.IMovieListObj>>([]);
 
   useEffect(() => {
-    // TODO 猫眼 AJAX
-    // getHotMovies().then((res: dataTypes.hotMoviesResponseData) => {
-    //   setMovieList(res.movieList);
-    // });
+    getHotMovies().then((res: dataTypes.hotMoviesResponseData) => {
+      setMovieList(res.movieList);
+    });
   }, []);
 
   /**
@@ -22,8 +21,8 @@ const Home: FC = (props) => {
    * @return {Array<JSX.Element>}
    */
   const renderHotMovieList: () => Array<JSX.Element> = () =>
-    movieList?.map((movieObj) => (
-      <li className="movieList_item" key={movieObj.id}>
+    movieList?.map((movieObj, index) => (
+      <SlideItem index={index} className="movieList_item" key={movieObj.id}>
         <img
           className="movieList_item_img"
           // 需要将接口返回 url 中的字段替换为图片的宽和高
@@ -34,36 +33,85 @@ const Home: FC = (props) => {
           <p className="movieList_item_title">{movieObj.nm}</p>
           <p className="movieList_item_rate">{movieObj.sc}</p>
         </span>
-      </li>
+      </SlideItem>
     ));
+
+  const renderSlideItem: () => Array<JSX.Element> = () => {
+    const mockArr = [
+      'a0',
+      'b0',
+      'c0',
+      'd0',
+      'a1',
+      'b1',
+      'c1',
+      'd1',
+      'a2',
+      'b2',
+      'c2',
+      'd2',
+      'a3',
+      'b3',
+      'c3',
+      'd3'
+    ];
+    let slideItemArr: Array<JSX.Element> = [];
+
+    // for (let startIdx = 0; startIdx < mockArr.length; startIdx += 4) {
+    //   slideItemArr.push(
+    //     <SlideItem index={startIdx / 4}>
+    //       <ul className="hotMovies_list">
+    //         {movieList.slice(startIdx, startIdx + 4).map((movieObj) => (
+    //           <li className="movieList_item" key={movieObj.id}>
+    //             <img
+    //               className="movieList_item_img"
+    //               // 需要将接口返回 url 中的字段替换为图片的宽和高
+    //               src={movieObj.img.replace(/w.h/, '160.220')}
+    //               alt=""
+    //             />
+    //             <span className="movieList_item_info">
+    //               <p className="movieList_item_title">{movieObj.nm}</p>
+    //               <p className="movieList_item_rate">{movieObj.sc}</p>
+    //             </span>
+    //           </li>
+    //         ))}
+    //       </ul>
+    //     </SlideItem>
+    //   );
+    // }
+
+    for (let startIdx = 0; startIdx < movieList.length; startIdx += 4) {
+      slideItemArr.push(
+        <SlideItem index={startIdx / 4}>
+          <ul className="hotMovies_list">
+            {movieList.slice(startIdx, startIdx + 4).map((movieObj) => (
+              <li className="movieList_item" key={movieObj.id}>
+                <img
+                  className="movieList_item_img"
+                  // 需要将接口返回 url 中的字段替换为图片的宽和高
+                  src={movieObj.img.replace(/w.h/, '160.220')}
+                  alt=""
+                />
+                <span className="movieList_item_info">
+                  <p className="movieList_item_title">{movieObj.nm}</p>
+                  <p className="movieList_item_rate">{movieObj.sc}</p>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </SlideItem>
+      );
+    }
+
+    // return [<li>asd</li>];
+    return slideItemArr;
+  };
 
   return (
     <div className="homepage">
-      <Slide className="slide">
-        <SlideItem index={0}>0</SlideItem>
-        <SlideItem index={1}>1</SlideItem>
-        <SlideItem index={2}>2</SlideItem>
-        <SlideItem index={3}>3</SlideItem>
-
-        {/* <div className="slide_item">
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-        </div>
-        <div className="slide_item">
-          <li>4</li>
-          <li>5</li>
-          <li>6</li>
-        </div>
-        <div className="slide_item">
-          <li>7</li>
-          <li>8</li>
-          <li>9</li>
-        </div> */}
-      </Slide>
-
       <div className="hotMovies_title">正在热映</div>
-      <ul className="hotMovies_list">{renderHotMovieList()}</ul>
+
+      <Slide height="240px">{renderSlideItem()}</Slide>
     </div>
   );
 };

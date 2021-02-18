@@ -6,11 +6,11 @@
   overflow-x: hidden;
 }
 .slide_wrapper {
-  height: 220px;
   position: relative;
 }
 
 .slide_item {
+  width: 100%;
   display: none;
   position: absolute;
   &_active {
@@ -18,23 +18,39 @@
   }
 }
 
-.slideAnimation_enter {
+.slideFromRToL-enter {
   transition: all 0.3s;
   transform: translateX(100%);
 }
-.slideAnimation_enter_active {
-  transform: translateX(0%);
+.slideFromRToL-enter-active {
+  transform: translateX(0);
 }
 
-.slideAnimation_exit {
+.slideFromRToL-exit {
   // 注意：如果不加 display: block，则切换后受 display: none 影响，不能显示动画
   display: block;
   transition: all 0.3s;
-  transform: translateX(0%);
+  transform: translateX(0);
 }
-.slideAnimation_exit_active {
+.slideFromRToL-exit-active {
   transition: all 0.3s;
   transform: translateX(-100%);
+}
+
+.slideFromLToR-enter {
+  transition: all 0.3s;
+  transform: translateX(-100%);
+}
+.slideFromLToR-enter-active {
+  transform: translateX(0);
+}
+.slideFromLToR-exit {
+  display: block;
+  transition: all 0.3s;
+  transform: translateX(0);
+}
+.slideFromLToR-exit-active {
+  transform: translateX(100%);
 }
 
 .slide_arrow {
@@ -46,7 +62,7 @@
   border-radius: 50%;
   position: absolute;
   top: 50%;
-  transform: translateY(0.5em);
+  transform: translateY(-0.5em);
   background-color: $white;
   z-index: 9;
   svg {

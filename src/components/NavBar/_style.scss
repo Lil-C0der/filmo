@@ -4,6 +4,7 @@
 
 .navbar {
   height: 144px;
+  min-width: 1200px;
   background-color: $headerBg;
   &_wrapper {
     margin: 0 auto;
@@ -13,7 +14,8 @@
   // 导航栏上半部分 logo & 搜索栏
   &_primary {
     display: flex;
-    max-width: 1200px;
+    width: 1200px;
+    min-width: 1200px;
     justify-content: space-between;
     align-items: center;
     height: 88px;

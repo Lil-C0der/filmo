@@ -4,9 +4,11 @@
   display: block;
   position: relative;
   overflow-x: hidden;
+  user-select: none;
 }
 .slide_wrapper {
   position: relative;
+  height: 100%;
 }
 
 .slide_item {
@@ -55,16 +57,18 @@
 
 .slide_arrow {
   display: flex;
+  opacity: 0;
   justify-content: center;
   align-items: center;
-  width: 1em;
-  height: 1em;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   position: absolute;
   top: 50%;
-  transform: translateY(-0.5em);
+  transform: translateY(-8px);
   background-color: $white;
   z-index: 9;
+  transition: all 0.3s;
   svg {
     font-size: 10px;
   }
@@ -72,9 +76,22 @@
     cursor: pointer;
   }
   &_l {
-    left: 16px;
+    left: 8px;
   }
   &_r {
-    right: 16px;
+    right: 8px;
   }
+}
+
+.slide:hover {
+  .slide_arrow {
+    opacity: 1;
+  }
+}
+
+.slide_indicator {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
 }

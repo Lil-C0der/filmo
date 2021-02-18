@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, useState } from 'react';
+import React, { CSSProperties, FC, useState, useEffect } from 'react';
 import classNames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,6 +13,8 @@ interface ISlideProps {
   height?: string;
   className?: string;
   style?: CSSProperties;
+  interval?: number;
+  onChange?: (currIdx: number) => void;
 }
 
 export interface ISlideCtx {
@@ -27,13 +29,19 @@ export const SlideCtx = React.createContext<ISlideCtx>({
 });
 
 const Slide: FC<ISlideProps> = (props) => {
+  const { onChange, className, style } = props;
   const [currIdx, setCurrIdx] = useState<number>(0);
   const [reverseAnimation, setReverseAnimation] = useState<boolean>(true);
 
-  const classes = classNames('slide', props.className);
-
+  const classes = classNames('slide', className);
   const { length } = props.children as Array<React.ReactNode>;
 
+  // 切换时触发 onChange 回调
+  useEffect(() => {
+    onChange && onChange(currIdx);
+  }, [currIdx, onChange]);
+
+  // 两个切换按钮的点击事件
   const handleRBtnClick = () => {
     reverseAnimation && setReverseAnimation(false);
     if (currIdx + 1 === length) {
@@ -49,8 +57,42 @@ const Slide: FC<ISlideProps> = (props) => {
     setCurrIdx(currIdx - 1);
   };
 
+  // 自动轮播
+  const startTimer = () => {
+    const interval = props.interval ? props.interval : 3000;
+    let timerId = setInterval(() => {
+      handleRBtnClick();
+    }, interval);
+    return timerId;
+  };
+  const stopTimer = (timerId?: NodeJS.Timeout | null) => {
+    timerId && clearInterval(timerId);
+    return null;
+  };
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null;
+    timer = startTimer();
+    return () => {
+      timer = stopTimer(timer);
+    };
+  });
+
+  // TODO hover 时停止自动轮播
+  // const handleMouseEnter = () => {
+  //   stopTimer();
+  // };
+  // const handleMouseLeave = () => {
+  //   startTimer();
+  // };
+
   return (
-    <div className={classes} style={{ height: props.height, ...props.style }}>
+    <div
+      className={classes}
+      style={{ height: props.height, ...style }}
+      // onMouseEnter={handleMouseEnter}
+      // onMouseLeave={handleMouseLeave}
+    >
       <SlideCtx.Provider
         value={{ activeIdx: currIdx, reverseAnimation: reverseAnimation }}
       >

@@ -6,6 +6,7 @@
   margin: 0 auto;
 }
 .hotMovies_title {
+  position: relative;
   height: 64px;
   margin-top: 16px;
   line-height: 64px;
@@ -14,16 +15,23 @@
   border-bottom: 1px solid $borderColor;
 }
 
-.slide {
+.hotMovies_slide_indicator {
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.hotMovies_slide {
   width: 800px;
+  margin-top: 8px;
   margin-left: 0;
-  padding: 10px 20px;
-  border-radius: 4px;
 }
 
 .hotMovies_list {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: nowrap;
   .movieList_item {
     display: flex;

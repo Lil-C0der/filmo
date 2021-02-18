@@ -9,6 +9,34 @@
   height: 220px;
   position: relative;
 }
+
+.slide_item {
+  display: none;
+  position: absolute;
+  &_active {
+    display: block;
+  }
+}
+
+.slideAnimation_enter {
+  transition: all 0.3s;
+  transform: translateX(100%);
+}
+.slideAnimation_enter_active {
+  transform: translateX(0%);
+}
+
+.slideAnimation_exit {
+  // 注意：如果不加 display: block，则切换后受 display: none 影响，不能显示动画
+  display: block;
+  transition: all 0.3s;
+  transform: translateX(0%);
+}
+.slideAnimation_exit_active {
+  transition: all 0.3s;
+  transform: translateX(-100%);
+}
+
 .slide_arrow {
   display: flex;
   justify-content: center;
@@ -18,7 +46,7 @@
   border-radius: 50%;
   position: absolute;
   top: 50%;
-  transform: translateY(-0.5em);
+  transform: translateY(0.5em);
   background-color: $white;
   z-index: 9;
   svg {
@@ -27,10 +55,10 @@
   &:hover {
     cursor: pointer;
   }
-}
-.slide_arrow_l {
-  left: 16px;
-}
-.slide_arrow_r {
-  right: 16px;
+  &_l {
+    left: 16px;
+  }
+  &_r {
+    right: 16px;
+  }
 }

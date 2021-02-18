@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { CSSProperties, FC, useState } from 'react';
 import classNames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +11,7 @@ library.add(fas);
 
 interface ISlideProps {
   className?: string;
+  style?: CSSProperties;
 }
 
 export interface ISlideCtx {
@@ -38,16 +39,14 @@ const Slide: FC<ISlideProps> = (props) => {
   };
 
   return (
-    <div className={classes}>
+    <div className={classes} style={props.style}>
       <SlideCtx.Provider value={{ activeIdx: currIdx }}>
-        {currIdx}
         <div className="slide_arrow slide_arrow_l" onClick={handleLBtnClick}>
           <FontAwesomeIcon icon="chevron-left" />
         </div>
         <div className="slide_arrow slide_arrow_r" onClick={handleRBtnClick}>
           <FontAwesomeIcon icon="chevron-right" />
         </div>
-
         <div className="slide_wrapper">{props.children}</div>
       </SlideCtx.Provider>
     </div>

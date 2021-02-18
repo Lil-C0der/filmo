@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import Slide from '@cpnt/Slide';
-import SlideItem from '@cpnt/Slide/SlideItem';
+import SlideItem from '@/components/Slide/slideItem';
 
 import { getHotMovies, getCommingMovie } from '@network/movie';
 
@@ -10,9 +10,10 @@ const Home: FC = (props) => {
   let [movieList, setMovieList] = useState<Array<dataTypes.IMovieListObj>>([]);
 
   useEffect(() => {
-    getHotMovies().then((res: dataTypes.hotMoviesResponseData) => {
-      setMovieList(res.movieList);
-    });
+    // TODO 猫眼 AJAX
+    // getHotMovies().then((res: dataTypes.hotMoviesResponseData) => {
+    //   setMovieList(res.movieList);
+    // });
   }, []);
 
   /**
@@ -21,7 +22,7 @@ const Home: FC = (props) => {
    * @return {Array<JSX.Element>}
    */
   const renderHotMovieList: () => Array<JSX.Element> = () =>
-    movieList.map((movieObj) => (
+    movieList?.map((movieObj) => (
       <li className="movieList_item" key={movieObj.id}>
         <img
           className="movieList_item_img"
@@ -39,9 +40,10 @@ const Home: FC = (props) => {
   return (
     <div className="homepage">
       <Slide className="slide">
-        <SlideItem index={0}>1</SlideItem>
-        <SlideItem index={1}>2</SlideItem>
-        <SlideItem index={2}>3</SlideItem>
+        <SlideItem index={0}>0</SlideItem>
+        <SlideItem index={1}>1</SlideItem>
+        <SlideItem index={2}>2</SlideItem>
+        <SlideItem index={3}>3</SlideItem>
 
         {/* <div className="slide_item">
           <li>1</li>

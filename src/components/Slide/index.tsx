@@ -1,4 +1,11 @@
-import React, { CSSProperties, FC, useState, useEffect } from 'react';
+import React, {
+  CSSProperties,
+  FC,
+  useState,
+  useEffect,
+  useRef,
+  useCallback
+} from 'react';
 import classNames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,13 +32,13 @@ export interface ISlideCtx {
 // 导出的 ctx 对象
 export const SlideCtx = React.createContext<ISlideCtx>({
   activeIdx: 1,
-  reverseAnimation: true
+  reverseAnimation: false
 });
 
 const Slide: FC<ISlideProps> = (props) => {
   const { onChange, className, style } = props;
   const [currIdx, setCurrIdx] = useState<number>(0);
-  const [reverseAnimation, setReverseAnimation] = useState<boolean>(true);
+  const [reverseAnimation, setReverseAnimation] = useState<boolean>(false);
 
   const classes = classNames('slide', className);
   const { length } = props.children as Array<React.ReactNode>;
@@ -42,13 +49,14 @@ const Slide: FC<ISlideProps> = (props) => {
   }, [currIdx, onChange]);
 
   // 两个切换按钮的点击事件
-  const handleRBtnClick = () => {
+  const handleRBtnClick = useCallback(() => {
     reverseAnimation && setReverseAnimation(false);
     if (currIdx + 1 === length) {
       return setCurrIdx(0);
     }
     setCurrIdx(currIdx + 1);
-  };
+  }, [currIdx, reverseAnimation, length]);
+
   const handleLBtnClick = () => {
     !reverseAnimation && setReverseAnimation(true);
     if (currIdx <= 0) {
@@ -57,41 +65,50 @@ const Slide: FC<ISlideProps> = (props) => {
     setCurrIdx(currIdx - 1);
   };
 
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const isHoverRef = useRef(false);
+
   // 自动轮播
-  const startTimer = () => {
+  const startTimer: () => NodeJS.Timeout = useCallback(() => {
     const interval = props.interval ? props.interval : 3000;
+
     let timerId = setInterval(() => {
       handleRBtnClick();
     }, interval);
     return timerId;
-  };
+  }, [handleRBtnClick, props.interval]);
+
   const stopTimer = (timerId?: NodeJS.Timeout | null) => {
     timerId && clearInterval(timerId);
     return null;
   };
 
   useEffect(() => {
-    let timer: NodeJS.Timeout | null;
-    timer = startTimer();
-    return () => {
-      timer = stopTimer(timer);
-    };
-  });
+    if (isHoverRef.current) {
+      return;
+    }
+    timerRef.current = startTimer();
 
-  // TODO hover 时停止自动轮播
-  // const handleMouseEnter = () => {
-  //   stopTimer();
-  // };
-  // const handleMouseLeave = () => {
-  //   startTimer();
-  // };
+    return () => {
+      timerRef.current = stopTimer(timerRef.current);
+    };
+  }, [startTimer]);
+
+  const handleMouseEnter = () => {
+    isHoverRef.current = true;
+    timerRef.current = stopTimer(timerRef.current);
+  };
+  const handleMouseLeave = () => {
+    isHoverRef.current = false;
+    timerRef.current = startTimer();
+  };
 
   return (
     <div
       className={classes}
       style={{ height: props.height, ...style }}
-      // onMouseEnter={handleMouseEnter}
-      // onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <SlideCtx.Provider
         value={{ activeIdx: currIdx, reverseAnimation: reverseAnimation }}

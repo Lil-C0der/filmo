@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import Slide from '@cpnt/Slide';
 import SlideItem from '@/components/Slide/slideItem';
 
@@ -7,8 +7,10 @@ import { getHotMovies, getCommingMovie } from '@network/movie';
 import './_style.scss';
 
 const Home: FC = (props) => {
-  let [movieList, setMovieList] = useState<Array<dataTypes.IMovieListObj>>([]);
-  let [slideActiveIdx, setSlideActiveIdx] = useState<number>(1);
+  const [movieList, setMovieList] = useState<Array<dataTypes.IMovieListObj>>(
+    []
+  );
+  const [slideActiveIdx, setSlideActiveIdx] = useState<number>(1);
 
   useEffect(() => {
     getHotMovies().then((res: dataTypes.hotMoviesResponseData) => {
@@ -40,6 +42,19 @@ const Home: FC = (props) => {
                   <p className="movieList_item_title">{movieObj.nm}</p>
                   <p className="movieList_item_rate">{movieObj.sc}</p>
                 </span>
+                <div className="movieList_item_detail">
+                  <p className="movieList_item_detail_title">{movieObj.nm}</p>
+                  <p className="movieList_item_detail_date">
+                    {movieObj.rt} 上映
+                  </p>
+                  <p className="movieList_item_detail_starring">
+                    主演 {movieObj.star.replaceAll(',', ' / ')}
+                  </p>
+                  <p className="movieList_item_detail_wish">
+                    {movieObj.wish} 人想看
+                  </p>
+                  <i className="movieList_item_detail_rate">{movieObj.sc}</i>
+                </div>
               </li>
             ))}
           </ul>

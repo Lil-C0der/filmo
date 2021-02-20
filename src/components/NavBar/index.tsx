@@ -1,12 +1,6 @@
 import React, { FC, useEffect, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-
 import './_style.scss';
-
-library.add(fas);
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 interface NavBarProps {
   // onSearchBtnClick?: () => {};
 }

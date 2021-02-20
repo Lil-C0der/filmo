@@ -1,10 +1,19 @@
 import React, { FC, useState, useEffect, useRef } from 'react';
+import MovieListItem from './movieListItem';
 import Slide from '@cpnt/Slide';
 import SlideItem from '@/components/Slide/slideItem';
-
 import { getHotMovies, getCommingMovie } from '@network/movie';
 
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link,
+//   useRouteMatch
+// } from 'react-router-dom';
+
 import './_style.scss';
+import movieListItem from './movieListItem';
 
 const Home: FC = (props) => {
   const [movieList, setMovieList] = useState<Array<dataTypes.IMovieListObj>>(
@@ -31,31 +40,7 @@ const Home: FC = (props) => {
         <SlideItem index={startIdx / 4} key={startIdx}>
           <ul className="hotMovies_list">
             {movieList.slice(startIdx, startIdx + 4).map((movieObj) => (
-              <li className="movieList_item" key={movieObj.id}>
-                <img
-                  className="movieList_item_img"
-                  // 需要将接口返回 url 中的字段替换为图片的宽和高
-                  src={movieObj.img.replace(/w.h/, '160.220')}
-                  alt=""
-                />
-                <span className="movieList_item_info">
-                  <p className="movieList_item_title">{movieObj.nm}</p>
-                  <p className="movieList_item_rate">{movieObj.sc}</p>
-                </span>
-                <div className="movieList_item_detail">
-                  <p className="movieList_item_detail_title">{movieObj.nm}</p>
-                  <p className="movieList_item_detail_date">
-                    {movieObj.rt} 上映
-                  </p>
-                  <p className="movieList_item_detail_starring">
-                    主演 {movieObj.star.replaceAll(',', ' / ')}
-                  </p>
-                  <p className="movieList_item_detail_wish">
-                    {movieObj.wish} 人想看
-                  </p>
-                  <i className="movieList_item_detail_rate">{movieObj.sc}</i>
-                </div>
-              </li>
+              <MovieListItem movieObj={movieObj} key={movieObj.id} />
             ))}
           </ul>
         </SlideItem>

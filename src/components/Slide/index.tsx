@@ -112,13 +112,6 @@ const Slide: FC<ISlideProps> = (props) => {
       <SlideCtx.Provider
         value={{ activeIdx: currIdx, reverseAnimation: reverseAnimation }}
       >
-        {/* <div className="slide_arrow slide_arrow_l" onClick={handleLBtnClick}>
-          <FontAwesomeIcon icon="chevron-left" />
-        </div>
-        <div className="slide_arrow slide_arrow_r" onClick={handleRBtnClick}>
-          <FontAwesomeIcon icon="chevron-right" />
-        </div> */}
-
         <FontAwesomeIcon
           className="slide_arrow slide_arrow_l"
           icon="chevron-circle-left"

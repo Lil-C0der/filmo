@@ -4,16 +4,7 @@ import Slide from '@cpnt/Slide';
 import SlideItem from '@/components/Slide/slideItem';
 import { getHotMovies, getCommingMovie } from '@network/movie';
 
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link,
-//   useRouteMatch
-// } from 'react-router-dom';
-
 import './_style.scss';
-import movieListItem from './movieListItem';
 
 const Home: FC = (props) => {
   const [movieList, setMovieList] = useState<Array<dataTypes.IMovieListObj>>(

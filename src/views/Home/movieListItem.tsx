@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-
+import { imgTransformer } from '@/utils';
 import { Link } from 'react-router-dom';
 
 interface IMovieListItemProps {
@@ -12,7 +12,7 @@ const movieListItem: FC<IMovieListItemProps> = ({ movieObj }) => {
       <img
         className="movieList_item_img"
         // 需要将接口返回 url 中的字段替换为图片的宽和高
-        src={movieObj.img.replace(/w.h/, '160.220')}
+        src={imgTransformer(movieObj.img, 160, 220)}
         alt=""
       />
       <span className="movieList_item_info">

@@ -68,9 +68,7 @@
   background-color: $white;
   z-index: 9;
   transition: all 0.3s;
-  svg {
-    font-size: 10px;
-  }
+  font-size: 16px;
   &:hover {
     cursor: pointer;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);

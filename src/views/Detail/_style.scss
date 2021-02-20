@@ -1,0 +1,29 @@
+@import '~styles/var';
+
+.movieDetail_hd {
+  display: flex;
+  width: 1200px;
+  padding-left: 20px;
+  background-color: #ccc;
+  &_pic {
+    width: 240px;
+    height: 330px;
+  }
+  &_infoWrapper {
+    margin-left: 20px;
+    left: 260px;
+  }
+  &_title_en {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+  &_brief,
+  &_pubDesc {
+    margin: 16px 0;
+  }
+  &_action {
+    .btn {
+      background-color: $yellow;
+    }
+  }
+}

@@ -36,7 +36,7 @@ export function getCommingMovie(cityId: number, limit: number) {
 }
 
 export function getMovieDetail(movieId: string) {
-  return instance({
+  return instance<dataTypes.movieInfoResponseData>({
     url: 'maoyan/detailmovie',
     method: 'GET',
     params: { movieId }

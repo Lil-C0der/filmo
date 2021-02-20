@@ -11,9 +11,6 @@ import classNames from 'classnames';
 import './_style.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { library } from '@fortawesome/fontawesome-svg-core';
-// import { fas } from '@fortawesome/free-solid-svg-icons';
-// library.add(fas);
 
 interface ISlideProps {
   height?: string;
@@ -68,9 +65,12 @@ const Slide: FC<ISlideProps> = (props) => {
   const isHoverRef = useRef(false);
 
   // 自动轮播
-  const startTimer: () => NodeJS.Timeout = useCallback(() => {
+  const startTimer: () => NodeJS.Timeout | null = useCallback(() => {
+    // 创建定时器时可能存在其他的轮播定时器，先清除
+    if (timerRef.current) {
+      stopTimer(timerRef.current);
+    }
     const interval = props.interval ? props.interval : 3000;
-
     let timerId = setInterval(() => {
       handleRBtnClick();
     }, interval);
@@ -118,6 +118,18 @@ const Slide: FC<ISlideProps> = (props) => {
         <div className="slide_arrow slide_arrow_r" onClick={handleRBtnClick}>
           <FontAwesomeIcon icon="chevron-right" />
         </div>
+
+        {/* <FontAwesomeIcon
+          className="slide_arrow slide_arrow_l"
+          icon="chevron-circle-left"
+          onClick={handleLBtnClick}
+        />
+        <FontAwesomeIcon
+          className="slide_arrow slide_arrow_r"
+          icon="chevron-circle-right"
+          onClick={handleRBtnClick}
+        /> */}
+
         <div className="slide_wrapper">{props.children}</div>
       </SlideCtx.Provider>
     </div>

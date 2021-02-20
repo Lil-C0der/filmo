@@ -84,6 +84,16 @@
       }
       &_title {
         font-size: 16px;
+        a {
+          color: $fontColor-black;
+          text-decoration: none;
+          &:hover {
+            color: $fontColor-link-hover;
+          }
+          &:active {
+            color: $fontColor-link-active;
+          }
+        }
       }
       &_date {
         margin-top: 12px;

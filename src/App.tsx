@@ -1,6 +1,14 @@
 import React from 'react';
 import NavBar from '@cpnt/NavBar';
 import Home from '@views/Home';
+import Detail from '@views/Detail';
+
+import {
+  BrowserRouter as Router,
+  HashRouter,
+  Switch,
+  Route
+} from 'react-router-dom';
 
 import './App.css';
 import './styles/index.scss';
@@ -22,7 +30,15 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <Home></Home>
+
+      <HashRouter>
+        <Router>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/detail/:id" component={Detail} />
+          </Switch>
+        </Router>
+      </HashRouter>
     </div>
   );
 }

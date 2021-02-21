@@ -1,11 +1,11 @@
 import React, { CSSProperties, FC, useContext } from 'react';
-import { SlideCtx } from './index';
+import { SlideCtx } from './slide';
 import classNames from 'classnames';
 import Transition from '@cpnt/Transition';
 
 import './_style.scss';
 
-interface ISlideItemProps {
+export interface ISlideItemProps {
   index: number;
   className?: string;
   style?: CSSProperties;

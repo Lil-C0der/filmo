@@ -1,7 +1,9 @@
 import React, { FC, useState, useEffect, useRef } from 'react';
 import MovieListItem from './movieListItem';
+// import Slide from '@cpnt/Slide';
+// import SlideItem from '@/components/Slide/slideItem';
+
 import Slide from '@cpnt/Slide';
-import SlideItem from '@/components/Slide/slideItem';
 import { getHotMovies, getCommingMovie } from '@network/movie';
 
 import './_style.scss';
@@ -28,13 +30,13 @@ const Home: FC = (props) => {
 
     for (let startIdx = 0; startIdx < movieList.length; startIdx += 4) {
       slideItemArr.push(
-        <SlideItem index={startIdx / 4} key={startIdx}>
+        <Slide.Item index={startIdx / 4} key={startIdx}>
           <ul className="hotMovies_list">
             {movieList.slice(startIdx, startIdx + 4).map((movieObj) => (
               <MovieListItem movieObj={movieObj} key={movieObj.id} />
             ))}
           </ul>
-        </SlideItem>
+        </Slide.Item>
       );
     }
 

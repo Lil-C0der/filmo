@@ -1,11 +1,7 @@
 import React, { FC, useState, useEffect, useRef } from 'react';
 import MovieListItem from './movieListItem';
-// import Slide from '@cpnt/Slide';
-// import SlideItem from '@/components/Slide/slideItem';
-
 import Slide from '@cpnt/Slide';
 import { getHotMovies, getCommingMovie } from '@network/movie';
-
 import './_style.scss';
 
 const Home: FC = (props) => {

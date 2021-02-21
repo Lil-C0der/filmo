@@ -17,7 +17,9 @@ const movieListItem: FC<IMovieListItemProps> = ({ movieObj }) => {
       />
       <span className="movieList_item_info">
         <p className="movieList_item_title">{movieObj.nm}</p>
-        <p className="movieList_item_rate">{movieObj.sc}</p>
+        <p className="movieList_item_rate">
+          {movieObj.sc ? movieObj.sc : '暂无评分'}
+        </p>
       </span>
       {/* hover 时显示的 detail 卡片部分 */}
       <div className="movieList_item_detail">
@@ -29,7 +31,9 @@ const movieListItem: FC<IMovieListItemProps> = ({ movieObj }) => {
           主演 {movieObj.star.replaceAll(',', ' / ')}
         </p>
         <p className="movieList_item_detail_wish">{movieObj.wish} 人想看</p>
-        <i className="movieList_item_detail_rate">{movieObj.sc}</i>
+        <i className="movieList_item_detail_rate">
+          {movieObj.sc ? movieObj.sc : '暂无评分'}
+        </i>
       </div>
     </li>
   );

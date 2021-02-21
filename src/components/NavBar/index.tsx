@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useRef } from 'react';
-import './_style.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+
+import './_style.scss';
 interface NavBarProps {
   // onSearchBtnClick?: () => {};
 }
@@ -18,7 +20,8 @@ const NavBar: FC<NavBarProps> = (props) => {
     <div className="navbar">
       <div className="navbar_wrapper">
         <div className="navbar_primary">
-          <div
+          <Link
+            to={'/'}
             className="navbar_logo"
             onClick={() => {
               console.log('to homepage');

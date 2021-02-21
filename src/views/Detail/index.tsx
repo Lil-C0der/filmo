@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieDetail } from '@network/movie';
-import { imgTransformer } from '@utils/index';
-
-import './_style.scss';
+import { imgTransformer, numberTransformer } from '@utils/index';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import RateDist from './rateDist';
+import './_style.scss';
+
 interface IParams {
   id: string;
 }
@@ -24,7 +25,7 @@ const Detail: FC = (props) => {
   };
 
   return (
-    <div>
+    <div className="detail">
       "DETAIL"
       <p>{id}</p>
       <div className="btn" onClick={handleBtnClick}>
@@ -36,7 +37,8 @@ const Detail: FC = (props) => {
           src={imgTransformer(movieDetail?.img, 240, 330)}
           alt=""
         />
-        <div className="movieDetail_hd_infoWrapper">
+
+        <div className="movieDetail_hd_info">
           <h1 className="movieDetail_hd_title">{movieDetail?.nm}</h1>
           <p className="movieDetail_hd_title_en">{movieDetail?.enm}</p>
           <p className="movieDetail_hd_director">导演 {movieDetail?.dir}</p>
@@ -45,11 +47,28 @@ const Detail: FC = (props) => {
           </p>
           <p className="movieDetail_hd_pubDesc">{movieDetail?.pubDesc}</p>
           <div className="movieDetail_hd_action">
-            <div className="btn">
-              收藏
-              <FontAwesomeIcon icon={['far', 'heart']}></FontAwesomeIcon>
+            <div className="btns">
+              <div className="btn_red">
+                看过
+                <FontAwesomeIcon icon={['far', 'eye']}></FontAwesomeIcon>
+              </div>
+              <div className="btn_red">
+                收藏
+                <FontAwesomeIcon icon={['far', 'heart']}></FontAwesomeIcon>
+              </div>
             </div>
           </div>
+        </div>
+
+        <div className="movieDetail_hd_rate">
+          <div className="rate_sc">
+            {movieDetail?.sc ? `${movieDetail?.sc} 分` : '暂无评分'}
+          </div>
+          <div className="rate_num">
+            {numberTransformer(movieDetail?.snum, 10000)} 万人评分
+          </div>
+          <RateDist distArr={movieDetail?.distributions}></RateDist>
+          <h3 className="rate_desc">“{movieDetail?.scm}“</h3>
         </div>
       </div>
     </div>

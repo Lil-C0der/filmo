@@ -16,10 +16,23 @@
   user-select: none;
   cursor: default;
   &:hover {
-    background-color: darken($white, 15%);
+    // background-color: darken($white, 15%);
+    background-color: darken($white, 5%);
   }
   &:active {
     color: $fontColor-white;
+    background-color: darken($white, 14.5%);
+  }
+}
+
+.btn_red {
+  @extend .btn;
+  background-color: $pink;
+  &:hover {
+    background-color: darken($pink, 5%);
+  }
+  &:active {
+    background-color: darken($pink, 14.5%);
   }
 }
 

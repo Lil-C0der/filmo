@@ -1,29 +1,90 @@
 @import '~styles/var';
 
+.detail {
+  width: 1200px;
+  margin: 0 auto;
+  background-color: $white;
+}
+
 .movieDetail_hd {
   display: flex;
   width: 1200px;
+  height: 330px;
   padding-left: 20px;
-  background-color: #ccc;
   &_pic {
     width: 240px;
     height: 330px;
   }
-  &_infoWrapper {
-    margin-left: 20px;
-    left: 260px;
-  }
-  &_title_en {
+}
+
+.movieDetail_hd_info {
+  display: flex;
+  flex-direction: column;
+  height: 330px;
+  margin-left: 20px;
+  margin-right: 20px;
+  .movieDetail_hd_title_en {
     font-size: 22px;
     margin-bottom: 24px;
   }
-  &_brief,
-  &_pubDesc {
+  .movieDetail_hd_brief,
+  .movieDetail_hd_pubDesc {
     margin: 16px 0;
   }
-  &_action {
-    .btn {
+  .movieDetail_hd_action {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    .btns {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-self: flex-end;
+      .btn_red {
+        margin-bottom: 8px;
+        svg {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+}
+
+.movieDetail_hd_rate {
+  position: relative;
+  margin-top: 16px;
+  margin-left: 40px;
+  .rate_sc {
+    font-size: 30px;
+    margin-bottom: 24px;
+    color: $orange;
+    font-style: italic;
+  }
+  .rate_num {
+    font-size: 14px;
+    color: $fontColor-black;
+  }
+  // 评分分布组件样式
+  .rate_dist {
+    margin-top: 12px;
+    font-size: 12px;
+    &_item {
+      display: flex;
+      justify-content: flex-start;
+    }
+    .level {
+      width: 40px;
+      margin-right: 4px;
+    }
+    .bar {
+      width: 100px;
+      height: 16px;
+      margin-right: 4px;
+      margin-bottom: 4px;
       background-color: $yellow;
     }
+  }
+  .rate_desc {
+    margin-top: 48px;
   }
 }

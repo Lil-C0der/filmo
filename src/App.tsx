@@ -16,7 +16,6 @@ import './styles/index.scss';
 function App() {
   return (
     <div className="App">
-      <NavBar />
       {/* <header className="App-header">
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -33,6 +32,7 @@ function App() {
 
       <HashRouter>
         <Router>
+          <NavBar />
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/detail/:id" component={Detail} />

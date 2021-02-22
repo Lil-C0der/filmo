@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { imgTransformer, numberTransformer } from '@utils/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from 'woo-ui-react';
 
 interface IDetailUpperProps {
   movieDetail: dataTypes.IMovieInfo | null;
@@ -24,14 +25,19 @@ const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
         <p className="movieDetail_hd_pubDesc">{movieDetail?.pubDesc}</p>
         <div className="movieDetail_hd_action">
           <div className="btns">
-            <div className="btn_red">
+            {/* <div className="btn_red">
               看过
               <FontAwesomeIcon icon={['far', 'eye']}></FontAwesomeIcon>
-            </div>
-            <div className="btn_red">
+            </div> */}
+
+            <Button btnType="danger" className="btn" size="lg">
+              看过
+              <FontAwesomeIcon icon={['far', 'eye']}></FontAwesomeIcon>
+            </Button>
+            <Button btnType="danger" className="btn" size="lg">
               收藏
               <FontAwesomeIcon icon={['far', 'heart']}></FontAwesomeIcon>
-            </div>
+            </Button>
           </div>
         </div>
       </div>

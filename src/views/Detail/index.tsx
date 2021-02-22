@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getMovieDetail } from '@network/movie';
 import DetailTop from './detailTop';
 import DetailBTM from './detailBTM';
+import { Button } from 'woo-ui-react';
 
 import './_style.scss';
 
@@ -27,9 +28,7 @@ const Detail: FC = (props) => {
     <div className="detail">
       "DETAIL"
       <p>{id}</p>
-      <div className="btn" onClick={handleBtnClick}>
-        DETAILS
-      </div>
+      <Button onClick={handleBtnClick}>DETAILS</Button>
       {/* 详情页上半部分，包括电影的基本信息如中英文名、评分等 */}
       <DetailTop movieDetail={movieDetail}></DetailTop>
       {/* 详情页下半部分，包括电影基本剧情、演员表等 */}

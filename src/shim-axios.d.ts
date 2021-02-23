@@ -8,6 +8,7 @@ declare module 'axios' {
 
 declare global {
   namespace dataTypes {
+    // 热映电影数据
     interface IMovieListObj {
       globalReleased: boolean; // 全球上映
       haspromotionTag: boolean; // 是否有推荐标识
@@ -37,6 +38,7 @@ declare global {
       total: number;
     };
 
+    // 电影详情数据
     interface IMovieInfo {
       albumImg: string; // 电影海报
       availableEpisodes: Number; // 可用的插曲
@@ -62,7 +64,7 @@ declare global {
       multiPub: boolean;
       musicName: string; // 电影原声
       musicNum: number; // 原声数量
-      musicStart: string; // 原声歌手
+      musicStar: string; // 原声歌手
       nm: string; // 电影名称
       onSale: boolean; // 是否正在售票
       onlinePlay: boolean; // 可否在线播放
@@ -105,6 +107,69 @@ declare global {
     }
     type movieInfoResponseData = {
       detailMovie: IMovieInfo;
+    };
+
+    // 电影演职员数据
+    interface IMovieCeleb {
+      celebrities: Array<{
+        avatar: string; // 照片
+        cnm: string; // 中文名
+        cr: number;
+        desc: string; // 简介
+        enm: string; // 英文名
+        id: number; // 演职员 id
+        ocr: number;
+        roles: string; // 扮演的角色名
+        still: string; // 剧中照片
+      }>;
+      titleCount: { count: number; cr: number; title: string };
+    }
+    type movieCelebsResponseData = {
+      data: { relations: Array<IMovieCeleb> };
+    };
+
+    // 单条评论数据
+    interface ICommentInfo {
+      approve: number; // 收到的赞
+      assistAwardInfo: {
+        avatar: string;
+        celebrityId: number;
+        celebrityName: string;
+        rank: number;
+        title: string;
+      };
+      avatarurl: string; // 用户头像
+      cityName: string; // 用户所在城市
+      content: string; // 评论内容
+      id: number; // 该条评论的 id
+      isMajor: boolean;
+      juryLevel: number;
+      movieId: number;
+      nick: string;
+      nickName: string;
+      oppose: number;
+      pro: boolean;
+      reply: number;
+      score: number;
+      spoiler: number;
+      startTime: string;
+      supportComment: boolean;
+      supportLike: boolean;
+      sureViewed: number;
+      time: string;
+      userId: number; // 用户 id
+      userLevel: number; // 用户等级
+      vipType: number;
+    }
+    // 单条热评数据
+    interface IHotCommentInfo extends ICommentInfo {
+      tagList: {
+        fixed: Array<{ id: number; name: string }>;
+      };
+    }
+    type commentResponseData = {
+      cmts: Array<ICommentInfo>;
+      hcmts: Array<IHotCommentInfo>;
     };
   }
 }

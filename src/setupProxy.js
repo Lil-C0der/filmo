@@ -4,11 +4,21 @@ module.exports = function (app) {
   app.use(
     '/api/maoyan',
     createProxyMiddleware({
-      // target: 'http://localhost:5000',
       target: 'https://m.maoyan.com/ajax',
       changeOrigin: true,
       pathRewrite: {
         '^/api/maoyan': ''
+      }
+    })
+  );
+  app.use(
+    '/api/maoyan2',
+    createProxyMiddleware({
+      // target: 'https://api.maoyan.com/mmdb',
+      target: 'https://m.maoyan.com/mmdb',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api/maoyan2': ''
       }
     })
   );

@@ -47,7 +47,15 @@ const NavBar: FC<NavBarProps> = (props) => {
 
       <div className="navbar_secondary">
         <ul>
-          <li className="navbar_item">电影</li>
+          <Link
+            to={'/'}
+            className="navbar_item"
+            onClick={() => {
+              console.log('to homepage');
+            }}
+          >
+            电影
+          </Link>
           <li className="navbar_item">影人</li>
           <li className="navbar_item">影视原声</li>
           {/* <li className="navbar_item">登录/注册</li> */}

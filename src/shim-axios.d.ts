@@ -171,5 +171,68 @@ declare global {
       cmts: Array<ICommentInfo>;
       hcmts: Array<IHotCommentInfo>;
     };
+
+    interface IRelatedMovie {
+      desc: number; // id
+      globalRelease: boolean;
+      img: string; // 电影海报
+      onlinePlay: boolean;
+      sc: string; // 评分
+      title: string; // 电影名称
+      type: string;
+      wishNum: number;
+    }
+    type relatedMovieResponseData = {
+      data: Array<{ items: Array<IRelatedMovie>; title: string }>;
+    };
+
+    interface IVideoInfo {
+      approve: number;
+      comment: number;
+      count: number;
+      createdTime: string;
+      id: number;
+      img: string; // 视频封面图
+      isApprove: boolean;
+      logoVideoUrl: url;
+      movieId: number; // 电影的 id
+      movieName: string;
+      pubTime: string;
+      score: number;
+      shareInfo: {
+        channel: number;
+        content: string;
+        img: string;
+        title: string;
+        url: string;
+      };
+      showSt: number;
+      tl: string; // 视频标题
+      tm: number;
+      type: number;
+      url: string; // 视频地址
+      wish: number;
+    }
+    type videoResponseData = {
+      vlist: Array<IVideoInfo>;
+      movieVO: {
+        category: string;
+        globalReleased: boolean;
+        image: string;
+        longVideoSchema: string;
+        longVideoStatus: number;
+        movieType: number;
+        name: string;
+        pubTime: string;
+        pubdesc: string;
+        score: number;
+        scoreLabel: string;
+        showSt: number;
+        ver: string;
+        vodPlay: boolean;
+        wish: number;
+        wishst: number;
+      };
+    };
   }
 }

@@ -62,11 +62,42 @@ export function getMovieCeleb(movieId: string | number) {
   });
 }
 
+/**
+ * 获取电影的热门评论和最新评论
+ * @param {(string | number)} movieId
+ * @return {*}
+ */
 // https://m.maoyan.com/mmdb/comments/movie/1299372.json
 export function getMovieComments(movieId: string | number) {
   return instance<dataTypes.commentResponseData>({
     url: `maoyan2/comments/movie/${movieId}.json`,
     method: 'GET',
     params: { _v_: 'yes' }
+  });
+}
+
+/**
+ * 获取电影的相关视频数据
+ * @param {(string | number)} movieId
+ * @return {*}
+ */
+// https://m.maoyan.com/mmdb/v1/movie/1299372/videos.json
+export function getMovieVideos(movieId: string | number) {
+  return instance<dataTypes.videoResponseData>({
+    url: `maoyan2/movie/${movieId}/videos.json`,
+    method: 'GET'
+  });
+}
+
+/**
+ * 获取推荐的相关电影
+ * @param {(string | number)} movieId
+ * @return {*}
+ */
+// https://m.maoyan.com/mmdb/movie/1299372/feature/relatedFilm.json
+export function getRelatedMovies(movieId: string | number) {
+  return instance<dataTypes.relatedMovieResponseData>({
+    url: `maoyan2/movie/${movieId}/feature/relatedFilm.json`,
+    method: 'GET'
   });
 }

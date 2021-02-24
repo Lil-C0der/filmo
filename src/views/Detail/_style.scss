@@ -91,8 +91,14 @@
   }
 }
 
-// 下半部分 Tabs 样式
 .movieDetail_bottom {
+  display: flex;
+}
+
+// 下半部分 Tabs 样式
+.movieDetail_bottom_tab {
+  // width: 800px;
+  width: 720px;
   .movieDetail_sum {
     font-size: $fontSize;
     line-height: 2;
@@ -109,7 +115,7 @@
         content: '';
         width: 4px;
         height: 22px;
-        background-color: #ccc;
+        background-color: $fontColor-grey;
       }
     }
     &_story {
@@ -131,14 +137,13 @@
     }
 
     // 影评样式
-    &_hotComments {
+    &_hotComments,
+    &_newComments {
+      padding-top: 24px;
       .comment_wrapper {
         display: flex;
-        justify-content: space-between;
         position: relative;
-        width: 1000px;
-        margin-bottom: 16px;
-        padding-top: 8px;
+        margin-bottom: 32px;
         padding-left: 8px;
         .comment_avatar {
           width: 128px;
@@ -146,8 +151,13 @@
           border-radius: 50%;
         }
         .comment_info {
-          padding-bottom: 16px;
-          border-bottom: 1px dashed $fontColor-black;
+          margin-left: 32px;
+          padding-bottom: 32px;
+          border-bottom: 1px solid $borderColor;
+        }
+        // 最后一个 item 的内容不需要 border-bottom
+        &:last-child .comment_info {
+          border-bottom: none;
         }
         .comment_nick {
           font-size: 16px;
@@ -162,7 +172,7 @@
           font-size: 12px;
         }
         .comment_city {
-          margin-left: 4px;
+          margin-left: 16px;
           font-style: normal;
         }
         .comment_content {
@@ -223,18 +233,99 @@
   }
 
   .gallery {
+    &_indicator {
+      margin-bottom: 16px;
+      font-size: 16px;
+      text-align: center;
+    }
     &_slide {
-      width: 720px;
+      width: 688px;
     }
     &_pic_wrapper {
       width: 100%;
-      height: 500px;
+      height: 460px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      background-color: $fontColor-white;
     }
-    &_pic {
-      // line-height: 500px;
+  }
+}
+
+.movieDetail_bottom_more {
+  width: 432px;
+  margin-left: 32px;
+  padding-left: 8px;
+  border-left: 1px dashed $borderColor;
+  .video_title,
+  .relatedMovies_title {
+    position: relative;
+    font-size: 16px;
+    line-height: 2;
+    margin: 4px 0;
+    padding-left: 12px;
+    &::before {
+      display: block;
+      position: absolute;
+      top: 5px;
+      left: 0;
+      content: '';
+      width: 4px;
+      height: 22px;
+      background-color: $fontColor-grey;
+    }
+  }
+  .video_list {
+    margin-bottom: 32px;
+    .video_item {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 16px;
+      &_imgWrapper {
+        width: 210px;
+        height: 119px;
+        overflow: hidden;
+        flex-shrink: 0;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      &_infoWrapper {
+        margin-left: 16px;
+        .video_item_title {
+          display: block;
+          font-size: 16px;
+          margin-bottom: 16px;
+        }
+        svg {
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+
+  .relatedMovies_list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 360px;
+    .relatedMovies_item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 16px;
+      &_imgWrapper {
+        width: 106px;
+        height: 145px;
+        overflow: hidden;
+      }
+      &_title {
+        margin: 4px 0;
+      }
+      &_rate {
+        color: $orange;
+      }
     }
   }
 }

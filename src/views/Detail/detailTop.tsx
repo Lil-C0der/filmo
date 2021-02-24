@@ -25,6 +25,7 @@ const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
         <p className="movieDetail_pubDesc">{movieDetail?.pubDesc}</p>
         <div className="movieDetail_action">
           <div className="btns">
+            {/* TODO 通过 movieDetail.id 实现看过和收藏功能 */}
             <Button btnType="danger" className="btn" size="lg">
               看过
               <FontAwesomeIcon icon={['far', 'eye']}></FontAwesomeIcon>

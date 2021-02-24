@@ -67,10 +67,9 @@
     margin: 0 auto;
     ul {
       display: flex;
-      // justify-content: space-between;
+      padding-left: 16px;
     }
     .navbar_item {
-      // color: $fontColor-link;
       @extend .link;
       color: $fontColor-white;
       margin-right: 40px;

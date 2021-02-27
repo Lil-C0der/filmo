@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from '@cpnt/NavBar';
 import Home from '@views/Home';
 import Detail from '@views/Detail';
@@ -16,9 +16,11 @@ import './App.css';
 import './styles/index.scss';
 
 function App() {
-  getCurrLocation().then((res) => {
-    // console.log(res);
-    console.log(res.address.split('|')[2]);
+  useEffect(() => {
+    getCurrLocation().then((res) => {
+      const cityName = res.address.split('|')[2];
+      localStorage.setItem('cityName', cityName);
+    });
   });
 
   return (

@@ -37,6 +37,10 @@ const NavBar: FC<NavBarProps> = (props) => {
               console.log('to homepage');
             }}
           />
+          <span className="navbar_city">
+            <FontAwesomeIcon icon="map-marked-alt" />
+            {localStorage.getItem('cityName')}
+          </span>
           <div className="navbar_search">
             <input
               className="navbar_search_input"

@@ -16,7 +16,7 @@
     display: flex;
     width: 1200px;
     min-width: 1200px;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     height: 88px;
     line-height: 88px;
@@ -25,8 +25,19 @@
       @include bg('~@/logo.png', 200px, 100%);
       padding: 4px 0;
     }
+    .navbar_city {
+      align-self: flex-end;
+      line-height: 2;
+      margin-left: 16px;
+      margin-bottom: 8px;
+      svg {
+        margin-right: 4px;
+      }
+    }
     .navbar_search {
       display: inline-flex;
+      margin-right: 0;
+      margin-left: auto;
       align-items: center;
       height: 40px;
       font-size: $fontSize;

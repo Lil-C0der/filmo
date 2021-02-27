@@ -26,8 +26,7 @@ module.exports = function (app) {
     '/api/baidu',
     createProxyMiddleware({
       // target: 'http://localhost:5000',
-      target:
-        'https://api.map.baidu.com/location/ip?ak=c7rsOB1n5WsFayinNBrxXSDpZz4pncG2&coor=bd09ll',
+      target: 'https://api.map.baidu.com/location',
       changeOrigin: true,
       pathRewrite: {
         '^/api/baidu': ''

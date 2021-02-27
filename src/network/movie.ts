@@ -101,3 +101,6 @@ export function getRelatedMovies(movieId: string | number) {
     method: 'GET'
   });
 }
+
+// 最受好评电影
+// https://m.maoyan.com/ajax/topRatedMovies?token=&optimus_uuid=891F6FA0686011EBB2E3BFD4451622254F2DA7D3DEB14115A694541B7AA75958&optimus_risk_level=71&optimus_code=10

@@ -1,8 +1,10 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { searchSuggestion } from '@network/search';
 
 import './_style.scss';
+import axios from 'axios';
 interface NavBarProps {
   // onSearchBtnClick?: () => {};
 }
@@ -12,8 +14,16 @@ const NavBar: FC<NavBarProps> = (props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onSearchBtnClick = () => {
-    const inputVal = inputRef.current?.value;
-    inputVal && console.log('搜索框的内容：', inputVal);
+    // const inputVal = inputRef.current?.value;
+    // inputVal && console.log('搜索框的内容：', inputVal);
+
+    // getCurrLocation().then((res) => {
+    //   console.log(res);
+    // });
+
+    searchSuggestion('唐人街').then((res) => {
+      console.log(res);
+    });
   };
 
   return (

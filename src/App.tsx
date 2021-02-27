@@ -10,10 +10,17 @@ import {
   Route
 } from 'react-router-dom';
 
+import { getCurrLocation } from '@network/common';
+
 import './App.css';
 import './styles/index.scss';
 
 function App() {
+  getCurrLocation().then((res) => {
+    // console.log(res);
+    console.log(res.address.split('|')[2]);
+  });
+
   return (
     <div className="App">
       {/* <header className="App-header">

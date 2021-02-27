@@ -8,6 +8,26 @@ declare module 'axios' {
 
 declare global {
   namespace dataTypes {
+    // 百度地图 api 返回的当前位置坐标
+    interface ILocaltionInfo {
+      address: string;
+      content: {
+        address: string;
+        address_detail: {
+          city: string;
+          city_code: number;
+          district: string;
+          province: string;
+          street_number: string;
+        };
+        point: {
+          x: string;
+          y: string;
+        };
+      };
+      status: number;
+    }
+
     // 热映电影数据
     interface IMovieListObj {
       globalReleased: boolean; // 全球上映

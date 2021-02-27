@@ -192,6 +192,7 @@ declare global {
       hcmts: Array<IHotCommentInfo>;
     };
 
+    // 相关的电影
     interface IRelatedMovie {
       desc: number; // id
       globalRelease: boolean;
@@ -206,6 +207,7 @@ declare global {
       data: Array<{ items: Array<IRelatedMovie>; title: string }>;
     };
 
+    // 电影相关的视频，例如预告片等
     interface IVideoInfo {
       approve: number;
       comment: number;
@@ -253,6 +255,50 @@ declare global {
         wish: number;
         wishst: number;
       };
+    };
+
+    // 演员的详细信息
+    interface ICastDetail {
+      aliasName: string;
+      attachUserId: number;
+      auth: number;
+      avatar: string;
+      birthday: string;
+      birthplace: string;
+      bloodType: string;
+      boardUrl: string;
+      cnm: string;
+      company: string;
+      constellation: string;
+      deathDate: string;
+      desc: string;
+      enm: string;
+      fansName: string;
+      followCount: number;
+      followRank: number;
+      graduateSchool: string;
+      height: number;
+      id: number;
+      nation: string; // 民族
+      nationality: string;
+      photoNum: number;
+      photos: Array<string>;
+      present: number;
+      presentImg: string;
+      publicTitles: Array<any>;
+      rank: number;
+      receiveWord: string;
+      sendWorld: string;
+      sexy: string;
+      signImg: string;
+      still: string;
+      sumBox: number;
+      titleList: Array<string>; // 头衔
+      titles: string;
+      userDailyPresent: number;
+    }
+    type castResponseData = {
+      data: ICastDetail;
     };
   }
 }

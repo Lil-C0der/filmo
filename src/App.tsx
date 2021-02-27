@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import NavBar from '@cpnt/NavBar';
 import Home from '@views/Home';
 import Detail from '@views/Detail';
+import Cast from '@views/Cast';
 
 import {
   BrowserRouter as Router,
@@ -45,6 +46,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/detail/:id" component={Detail} />
+            <Route path="/cast/:id" component={Cast} />
           </Switch>
         </Router>
       </HashRouter>

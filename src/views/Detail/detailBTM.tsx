@@ -115,19 +115,21 @@ const DetailBTM: FC<IDetailTabsProps> = ({
               {celebObj.celebrities.map((celeb) => (
                 // TODO 影人跳转功能
                 <li className="cast_item" key={celeb.id}>
-                  <div className="cast_pic_wrapper">
-                    <img
-                      className="cast_pic"
-                      src={imgTransformer(celeb.avatar, 128, 170)}
-                      alt=""
-                    />
-                  </div>
-                  <p className="cast_name">{celeb.cnm}</p>
-                  {celeb.roles ? (
-                    <p className="cast_role">饰：{celeb.roles}</p>
-                  ) : (
-                    ''
-                  )}
+                  <Link to={`/cast/${celeb.id}`}>
+                    <div className="cast_pic_wrapper">
+                      <img
+                        className="cast_pic"
+                        src={imgTransformer(celeb.avatar, 128, 170)}
+                        alt=""
+                      />
+                    </div>
+                    <p className="cast_name">{celeb.cnm}</p>
+                    {celeb.roles ? (
+                      <p className="cast_role">饰：{celeb.roles}</p>
+                    ) : (
+                      ''
+                    )}
+                  </Link>
                 </li>
               ))}
             </ul>

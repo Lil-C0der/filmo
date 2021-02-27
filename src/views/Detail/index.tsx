@@ -14,12 +14,12 @@ import {
 
 import './_style.scss';
 
-interface IParams {
+interface IMovieDetailParams {
   id: string;
 }
 
-const Detail: FC = (props) => {
-  let { id } = useParams<IParams>();
+const Detail: FC = () => {
+  let { id } = useParams<IMovieDetailParams>();
   // 电影详情
   const [movieDetail, setMovieDetail] = useState<dataTypes.IMovieInfo | null>(
     null

@@ -137,10 +137,11 @@ const DetailBTM: FC<IDetailTabsProps> = ({
     </div>
   );
 
+  // 预告片等相关视频
   const videoEl = (
     <ul className="video_list">
       {videos?.map((video) => (
-        <li className="video_item">
+        <li className="video_item" key={video.id}>
           <div className="video_item_imgWrapper">
             <img src={imgTransformer(video.img, 210, 119)} alt="" />
           </div>
@@ -163,10 +164,11 @@ const DetailBTM: FC<IDetailTabsProps> = ({
     </ul>
   );
 
+  // 相关电影
   const relatedMoviesEl = (
     <ul className="relatedMovies_list">
       {relatedMovies?.map((movie) => (
-        <li className="relatedMovies_item">
+        <li className="relatedMovies_item" key={movie.desc}>
           <div className="relatedMovies_item_imgWrapper">
             <img src={imgTransformer(movie.img, 106, 145)} alt="" />
           </div>

@@ -89,6 +89,15 @@
     margin-top: 48px;
     letter-spacing: 1px;
   }
+  .rate_tags {
+    margin-top: 32px;
+    .cat_tag {
+      border: 1px solid $blue;
+      border-radius: 1em;
+      padding: 2px 8px;
+      margin-right: 8px;
+    }
+  }
 }
 
 .movieDetail_bottom {

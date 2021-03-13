@@ -1,0 +1,41 @@
+@import '~styles/var';
+
+.detail_cast {
+  padding-left: 20px;
+  display: flex;
+}
+
+.castDetail_info {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+  .castDetail_name_en {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+  .castDetail_more {
+    margin-left: -8px;
+    > span {
+      padding: 0 8px;
+      border-right: 1px solid $borderColor;
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+  .castDetail_birthPlace {
+    margin: 16px 0;
+  }
+  .castDetail_evaluation {
+    position: relative;
+    margin: 16px 0;
+    font-style: italic;
+    .evaluation_content {
+      line-height: 1.5;
+    }
+    .evaluation_source {
+      position: absolute;
+      right: 24px;
+    }
+  }
+}

@@ -260,22 +260,15 @@ declare global {
     // 演员的详细信息
     interface ICastDetail {
       aliasName: string;
-      attachUserId: number;
-      auth: number;
       avatar: string;
       birthday: string;
       birthplace: string;
-      bloodType: string;
-      boardUrl: string;
       cnm: string;
       company: string;
       constellation: string;
       deathDate: string;
       desc: string;
       enm: string;
-      fansName: string;
-      followCount: number;
-      followRank: number;
       graduateSchool: string;
       height: number;
       id: number;
@@ -283,22 +276,24 @@ declare global {
       nationality: string;
       photoNum: number;
       photos: Array<string>;
-      present: number;
-      presentImg: string;
-      publicTitles: Array<any>;
-      rank: number;
-      receiveWord: string;
-      sendWorld: string;
       sexy: string;
-      signImg: string;
-      still: string;
-      sumBox: number;
       titleList: Array<string>; // 头衔
       titles: string;
-      userDailyPresent: number;
+      evaluation: ICastEvaluation;
     }
     type castResponseData = {
       data: ICastDetail;
+    };
+
+    // 影人的评价
+    interface ICastEvaluation {
+      content: string;
+      spokesman: string;
+    }
+    type castEvaluationResponseData = {
+      data: {
+        items: ICastEvaluation[];
+      };
     };
   }
 }

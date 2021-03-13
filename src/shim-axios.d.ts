@@ -279,7 +279,7 @@ declare global {
       sexy: string;
       titleList: Array<string>; // 头衔
       titles: string;
-      evaluation: ICastEvaluation;
+      evaluation: ICastEvaluation | undefined;
     }
     type castResponseData = {
       data: ICastDetail;
@@ -292,7 +292,7 @@ declare global {
     }
     type castEvaluationResponseData = {
       data: {
-        items: ICastEvaluation[];
+        items?: ICastEvaluation[];
       };
     };
   }

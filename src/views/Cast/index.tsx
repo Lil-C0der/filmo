@@ -30,7 +30,7 @@ const defaultCastDetail: dataTypes.ICastDetail = {
   sexy: '',
   titleList: [''], // 头衔
   titles: '',
-  evaluation: { content: '', spokesman: '' }
+  evaluation: undefined
 };
 
 const Cast: FC = () => {
@@ -41,7 +41,8 @@ const Cast: FC = () => {
     let temp = castDetail;
     temp = await (await getCastDetail(id)).data;
     const { items } = await (await getCastEvaluation(id)).data;
-    temp.evaluation = items[0];
+    console.log(items);
+    temp.evaluation = items?.[0];
     console.log(temp, 'data');
     setCastDetail(temp);
   };

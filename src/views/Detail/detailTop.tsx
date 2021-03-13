@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { imgTransformer, numberTransformer } from '@utils/index';
+import { imgUrlParser, numberParser } from '@utils/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'woo-ui-react';
 
@@ -12,7 +12,7 @@ const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
     <div className="movieDetail_top">
       <img
         className="movieDetail_top_pic"
-        src={imgTransformer(movieDetail?.img, 240, 330)}
+        src={imgUrlParser(movieDetail?.img, 240, 330)}
         alt=""
       />
       <div className="movieDetail_info">
@@ -43,7 +43,7 @@ const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
           {movieDetail?.sc ? `${movieDetail?.sc} 分` : '暂无评分'}
         </div>
         <div className="rate_num">
-          {numberTransformer(movieDetail?.snum, 10000)} 万人评分
+          {numberParser(movieDetail?.snum, 10000)} 万人评分
         </div>
         {/* 电影评分分布情况 */}
         <ul className="rate_dist">

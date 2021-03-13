@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { imgTransformer, numberTransformer } from '@utils/index';
+import { imgUrlParser, numberParser } from '@utils/index';
 import Slide from '@cpnt/Slide';
 import { Tabs } from 'woo-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -119,7 +119,7 @@ const DetailBTM: FC<IDetailTabsProps> = ({
                     <div className="cast_pic_wrapper">
                       <img
                         className="cast_pic"
-                        src={imgTransformer(celeb.avatar, 128, 170)}
+                        src={imgUrlParser(celeb.avatar, 128, 170)}
                         alt=""
                       />
                     </div>
@@ -145,7 +145,7 @@ const DetailBTM: FC<IDetailTabsProps> = ({
       {videos?.map((video) => (
         <li className="video_item" key={video.id}>
           <div className="video_item_imgWrapper">
-            <img src={imgTransformer(video.img, 210, 119)} alt="" />
+            <img src={imgUrlParser(video.img, 210, 119)} alt="" />
           </div>
           <div className="video_item_infoWrapper">
             <a
@@ -158,7 +158,7 @@ const DetailBTM: FC<IDetailTabsProps> = ({
             </a>
             <p className="video_item_count">
               <FontAwesomeIcon icon="play-circle" />
-              {numberTransformer(video.count, 10000)} 万播放
+              {numberParser(video.count, 10000)} 万播放
             </p>
           </div>
         </li>
@@ -172,7 +172,7 @@ const DetailBTM: FC<IDetailTabsProps> = ({
       {relatedMovies?.map((movie) => (
         <li className="relatedMovies_item" key={movie.desc}>
           <div className="relatedMovies_item_imgWrapper">
-            <img src={imgTransformer(movie.img, 106, 145)} alt="" />
+            <img src={imgUrlParser(movie.img, 106, 145)} alt="" />
           </div>
           <Link
             to={`/detail/${movie.desc}`}
@@ -229,7 +229,7 @@ const DetailBTM: FC<IDetailTabsProps> = ({
                   <img
                     className="gallery_pic"
                     key={i}
-                    src={imgTransformer(url, 720, 450)}
+                    src={imgUrlParser(url, 720, 450)}
                     alt=""
                   />
                 </div>

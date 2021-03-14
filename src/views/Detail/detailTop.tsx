@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'woo-ui-react';
 
 interface IDetailUpperProps {
-  movieDetail: dataTypes.IMovieInfo | null;
+  movieDetail: dataTypes.IMovieInfo;
 }
 
 const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
@@ -12,17 +12,17 @@ const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
     <div className="movieDetail_top">
       <img
         className="movieDetail_top_pic"
-        src={imgUrlParser(movieDetail?.img, 240, 330)}
+        src={imgUrlParser(movieDetail.img, 240, 330)}
         alt=""
       />
       <div className="movieDetail_info">
-        <h1 className="movieDetail_title">{movieDetail?.nm}</h1>
-        <p className="movieDetail_title_en">{movieDetail?.enm}</p>
-        <p className="movieDetail_director">导演 {movieDetail?.dir}</p>
+        <h1 className="movieDetail_title">{movieDetail.nm}</h1>
+        <p className="movieDetail_title_en">{movieDetail.enm}</p>
+        <p className="movieDetail_director">导演 {movieDetail.dir}</p>
         <p className="movieDetail_brief">
-          {movieDetail?.src} - 片长 {movieDetail?.dur} 分钟
+          {`${movieDetail.src} - 片长 ${movieDetail.dur} 分钟 - ${movieDetail.oriLang}`}
         </p>
-        <p className="movieDetail_pubDesc">{movieDetail?.pubDesc}</p>
+        <p className="movieDetail_pubDesc">{movieDetail.pubDesc}</p>
         <div className="movieDetail_action">
           <div className="btns">
             {/* TODO 通过 movieDetail.id 实现看过和收藏功能 */}
@@ -40,14 +40,14 @@ const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
 
       <div className="movieDetail_rate">
         <div className="rate_sc">
-          {movieDetail?.sc ? `${movieDetail?.sc} 分` : '暂无评分'}
+          {movieDetail.sc ? `${movieDetail.sc} 分` : '暂无评分'}
         </div>
         <div className="rate_num">
-          {numberParser(movieDetail?.snum, 10000)} 万人评分
+          {numberParser(movieDetail.snum, 10000)} 万人评分
         </div>
         {/* 电影评分分布情况 */}
         <ul className="rate_dist">
-          {movieDetail?.distributions.map(({ movieScoreLevel, proportion }) => (
+          {movieDetail.distributions.map(({ movieScoreLevel, proportion }) => (
             <li className="rate_dist_item" key={movieScoreLevel}>
               <span className="level">{movieScoreLevel}</span>
               <span className="bar" style={{ width: `${proportion}px` }}></span>
@@ -55,9 +55,9 @@ const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
             </li>
           ))}
         </ul>
-        <h2 className="rate_desc">“{movieDetail?.scm}“</h2>
+        <h2 className="rate_desc">“{movieDetail.scm}“</h2>
         <div className="rate_tags">
-          {movieDetail?.cat.split(',').map((cat, i) => (
+          {movieDetail.cat.split(',').map((cat, i) => (
             <span className="cat_tag" key={i}>
               {cat}
             </span>

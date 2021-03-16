@@ -1,10 +1,17 @@
 @import '~styles/var';
 
-.detail_cast {
-  padding-left: 20px;
-  display: flex;
+.cast {
+  width: 1200px;
+  min-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: #f5f5f5;
 }
 
+.detail_cast_infoWrap {
+  display: flex;
+  margin-bottom: 56px;
+}
 .castDetail_info {
   display: flex;
   flex-direction: column;
@@ -36,6 +43,54 @@
     .evaluation_source {
       position: absolute;
       right: 24px;
+    }
+  }
+}
+
+.detail_cast_introWrap {
+  color: $grey;
+}
+.detail_cast_intro {
+  line-height: 2;
+}
+.cast_intro {
+  &_title {
+    position: relative;
+    font-size: 16px;
+    margin: 4px 0;
+    padding-left: 12px;
+    &::before {
+      display: block;
+      position: absolute;
+      top: 5px;
+      left: 0;
+      content: '';
+      width: 4px;
+      height: 22px;
+      background-color: $fontColor-grey;
+    }
+  }
+  &_desc {
+    font-size: 14px;
+    margin-bottom: 48px;
+  }
+  &_detail {
+    display: flex;
+    dl {
+      display: flex;
+      // justify-content: flex-start;
+      justify-content: space-between;
+      width: 50%;
+    }
+    dt {
+      width: 96px;
+      color: $fontColor-black;
+      padding: 8px 0;
+      border-bottom: 1px solid $borderColor;
+    }
+    dd {
+      padding: 8px 0;
+      border-bottom: 1px solid $borderColor;
     }
   }
 }

@@ -48,11 +48,11 @@ const Cast: FC = () => {
   };
 
   return (
-    <>
+    <div className="cast">
       "CAST"
       <span>{id}</span>
       <Button onClick={onDetailBtnClick}>DETAIL</Button>
-      <div className="detail_cast">
+      <div className="detail_cast_infoWrap">
         <img src={imgUrlParser(castDetail.avatar, 240, 330)} alt="" />
         <div className="castDetail_info">
           <h1 className="castDetail_name">{castDetail.cnm}</h1>
@@ -81,7 +81,23 @@ const Cast: FC = () => {
           ) : null}
         </div>
       </div>
-    </>
+      <div className="detail_cast_introWrap">
+        <div className="detail_cast_intro">
+          <p className="cast_intro_title">影人简介</p>
+          <p className="cast_intro_desc">{castDetail.desc}</p>
+          <p className="cast_intro_title">影人信息</p>
+          <div className="cast_intro_detail">
+            {/* TODO 详细信息：毕业学校、血型等 */}
+            <dl className="cast_intro_listLeft">
+              <dt className="cast_intro_list_key">别名</dt>
+              <dd className="cast_intro_list_value">{castDetail.aliasName}</dd>
+              <dt className="cast_intro_list_key">身高</dt>
+              <dd className="cast_intro_list_value">{castDetail.height}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

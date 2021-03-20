@@ -197,6 +197,7 @@ declare global {
       avatar: string;
       birthday: string;
       birthplace: string;
+      bloodType: string;
       cnm: string;
       company: string;
       constellation: string;
@@ -214,6 +215,13 @@ declare global {
       titleList: Array<string>; // 头衔
       titles: string;
       evaluation: ICastEvaluation | undefined;
+      movieItems: ICastExperienceItem[] | undefined;
+      musicItems: ICastExperienceItem[] | undefined;
+      showItems: ICastExperienceItem[] | undefined;
+      experienceItems: { content: string }[] | undefined;
+      feelingItems: { content: string }[] | undefined;
+      familyItems: { content: string }[] | undefined;
+      quotes: { content: string }[] | undefined;
     }
     type castResponseData = {
       data: ICastDetail;
@@ -227,6 +235,34 @@ declare global {
     type castEvaluationResponseData = {
       data: {
         items?: ICastEvaluation[];
+      };
+    };
+
+    // 影人的经历
+    interface ICastExperienceItem {
+      content: string;
+      year: number;
+    }
+    type castExperienceResponseData = {
+      data: {
+        movieItems?: ICastExperienceItem[];
+        musicItems?: ICastExperienceItem[];
+        showItems?: ICastExperienceItem[];
+      };
+    };
+
+    type castLifeResponseData = {
+      data: {
+        experienceItems?: { content: string }[];
+        feelingItems?: { content: string }[];
+        familyItems?: { content: string }[];
+      };
+    };
+
+    // 影人的语录
+    type castQuotesResponseData = {
+      data: {
+        items: { content: string }[];
       };
     };
   }

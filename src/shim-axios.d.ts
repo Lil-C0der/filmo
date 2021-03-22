@@ -30,32 +30,44 @@ declare global {
 
     // 热映电影数据
     interface IMovieListObj {
-      globalReleased: boolean; // 全球上映
-      haspromotionTag: boolean; // 是否有推荐标识
+      boxInfo: string; // 票房信息
+      desc: string; // 主演
       id: number; // 电影编号
       // 电影图片的URL地址，
       // 请将图片地址中的”w.h”更改为”128.180”
       // “128.180”是图片的大小
       img: string;
       nm: string; // 电影名称
-      preShow: boolean; // 是否是预告片
+      fra: string; // 地区
       rt: string; //	上映时间
       sc: string; // 电影评分
-      showInfo: string; // 电影的上映信息
-      showst: number; // 无实际意义，用户请忽略
       star: string; // 电影演员明星
-      version: string; // 电影版本
-      wish: number; // 多少人想看
-      wishst: number; // 无实际意义，用户请忽略
+      wish: number;
     }
 
-    type hotMoviesResponseData = {
-      coming: [];
-      movieIds: Array<number>;
-      movieList: Array<IMovieListObj>;
-      stid: string; // 当前请求的随机状态码，请用户忽略
-      stids: string; // 所有电影的随机状态码，请用户忽略
-      total: number;
+    type hotAndCommingMovieListResponseData = {
+      data: {
+        hot: Array<IMovieListObj>;
+        coming: Array<IMovieListObj>;
+        total: number;
+      };
+    };
+
+    interface IDouBanMovieItem {
+      actors: string;
+      director: string;
+      duration: string;
+      id: string;
+      image: string;
+      name: string;
+      rating: string;
+      region: string;
+      release: string;
+      release: string;
+      votecount: string;
+    }
+    type doubanHotMoviesResponseData = {
+      [key: string]: IDouBanMovieItem;
     };
 
     // 电影详情数据

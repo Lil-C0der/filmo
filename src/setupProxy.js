@@ -14,8 +14,8 @@ module.exports = function (app) {
   app.use(
     '/api/maoyan2',
     createProxyMiddleware({
-      // target: 'https://api.maoyan.com/mmdb',
-      target: 'https://m.maoyan.com/mmdb',
+      target: 'https://api.maoyan.com/mmdb',
+      // target: 'https://m.maoyan.com/mmdb',
       changeOrigin: true,
       pathRewrite: {
         '^/api/maoyan2': ''
@@ -30,6 +30,17 @@ module.exports = function (app) {
       changeOrigin: true,
       pathRewrite: {
         '^/api/baidu': ''
+      }
+    })
+  );
+  app.use(
+    '/api/douban',
+    createProxyMiddleware({
+      // target: 'http://localhost:5000',
+      target: 'https://v.xhboke.com/douban',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api/douban': ''
       }
     })
   );

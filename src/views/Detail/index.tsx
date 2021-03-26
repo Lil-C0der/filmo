@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailTop from './detailTop';
 import DetailBTM from './detailBTM';
@@ -62,7 +62,7 @@ const Detail: FC = () => {
     defaultMovieDetail
   );
 
-  const handleBtnClick = async () => {
+  const initMovieDetail = useCallback(async () => {
     const { detailMovie } = await getMovieDetail(id);
     detailMovie.movieCelebs = await (await getMovieCeleb(id)).data.relations;
     detailMovie.movieComments = await getMovieComments(id);
@@ -70,12 +70,14 @@ const Detail: FC = () => {
     detailMovie.relatedMovies = await (await getRelatedMovies(id)).data[0]
       .items;
     setMovieDetail(detailMovie);
-  };
+  }, [id]);
+
+  useEffect(() => {
+    initMovieDetail();
+  }, [initMovieDetail]);
 
   return (
     <div className="detail">
-      {/* TODO 按钮改成 useEffect */}
-      <Button onClick={handleBtnClick}>DETAILS</Button>
       {/* 详情页上半部分，包括电影的基本信息如中英文名、评分等 */}
       <DetailTop movieDetail={movieDetail}></DetailTop>
       {/* 详情页下半部分，包括电影基本剧情、演员表等 */}

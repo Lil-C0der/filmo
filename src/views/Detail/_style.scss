@@ -4,6 +4,7 @@
   width: 1200px;
   min-width: 1200px;
   margin: 0 auto;
+  padding-top: 24px;
   background-color: $white;
 }
 
@@ -104,6 +105,13 @@
   display: flex;
 }
 
+.movieDetail_placeholder {
+  margin: 48px 0;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
 // 下半部分 Tabs 样式
 .movieDetail_bottom_tab {
   // width: 800px;
@@ -160,6 +168,7 @@
           border-radius: 50%;
         }
         .comment_info {
+          width: 100%;
           margin-left: 32px;
           padding-bottom: 32px;
           border-bottom: 1px solid $borderColor;

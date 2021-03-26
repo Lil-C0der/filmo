@@ -41,7 +41,7 @@ declare global {
       fra: string; // 地区
       rt: string; //	上映时间
       sc: string; // 电影评分
-      star: string; // 电影演员明星
+      star?: string; // 电影演员明星
       wish: number;
     }
 

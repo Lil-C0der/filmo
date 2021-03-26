@@ -25,79 +25,103 @@ const DetailBTM: FC<IDetailTabsProps> = ({
 
   const [galleryIndex, setGalleryIndex] = useState(1);
 
+  const placeholderEl = (
+    <div className="movieDetail_placeholder">暂时还没有内容~</div>
+  );
+
   const briefEl = (
     <div className="movieDetail_sum">
       <p className="movieDetail_sum_title">剧情简介</p>
       <p className="movieDetail_sum_story">{movieDetail?.dra}</p>
 
       <p className="movieDetail_sum_title">影视原声</p>
-      <div className="movieDetail_sum_track">
-        <img
-          src="
+      {movieDetail?.musicName ? (
+        <div className="movieDetail_sum_track">
+          <img
+            src="
         https://p0.meituan.net/scarlett/52ed06a649b14df78ebee02e9959c32911524.png@140w_140h_1e_1c"
-          alt=""
-        />
-        <span className="movieDetail_sum_track_wrapper">
-          <h3 className="movieDetail_sum_track_name">
-            {movieDetail?.musicName}
-          </h3>
-          <h4>{movieDetail?.musicStar}</h4>
-        </span>
-      </div>
+            alt=""
+          />
+          <span className="movieDetail_sum_track_wrapper">
+            <h3 className="movieDetail_sum_track_name">
+              {movieDetail?.musicName}
+            </h3>
+            <h4>{movieDetail?.musicStar}</h4>
+          </span>
+        </div>
+      ) : (
+        placeholderEl
+      )}
 
       <p className="movieDetail_sum_title">热门影评 ({hcmtsArr?.length} 条)</p>
-      <ul className="movieDetail_sum_hotComments">
-        {hcmtsArr?.map((comment) => {
-          return (
-            <li className="comment_wrapper" key={comment.id}>
-              <img src={comment.avatarurl} className="comment_avatar" alt="" />
-              <div className="comment_info">
-                <p className="comment_nick">
-                  {comment.nickName}
-                  <i className="comment_tag tag">lv.{comment.userLevel}</i>
-                </p>
-                <p className="comment_time">
-                  {comment.time}
-                  <i className="comment_city">{comment.cityName}</i>
-                </p>
-                <p className="comment_content">{comment.content}</p>
-              </div>
-              {/* 点赞按钮 */}
-              {/* TODO 通过评论 id，实现点赞功能 */}
-              <span className="comment_like">
-                <FontAwesomeIcon
-                  className="comment_like_icon"
-                  size="lg"
-                  icon={['far', 'thumbs-up']}
+      {hcmtsArr?.length ? (
+        <ul className="movieDetail_sum_hotComments">
+          {hcmtsArr?.map((comment) => {
+            return (
+              <li className="comment_wrapper" key={comment.id}>
+                <img
+                  src={comment.avatarurl}
+                  className="comment_avatar"
+                  alt=""
                 />
-                {comment.approve}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
+                <div className="comment_info">
+                  <p className="comment_nick">
+                    {comment.nickName}
+                    <i className="comment_tag tag">lv.{comment.userLevel}</i>
+                  </p>
+                  <p className="comment_time">
+                    {comment.time}
+                    <i className="comment_city">{comment.cityName}</i>
+                  </p>
+                  <p className="comment_content">{comment.content}</p>
+                </div>
+                {/* 点赞按钮 */}
+                {/* TODO 通过评论 id，实现点赞功能 */}
+                <span className="comment_like">
+                  <FontAwesomeIcon
+                    className="comment_like_icon"
+                    size="lg"
+                    icon={['far', 'thumbs-up']}
+                  />
+                  {comment.approve}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        placeholderEl
+      )}
 
       <p className="movieDetail_sum_title">最新影评 ({cmtsArr?.length} 条)</p>
-      <ul className="movieDetail_sum_newComments">
-        {cmtsArr?.map((comment) => {
-          return (
-            <li className="comment_wrapper" key={comment.id}>
-              <img src={comment.avatarurl} className="comment_avatar" alt="" />
-              <div className="comment_info">
-                <p className="comment_nick">
-                  {comment.nickName}
-                  <i className="comment_tag tag">lv.{comment.userLevel}</i>
-                </p>
-                <p className="comment_time">
-                  {comment.time}
-                  <i className="comment_city">{comment.cityName}</i>
-                </p>
-                <p className="comment_content">{comment.content}</p>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      {cmtsArr?.length ? (
+        <ul className="movieDetail_sum_newComments">
+          {cmtsArr?.map((comment) => {
+            return (
+              <li className="comment_wrapper" key={comment.id}>
+                <img
+                  src={comment.avatarurl}
+                  className="comment_avatar"
+                  alt=""
+                />
+                <div className="comment_info">
+                  <p className="comment_nick">
+                    {comment.nickName}
+                    <i className="comment_tag tag">lv.{comment.userLevel}</i>
+                  </p>
+                  <p className="comment_time">
+                    {comment.time}
+                    <i className="comment_city">{comment.cityName}</i>
+                  </p>
+                  <p className="comment_content">{comment.content}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        placeholderEl
+      )}
       {/* TODO 本站评论 */}
     </div>
   );

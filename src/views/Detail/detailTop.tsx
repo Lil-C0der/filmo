@@ -55,13 +55,16 @@ const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
             </li>
           ))}
         </ul>
-        <h2 className="rate_desc">“{movieDetail.scm}“</h2>
+        {movieDetail.scm ? (
+          <h2 className="rate_desc">“{movieDetail.scm}“</h2>
+        ) : null}
         <div className="rate_tags">
-          {movieDetail.cat.split(',').map((cat, i) => (
-            <span className="cat_tag" key={i}>
-              {cat}
-            </span>
-          ))}
+          {movieDetail.cat &&
+            movieDetail.cat.split(',').map((cat, i) => (
+              <span className="cat_tag" key={i}>
+                {cat}
+              </span>
+            ))}
         </div>
       </div>
     </div>

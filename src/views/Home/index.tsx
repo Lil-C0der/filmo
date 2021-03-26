@@ -1,11 +1,7 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useCallback } from 'react';
 import MovieListItem from './movieListItem';
 import Slide from '@cpnt/Slide';
-import {
-  getHotMovies,
-  getCommingMovie,
-  getDoubanHotMovies
-} from '@network/movie';
+import { getHotMovies, getCommingMovie } from '@network/movie';
 import './_style.scss';
 
 interface hotAndCommingMovieList {
@@ -21,48 +17,17 @@ const Home: FC = () => {
   const [movieListObj, setMovieListObj] = useState(defaultMovieListObj);
   const [slideActiveIdx, setSlideActiveIdx] = useState<number>(1);
   const [slideActiveIdx2, setSlideActiveIdx2] = useState<number>(1);
-  const [doubanHotMovieList, setDoubanHotMovieList] = useState(
-    defaultMovieListObj.hot
-  );
+
+  const initMovieList = useCallback(async () => {
+    const { hot } = await (await getHotMovies()).data;
+    const { coming } = await (await getCommingMovie()).data;
+
+    setMovieListObj({ hot, coming });
+  }, []);
 
   useEffect(() => {
-    const initMovieList = async () => {
-      const { hot } = await (await getHotMovies()).data;
-      const { coming } = await (await getCommingMovie()).data;
-      const data = await getDoubanHotMovies();
-
-      // const temp = data.map((item) => {
-      //   console.log(item);
-      //   return item;
-      //   // return {
-      //   //   desc: item.actors
-      //   //   // dra:
-      //   // };
-      // });
-
-      const arr = Object.keys(data).map((key: string) => {
-        return data[key];
-      });
-      const temp = arr.map((item) => {
-        return {
-          boxInfo: '',
-          fra: item.region,
-          desc: item.actors,
-          id: +item.id,
-          nm: item.name,
-          sc: item.rating,
-          star: item.actors,
-          wish: 0,
-          img: item.image,
-          rt: item.release
-        };
-      });
-
-      setDoubanHotMovieList(temp);
-      setMovieListObj({ hot, coming });
-    };
     initMovieList();
-  }, []);
+  }, [initMovieList]);
 
   /**
    * 根据 list 渲染对应元素，返回结果是多个 SlideItem 组件
@@ -130,17 +95,6 @@ const Home: FC = () => {
       >
         {renderSlideItem(movieListObj.coming, true)}
       </Slide>
-
-      <div className="movies_title doubanHotMovies_title">热门电影</div>
-      <div className="doubanHotMovies_wrapper">
-        {doubanHotMovieList.map((movieItem) => (
-          <MovieListItem
-            key={movieItem.id}
-            movieItem={movieItem}
-            isComingMovie={false}
-          ></MovieListItem>
-        ))}
-      </div>
     </div>
   );
 };

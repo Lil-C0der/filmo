@@ -5,13 +5,11 @@ import { Link } from 'react-router-dom';
 interface IMovieListItemProps {
   movieItem: dataTypes.IMovieListObj;
   isComingMovie: boolean;
-  isDoubanMovieItem?: boolean;
 }
 
 const movieListItem: FC<IMovieListItemProps> = ({
   movieItem,
-  isComingMovie,
-  isDoubanMovieItem
+  isComingMovie
 }) => {
   return (
     <li className="movieList_item">
@@ -33,17 +31,12 @@ const movieListItem: FC<IMovieListItemProps> = ({
       {/* hover 时显示的 detail 卡片部分 */}
       <div className="movieList_item_detail">
         <p className="movieList_item_detail_title">
-          {isDoubanMovieItem ? (
-            // TODO 跳转详情页
-            <Link to={`/detail/${movieItem.id}`}>{movieItem.nm}</Link>
-          ) : (
-            <Link to={`/detail/${movieItem.id}`}>{movieItem.nm}</Link>
-          )}
+          <Link to={`/detail/${movieItem.id}`}>{movieItem.nm}</Link>
         </p>
         <p className="movieList_item_detail_date">{movieItem.rt} 上映</p>
         <p>{movieItem.boxInfo}</p>
         <p className="movieList_item_detail_starring">
-          主演：{movieItem.star.replaceAll(',', ' / ')}
+          主演：{movieItem.star?.replaceAll(',', ' / ')}
         </p>
         <p className="movieList_item_detail_wish">{movieItem.wish} 人想看</p>
         {movieItem.sc && !isComingMovie ? (

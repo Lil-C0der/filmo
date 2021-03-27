@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   getCastDetail,
@@ -8,7 +8,6 @@ import {
   getCastQuotes
 } from '@network/cast';
 import { imgUrlParser } from '@utils/index';
-import { Button } from 'woo-ui-react';
 import Slide from '@cpnt/Slide';
 
 import './_style.scss';
@@ -70,48 +69,51 @@ const Cast: FC = () => {
   const [castDetail, setCastDetail] = useState(defaultCastDetail);
   const [detailList, setDetailList] = useState(defaultDetailList);
 
+  const initCastDetail = useCallback(async () => {
+    let temp = defaultCastDetail;
+    temp = await (await getCastDetail(id)).data;
+    const { items } = await (await getCastEvaluation(id)).data;
+    const { movieItems, musicItems, showItems } = await (
+      await getCastExperience(id)
+    ).data;
+    const { experienceItems, feelingItems, familyItems } = await (
+      await getCastLife(id)
+    ).data;
+    const quotes = await (await getCastQuotes(id)).data.items;
+
+    setCastDetail({
+      ...temp,
+      evaluation: items?.[0],
+      movieItems: movieItems?.reverse(),
+      musicItems: musicItems?.reverse(),
+      showItems: showItems?.reverse(),
+      experienceItems,
+      feelingItems,
+      familyItems,
+      quotes
+    });
+    setDetailList([
+      { key: '别名', value: temp.aliasName.replaceAll(',', ', ') },
+      { key: '国籍', value: temp.nationality },
+      { key: '民族', value: temp.nation },
+      { key: '性别', value: temp.sexy },
+      { key: '出生地', value: temp.birthplace.replaceAll(',', ', ') },
+      { key: '出生日期', value: temp.birthday },
+      { key: '星座', value: temp.constellation },
+      { key: '身高', value: temp.height ? `${temp.height} cm` : '' },
+      { key: '血型', value: temp.bloodType },
+      { key: '毕业院校', value: temp.graduateSchool },
+      {
+        key: '身份',
+        value: temp.titles ? temp.titles.replaceAll(' |', ',') : ''
+      },
+      { key: '经纪公司', value: temp.company }
+    ]);
+  }, [id]);
+
   useEffect(() => {
-    const initCastDetail = async () => {
-      let temp = castDetail;
-      temp = await (await getCastDetail(id)).data;
-      const { items } = await (await getCastEvaluation(id)).data;
-      const { movieItems, musicItems, showItems } = await (
-        await getCastExperience(id)
-      ).data;
-      const { experienceItems, feelingItems, familyItems } = await (
-        await getCastLife(id)
-      ).data;
-      const quotes = await (await getCastQuotes(id)).data.items;
-
-      setCastDetail({
-        ...temp,
-        evaluation: items?.[0],
-        movieItems: movieItems?.reverse(),
-        musicItems: musicItems?.reverse(),
-        showItems: showItems?.reverse(),
-        experienceItems,
-        feelingItems,
-        familyItems,
-        quotes
-      });
-      setDetailList([
-        { key: '别名', value: temp.aliasName.replaceAll(',', ', ') },
-        { key: '国籍', value: temp.nationality },
-        { key: '民族', value: temp.nation },
-        { key: '性别', value: temp.sexy },
-        { key: '出生地', value: temp.birthplace.replaceAll(',', ', ') },
-        { key: '出生日期', value: temp.birthday },
-        { key: '星座', value: temp.constellation },
-        { key: '身高', value: `${temp.height} cm` },
-        { key: '血型', value: temp.bloodType },
-        { key: '毕业院校', value: temp.graduateSchool },
-        { key: '身份', value: temp.titles.replaceAll(' |', ',') },
-        { key: '经纪公司', value: temp.company }
-      ]);
-    };
-
     initCastDetail();
-  }, [castDetail, id]);
+  }, [initCastDetail]);
 
   const renderSlideItem = (itemList: string[]) => {
     let slideItemArr: Array<JSX.Element> = [];
@@ -171,12 +173,14 @@ const Cast: FC = () => {
           <h1 className="castDetail_name">{castDetail.cnm}</h1>
           <p className="castDetail_name_en">{castDetail.enm}</p>
           <p className="castDetail_more">
-            {castDetail.titleList.map((title) => (
+            {castDetail.titleList?.map((title) => (
               <span className="castDetail_title" key={title}>
                 {title}
               </span>
             ))}
-            <span className="castDetail_birth">{castDetail.birthday}</span>
+            {castDetail.birthday ? (
+              <span className="castDetail_birth">{castDetail.birthday}</span>
+            ) : null}
             <span className="castDetail_gender">{castDetail.sexy}</span>
           </p>
           <p className="castDetail_birthPlace">{castDetail.birthplace}</p>
@@ -210,35 +214,57 @@ const Cast: FC = () => {
             )}
           </div>
 
-          <p className="cast_intro_title">相册</p>
-          <Slide interval={5000} height="170px" className="cast_intro_slide">
-            {renderSlideItem(castDetail.photos)}
-          </Slide>
+          {castDetail.photos.length ? (
+            <>
+              <p className="cast_intro_title">相册</p>
+              <Slide
+                interval={5000}
+                height="170px"
+                className="cast_intro_slide"
+              >
+                {renderSlideItem(castDetail.photos)}
+              </Slide>
+            </>
+          ) : null}
 
-          <p className="cast_intro_title">作品</p>
-          <div className="cast_intro_experience">
-            {renderExperienceItems(castDetail.movieItems, '影视作品')}
-            {renderExperienceItems(castDetail.musicItems, '音乐作品')}
-            {renderExperienceItems(castDetail.showItems, '其他')}
-          </div>
+          {castDetail.movieItems?.length ||
+          castDetail.musicItems?.length ||
+          castDetail.showItems?.length ? (
+            <>
+              <p className="cast_intro_title">作品</p>
+              <div className="cast_intro_experience">
+                {renderExperienceItems(castDetail.movieItems, '影视作品')}
+                {renderExperienceItems(castDetail.musicItems, '音乐作品')}
+                {renderExperienceItems(castDetail.showItems, '其他')}
+              </div>
+            </>
+          ) : null}
 
-          <p className="cast_intro_title">个人生活</p>
-          <div className="cast_intro_life">
-            {renderExperienceItems(castDetail.experienceItems, '早年经历')}
-            {renderExperienceItems(castDetail.familyItems, '家庭背景')}
-            {renderExperienceItems(castDetail.feelingItems, '情感生活')}
-          </div>
+          {castDetail.experienceItems?.length ||
+          castDetail.familyItems?.length ||
+          castDetail.feelingItems?.length ? (
+            <>
+              <p className="cast_intro_title">个人生活</p>
+              <div className="cast_intro_life">
+                {renderExperienceItems(castDetail.experienceItems, '早年经历')}
+                {renderExperienceItems(castDetail.familyItems, '家庭背景')}
+                {renderExperienceItems(castDetail.feelingItems, '情感生活')}
+              </div>
+            </>
+          ) : null}
 
-          <p className="cast_intro_title">语录</p>
-          <div className="cast_intro_quotes">
-            {castDetail.quotes?.length
-              ? castDetail.quotes.map((quote, i) => (
+          {castDetail.quotes?.length ? (
+            <>
+              <p className="cast_intro_title">语录</p>
+              <div className="cast_intro_quotes">
+                {castDetail.quotes.map((quote, i) => (
                   <p className="cast_quote" key={i}>
                     “{quote.content}”
                   </p>
-                ))
-              : null}
-          </div>
+                ))}
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
     </div>

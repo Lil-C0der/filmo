@@ -2,7 +2,6 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import DetailTop from './detailTop';
 import DetailBTM from './detailBTM';
-import { Button } from 'woo-ui-react';
 
 import {
   getMovieDetail,

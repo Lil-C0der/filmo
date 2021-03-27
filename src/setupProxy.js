@@ -34,6 +34,16 @@ module.exports = function (app) {
     })
   );
   app.use(
+    '/api/tian',
+    createProxyMiddleware({
+      target: 'http://api.tianapi.com',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api/tian': ''
+      }
+    })
+  );
+  app.use(
     '/api/douban',
     createProxyMiddleware({
       // target: 'http://localhost:5000',

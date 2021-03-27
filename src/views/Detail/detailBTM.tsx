@@ -137,9 +137,8 @@ const DetailBTM: FC<IDetailTabsProps> = ({
             </p>
             <ul className="cast_list">
               {celebObj.celebrities.map((celeb) => (
-                // TODO 影人跳转功能
-                <li className="cast_item" key={celeb.id}>
-                  <Link to={`/cast/${celeb.id}`}>
+                <Link to={`/cast/${celeb.id}`}>
+                  <li className="cast_item" key={celeb.id}>
                     <div className="cast_pic_wrapper">
                       <img
                         className="cast_pic"
@@ -153,8 +152,8 @@ const DetailBTM: FC<IDetailTabsProps> = ({
                     ) : (
                       ''
                     )}
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               ))}
             </ul>
           </div>

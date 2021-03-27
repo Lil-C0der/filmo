@@ -1,10 +1,9 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { searchSuggestion } from '@network/search';
 
 import './_style.scss';
-import axios from 'axios';
 interface NavBarProps {
   // onSearchBtnClick?: () => {};
 }

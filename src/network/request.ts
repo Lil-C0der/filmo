@@ -1,12 +1,23 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { baiduAK, tianAK } from '@constants/index';
 
 const axiosInstance = axios.create({
-  // baseURL: 'https://api.doubans.com/v2/movie/'
-  // baseURL: 'https://127.0.0.1:8888/home'
-
-  // baseURL: 'https://www.softeem.xin/maoyanApi/ajax',
-  // baseURL: 'https://m.maoyan.com/ajax'
   baseURL: '/api'
+});
+
+axiosInstance.interceptors.request.use((resquestConf: AxiosRequestConfig) => {
+  // console.log(resquestConf);
+  const { url } = resquestConf;
+  if (url?.match(/^baidu/)) {
+    resquestConf.params.ak = baiduAK;
+  }
+  if (url?.match(/^tian/)) {
+    // console.log(url);
+    console.log(resquestConf);
+    resquestConf.params.key = tianAK;
+  }
+
+  return resquestConf;
 });
 
 axiosInstance.interceptors.response.use(

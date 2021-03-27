@@ -27,7 +27,8 @@
       "@views/*": ["views/*"],
       "@cpnt/*": ["components/*"],
       "@network/*": ["network/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@constants/*": ["constants/*"]
     }
   },
   "include": [

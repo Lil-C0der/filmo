@@ -224,8 +224,8 @@ declare global {
       photoNum: number;
       photos: Array<string>;
       sexy: string;
-      titleList: Array<string>; // 头衔
-      titles: string;
+      titleList?: Array<string>; // 头衔
+      titles?: string;
       evaluation: ICastEvaluation | undefined;
       movieItems: ICastExperienceItem[] | undefined;
       musicItems: ICastExperienceItem[] | undefined;
@@ -276,6 +276,21 @@ declare global {
       data: {
         items: { content: string }[];
       };
+    };
+
+    // 新闻列表 item
+    interface INewsItem {
+      id: string;
+      ctime: string;
+      title: string;
+      description: string;
+      source: string; // 来源
+      picUrl: string;
+      url: string; // 新闻 url
+    }
+    type newsResponseData = {
+      code: number;
+      newslist: INewsItem[];
     };
   }
 }

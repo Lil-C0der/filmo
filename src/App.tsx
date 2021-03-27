@@ -16,13 +16,15 @@ import { getCurrLocation } from '@network/common';
 import './App.css';
 import './styles/index.scss';
 
+const initLocation = async () => {
+  const cityName = await (await getCurrLocation()).address.split('|')[2];
+  localStorage.setItem('cityName', cityName);
+};
+
 function App() {
   useEffect(() => {
-    getCurrLocation().then((res) => {
-      const cityName = res.address.split('|')[2];
-      localStorage.setItem('cityName', cityName);
-    });
-  });
+    initLocation();
+  }, []);
 
   return (
     <div className="App">

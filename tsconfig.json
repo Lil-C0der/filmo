@@ -28,7 +28,8 @@
       "@cpnt/*": ["components/*"],
       "@network/*": ["network/*"],
       "@utils/*": ["utils/*"],
-      "@constants/*": ["constants/*"]
+      "@constants/*": ["constants/*"],
+      "@route/*": ["route/*"]
     }
   },
   "include": [

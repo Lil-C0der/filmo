@@ -1,0 +1,51 @@
+@import '~styles/var';
+
+.input-wrapper {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: $fontSize;
+  vertical-align: middle;
+  > .input-icon_clear {
+    position: absolute;
+    right: 1em;
+    color: $borderColor;
+    &:hover {
+      cursor: default;
+      color: $borderColor-hover;
+    }
+  }
+  > :not(:last-child) {
+    margin-right: 0.33em;
+  }
+  input {
+    border: none;
+    outline: none;
+    height: $height;
+    padding: 9px 8px;
+    font-size: inherit;
+    border: 1px solid $borderColor;
+    border-radius: $borderRadius;
+    color: $fontColor-black;
+    flex: 1;
+    text-overflow: ellipsis;
+    &:hover {
+      border-color: $borderColor-hover;
+    }
+    &:focus {
+      border-color: $borderColor-hover;
+      box-shadow: $boxShadow-input;
+    }
+    &[disabled],
+    &[readonly] {
+      color: $disabled-color;
+      border-color: $borderColor-disabled;
+      background-color: $disabledBg;
+      cursor: not-allowed;
+    }
+    &[readonly] {
+      cursor: default;
+    }
+  }
+}

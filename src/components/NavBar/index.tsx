@@ -60,16 +60,14 @@ const NavBar: FC<NavBarProps> = (props) => {
 
       <div className="navbar_secondary">
         <ul>
-          <Link
-            to={'/'}
-            className="navbar_item"
-            onClick={() => {
-              console.log('to homepage');
-            }}
-          >
+          <Link to={'/'} className="navbar_item">
             电影
           </Link>
-          <li className="navbar_item">影人</li>
+          {/* <li className="navbar_item">影人</li> */}
+
+          <Link to={'/profile'} className="navbar_item">
+            个人中心
+          </Link>
           <li className="navbar_item">影视原声</li>
           {/* <li className="navbar_item">登录/注册</li> */}
           <li className="navbar_item">留言</li>

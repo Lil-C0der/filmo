@@ -25,7 +25,6 @@ module.exports = function (app) {
   app.use(
     '/api/baidu',
     createProxyMiddleware({
-      // target: 'http://localhost:5000',
       target: 'https://api.map.baidu.com/location',
       changeOrigin: true,
       pathRewrite: {
@@ -44,9 +43,18 @@ module.exports = function (app) {
     })
   );
   app.use(
+    '/api/local',
+    createProxyMiddleware({
+      target: 'http://localhost:5000',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api/local': ''
+      }
+    })
+  );
+  app.use(
     '/api/douban',
     createProxyMiddleware({
-      // target: 'http://localhost:5000',
       target: 'https://v.xhboke.com/douban',
       changeOrigin: true,
       pathRewrite: {

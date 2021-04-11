@@ -6,17 +6,14 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((resquestConf: AxiosRequestConfig) => {
-  // console.log(resquestConf);
   const { url } = resquestConf;
   if (url?.match(/^baidu/)) {
     resquestConf.params.ak = baiduAK;
   }
   if (url?.match(/^tian/)) {
-    // console.log(url);
     console.log(resquestConf);
     resquestConf.params.key = tianAK;
   }
-
   return resquestConf;
 });
 

@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import NavBar from '@cpnt/NavBar';
-import Home from '@views/Home';
-import Detail from '@views/Detail';
-import Cast from '@views/Cast';
+// import Home from '@views/Home';
+// import Detail from '@views/Detail';
+// import Cast from '@views/Cast';
+// import Profile from './views/Profile';
+// import Login from './views/Login';
+import routes from '@route/index';
 
 import {
   BrowserRouter as Router,
@@ -28,27 +31,24 @@ function App() {
 
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-
-      <HashRouter>
+      <HashRouter getUserConfirmation={(msg, cb) => {}}>
         <Router>
           <NavBar />
           <Switch>
-            <Route path="/" exact component={Home} />
+            {/* <Route path="/" exact component={Home} />
             <Route path="/detail/:id" component={Detail} />
             <Route path="/cast/:id" component={Cast} />
+            <Route path="/login" component={Login} />
+            <Route path="/usr" component={Profile} /> */}
+
+            {routes.map(({ path, component, exact, name }) => (
+              <Route
+                key={name}
+                path={path}
+                exact={exact}
+                component={component}
+              />
+            ))}
           </Switch>
         </Router>
       </HashRouter>

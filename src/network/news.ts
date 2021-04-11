@@ -26,7 +26,7 @@ export function getNews(num: number, col: number) {
  */
 export function getEntNews(num: number) {
   return instance<dataTypes.newsResponseData>({
-    url: 'tian/huabian',
+    url: 'tian/huabian/index',
     params: {
       num
     }

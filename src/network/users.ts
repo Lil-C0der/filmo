@@ -1,9 +1,10 @@
 import instance from '@network/request';
 
-export function login(username: string, pwd: string) {
-  return instance({
-    url: '/local/posts',
-    method: 'GET'
+export function login(username: string, password: string) {
+  return instance<dataTypes.loginResponseData>({
+    url: '/local/auth/login',
+    method: 'POST',
+    data: { username, password }
   });
 }
 

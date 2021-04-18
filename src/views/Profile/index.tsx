@@ -14,11 +14,10 @@ const Profile: FC = () => {
     if (!localStorage.getItem('login')) {
       history.push('/login');
       console.log('未登录');
+    } else {
+      getUsr();
     }
   }, [history]);
-  useEffect(() => {
-    getUsr();
-  }, []);
 
   return <div>"PROFILE"</div>;
 };

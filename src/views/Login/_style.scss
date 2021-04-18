@@ -26,7 +26,7 @@
       align-items: center;
       margin-bottom: 16px;
       .login-modal_label {
-        width: 56px;
+        width: 64px;
       }
     }
     &_btns {
@@ -41,4 +41,12 @@
       }
     }
   }
+}
+
+.login .login-alert {
+  min-width: 320px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 16px;
 }

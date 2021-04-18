@@ -292,5 +292,27 @@ declare global {
       code: number;
       newslist: INewsItem[];
     };
+
+    // 用户模型
+    interface IUser {
+      posts: any[];
+      watchedList: any[];
+      favoritesList: any[];
+      _id: string;
+      username: string;
+      pwd: string;
+      createdAt: string;
+    }
+    // 登录接口返回的结果
+    type loginResponseData = {
+      code: number;
+      success: boolean;
+      msg: string;
+      data: {
+        error?: string;
+        user: IUser;
+        token: string;
+      };
+    };
   }
 }

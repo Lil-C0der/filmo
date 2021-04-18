@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './_style.scss';
 
@@ -8,38 +8,72 @@ interface IProps {
   value?: string;
   placeholder?: string;
   showClear?: boolean;
-  onChange?: () => void;
+  password?: boolean;
+  onChange?: (value: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
   onClear?: () => void;
 }
 
 const Input: FC<IProps> = (props) => {
-  const onClear = () => {
-    console.log('清空 input');
+  const [showPassword, setShowPassword] = useState(false);
 
+  const onClear = () => {
     props.onClear && props.onClear();
   };
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    props.onChange && props.onChange(e.target.value);
+  };
+
+  const eyeIconEl = (
+    <FontAwesomeIcon
+      className="input-icon input-icon_eye"
+      icon={showPassword ? 'eye-slash' : 'eye'}
+      onMouseDown={() => {
+        setShowPassword(true);
+      }}
+      onMouseUp={() => {
+        setShowPassword(false);
+      }}
+    />
+  );
+
   return (
     <div className="input-wrapper">
-      <input
-        type="text"
-        disabled={props.disabled}
-        readOnly={props.readonly}
-        value={props.value}
-        onChange={props.onChange}
-        onFocus={props.onFocus}
-        onBlur={props.onBlur}
-        placeholder={props.placeholder}
-      />
+      {props.password ? (
+        <input
+          type={showPassword ? 'text' : 'password'}
+          disabled={props.disabled}
+          readOnly={props.readonly}
+          value={props.value}
+          onChange={onChange}
+          onFocus={props.onFocus}
+          onBlur={props.onBlur}
+          placeholder={props.placeholder}
+        />
+      ) : (
+        <input
+          type="text"
+          disabled={props.disabled}
+          readOnly={props.readonly}
+          value={props.value}
+          onChange={onChange}
+          onFocus={props.onFocus}
+          onBlur={props.onBlur}
+          placeholder={props.placeholder}
+        />
+      )}
 
       {props.showClear ? (
         <FontAwesomeIcon
-          className="input-icon_clear"
-          icon="chevron-circle-right"
+          className="input-icon input-icon_clear"
+          icon="times"
           onClick={onClear}
         />
       ) : null}
+
+      {props.password ? eyeIconEl : null}
     </div>
   );
 };

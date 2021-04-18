@@ -7,7 +7,7 @@
   flex-shrink: 0;
   font-size: $fontSize;
   vertical-align: middle;
-  > .input-icon_clear {
+  > .input-icon {
     position: absolute;
     right: 1em;
     color: $borderColor;
@@ -15,6 +15,10 @@
       cursor: default;
       color: $borderColor-hover;
     }
+  }
+
+  > .input-icon_eye {
+    right: 0.8em;
   }
   > :not(:last-child) {
     margin-right: 0.33em;

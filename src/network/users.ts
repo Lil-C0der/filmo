@@ -15,9 +15,13 @@ export function create(username: string, pwd: string) {
   });
 }
 
-export function getUserDetail(id: number | string) {
-  return instance({
-    url: `/local/posts/${id}`,
-    method: 'GET'
+export function getUserDetail(token: string) {
+  return instance<dataTypes.userDetailResponseData>({
+    url: `/local/auth/user`,
+    method: 'GET',
+    headers: {
+      // token
+      Authorization: `Bearer ${token}`
+    }
   });
 }

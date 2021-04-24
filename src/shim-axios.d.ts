@@ -314,5 +314,24 @@ declare global {
         token: string;
       };
     };
+
+    interface IUserDetail {
+      posts: any[];
+      watchedList: any[];
+      favoritesList: any[];
+      token: string;
+      username: string;
+      pwd: string;
+      createdAt: string;
+    }
+    // 登录接口返回的结果
+    type userDetailResponseData = {
+      code: number;
+      success: boolean;
+      msg: string;
+      data: {
+        user: IUserDetail;
+      };
+    };
   }
 }

@@ -9,8 +9,11 @@ import logo from '../../logo.png';
 
 import { observer, useLocalStore } from 'mobx-react-lite';
 import store from '@store/index';
+import { useHistory } from 'react-router-dom';
 
 const Login: FC = observer(() => {
+  const history = useHistory();
+
   const [isRegister, setIsRegister] = useState<boolean>(false);
   const [usernameVal, setUsernameVal] = useState('');
   const [passwordVal, setPasswordVal] = useState('');
@@ -53,6 +56,7 @@ const Login: FC = observer(() => {
     if (code === 200) {
       const { token, user } = data;
       loginUserModel.login({ ...user, token });
+      localStorage.setItem('user-token', token);
       setAlertConf({
         title: msg,
         description: `${getCurrGreeting()}，${
@@ -61,6 +65,9 @@ const Login: FC = observer(() => {
         type: 'success'
       });
       // TODO 跳转 profile
+      setTimeout(() => {
+        history.push('/profile');
+      }, 3000);
     } else {
       setAlertConf({
         title: msg,

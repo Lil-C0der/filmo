@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 
-interface IUser {
+export interface IUser {
   username: string;
   token: string;
   createdAt: string;
@@ -32,8 +32,10 @@ class UserModel {
 
   user: IUser;
   isLogin: boolean;
+  token: string;
   constructor() {
     this.user = defaultUser;
+    this.token = '';
     this.isLogin = false;
 
     makeObservable(this, {
@@ -56,6 +58,7 @@ class UserModel {
 
     if (userInfo) {
       this.user = userInfo;
+      this.token = userInfo.token;
       return;
     }
     this.user = defaultUser;

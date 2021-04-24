@@ -4,6 +4,7 @@ import Slide from '@cpnt/Slide';
 import { getHotMovies, getCommingMovie } from '@network/movie';
 import { getEntNews, getMoviesNews } from '@network/news';
 import './_style.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface IHotAndCommingMovieList {
   hot: Array<dataTypes.IMovieListObj>;
@@ -152,9 +153,21 @@ const Home: FC = () => {
 
       <div className="homepage_news">
         <ul className="newsList">
-          <h4 className="newsList_title">影视新闻</h4>
+          <div className="newsList_title_wrapper">
+            <h4 className="newsList_title">影视新闻</h4>
+            <a href="/news/movie" className="newsList_title_more">
+              更多&nbsp;
+              <FontAwesomeIcon className="icon" icon="caret-right" />
+            </a>
+          </div>
           {renderNewsList(newsListObj.moviesNews)}
-          <h4 className="newsList_title">娱乐新闻</h4>
+          <div className="newsList_title_wrapper">
+            <h4 className="newsList_title">娱乐新闻</h4>
+            <a href="/news/ent" className="newsList_title_more">
+              更多&nbsp;
+              <FontAwesomeIcon className="icon" icon="caret-right" />
+            </a>
+          </div>
           {renderNewsList(newsListObj.entNews, false)}
         </ul>
       </div>

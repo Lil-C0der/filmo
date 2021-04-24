@@ -68,7 +68,9 @@ const NavBar: FC<NavBarProps> = (props) => {
           <Link to={'/profile'} className="navbar_item">
             个人中心
           </Link>
-          <li className="navbar_item">影视原声</li>
+          <Link to={'/news/movie'} className="navbar_item">
+            行业资讯
+          </Link>
           {/* <li className="navbar_item">登录/注册</li> */}
           <li className="navbar_item">留言</li>
         </ul>

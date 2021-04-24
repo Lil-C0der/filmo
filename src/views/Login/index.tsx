@@ -5,6 +5,7 @@ import './_style.scss';
 import { login } from '@/network/users';
 import { getCurrGreeting } from '@/utils';
 import { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
+import logo from '../../logo.png';
 
 const Login: FC = () => {
   const [isRegister, setIsRegister] = useState<boolean>(false);
@@ -21,6 +22,8 @@ const Login: FC = () => {
 
   useEffect(() => {
     setUsernameVal('');
+    setPasswordVal('');
+    setPasswordVal2('');
   }, [isRegister]);
 
   // 验证登录和注册的输入项
@@ -80,6 +83,7 @@ const Login: FC = () => {
       <div className="login-modal_row login-username">
         <p className="login-modal_label">用户名</p>
         <Input
+          placeholder="请输入用户名"
           password={false}
           showClear={true}
           onClear={clearInput}
@@ -90,7 +94,12 @@ const Login: FC = () => {
 
       <div className="login-modal_row login-password">
         <p className="login-modal_label">密码</p>
-        <Input value={passwordVal} onChange={setPasswordVal} password />
+        <Input
+          placeholder="请输入密码"
+          value={passwordVal}
+          onChange={setPasswordVal}
+          password
+        />
       </div>
     </div>
   );
@@ -99,20 +108,32 @@ const Login: FC = () => {
     <div className="login-modal_content">
       <div className="login-modal_row login-username">
         <p className="login-modal_label">用户名</p>
-        <Input showClear={true} value={usernameVal} onChange={setUsernameVal} />
+        <Input
+          placeholder="请输入用户名"
+          showClear={true}
+          onClear={clearInput}
+          value={usernameVal}
+          onChange={setUsernameVal}
+        />
       </div>
 
       <div className="login-modal_row login-password">
         <p className="login-modal_label">密码</p>
-        <Input value={passwordVal} onChange={setPasswordVal} />
+        <Input
+          placeholder="请输入密码"
+          value={passwordVal}
+          onChange={setPasswordVal}
+          password
+        />
       </div>
 
       <div className="login-modal_row login-password">
         <p className="login-modal_label">再次输入</p>
         <Input
-          showClear={true}
+          placeholder="请再次输入密码"
           value={passwordVal2}
           onChange={setPasswordVal2}
+          password
         />
       </div>
     </div>
@@ -137,7 +158,8 @@ const Login: FC = () => {
       {alertEl}
 
       <div className="login-modal">
-        <h2 className="login-modal_title">登录</h2>
+        <img src={logo} alt="" className="login-modal_logo" />
+        <h2 className="login-modal_title">{isRegister ? '注册' : '登录'}</h2>
 
         {isRegister ? ResgiterEl : loginEl}
 

@@ -25,6 +25,25 @@ const DetailBTM: FC<IDetailTabsProps> = ({
 
   const [galleryIndex, setGalleryIndex] = useState(1);
 
+  const setIframeHeight = (iframe: HTMLIFrameElement) => {
+    if (iframe) {
+      const iframeWin = iframe.contentWindow as Window;
+      if (iframeWin.document.body) {
+        iframe.height = String(
+          (iframeWin.document.documentElement.scrollHeight ||
+            iframeWin.document.body.scrollHeight) - 50
+        );
+        console.log(123, iframe.height);
+      }
+    }
+  };
+
+  window.onload = function () {
+    const iFrameEl = document.getElementById('external-frame');
+    console.log(iFrameEl);
+    setIframeHeight(iFrameEl as HTMLIFrameElement);
+  };
+
   const placeholderEl = (
     <div className="movieDetail_placeholder">暂时还没有内容~</div>
   );
@@ -137,7 +156,7 @@ const DetailBTM: FC<IDetailTabsProps> = ({
             </p>
             <ul className="cast_list">
               {celebObj.celebrities.map((celeb) => (
-                <Link to={`/cast/${celeb.id}`}>
+                <Link to={`/cast/${celeb.id}`} key={celeb.id}>
                   <li className="cast_item" key={celeb.id}>
                     <div className="cast_pic_wrapper">
                       <img
@@ -212,6 +231,13 @@ const DetailBTM: FC<IDetailTabsProps> = ({
     </ul>
   );
 
+  const awardUrl = movieDetail?.awardUrl?.replace(
+    'https://m.maoyan.com',
+    // 'https://i.maoyan.com'
+    'http://localhost:3000/api/iframe/apollo'
+  );
+
+  console.log(movieDetail?.awardUrl, awardUrl);
   return (
     <div className="movieDetail_bottom">
       <Tabs activeIndex="1" className="movieDetail_bottom_tab">
@@ -223,13 +249,21 @@ const DetailBTM: FC<IDetailTabsProps> = ({
           {castEl}
         </Tabs.Item>
 
-        <Tabs.Item
-          index="3"
-          name={'奖项'}
-          disabled={movieDetail?.awardUrl === ''}
-        >
-          {/* TODO 奖项 */}
-          "AWARDS"
+        <Tabs.Item index="3" name={'奖项'} disabled={!movieDetail?.awardUrl}>
+          <iframe
+            src={awardUrl}
+            // src="http://localhost:3000/api/iframe/apollo/movie/243/honor?_v_=yes&utm_campaign=AmovieBmovieD100"
+            title="award"
+            style={{ width: '100%', overflowY: 'hidden' }}
+            frameBorder="0"
+            scrolling="no"
+            id="external-frame"
+            onLoad={(e) => {
+              console.log();
+              const frame = e.currentTarget;
+              setIframeHeight(frame);
+            }}
+          ></iframe>
         </Tabs.Item>
 
         <Tabs.Item index="4" name={'剧照'} className="gallery">

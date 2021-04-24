@@ -11,7 +11,6 @@ axiosInstance.interceptors.request.use((resquestConf: AxiosRequestConfig) => {
     resquestConf.params.ak = baiduAK;
   }
   if (url?.match(/^tian/)) {
-    console.log(resquestConf);
     resquestConf.params.key = tianAK;
   }
   return resquestConf;

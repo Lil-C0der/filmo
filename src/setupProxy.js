@@ -53,12 +53,12 @@ module.exports = function (app) {
     })
   );
   app.use(
-    '/api/douban',
+    '/api/iframe',
     createProxyMiddleware({
-      target: 'https://v.xhboke.com/douban',
+      target: 'https://i.maoyan.com',
       changeOrigin: true,
       pathRewrite: {
-        '^/api/douban': ''
+        '^/api/iframe': ''
       }
     })
   );

@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div className="App">
-      <HashRouter getUserConfirmation={(msg, cb) => {}}>
+      <HashRouter>
         <Router>
           <NavBar />
           <Switch>

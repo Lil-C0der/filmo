@@ -1,15 +1,45 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { searchSuggestion } from '@network/search';
+import { Button, Menu } from 'woo-ui-react';
+
+import { observer, useLocalStore } from 'mobx-react-lite';
+import store from '@store/index';
 
 import './_style.scss';
-import { Button, Menu } from 'woo-ui-react';
-interface NavBarProps {
-  // onSearchBtnClick?: () => {};
+// import { MENUINDEX, useActiveMenuItem } from '@/utils/hooks';
+
+export enum MENUINDEX {
+  MOVIE = '/movie',
+  NEWS = '/news',
+  PROFILE = '/profile'
 }
 
-const NavBar: FC<NavBarProps> = (props) => {
+const NavBar: FC = observer(() => {
+  const location = useLocation();
+  const userModel = useLocalStore(() => store);
+  const history = useHistory();
+
+  const parseMenuIndexByPathname = useCallback(() => {
+    const { pathname } = location;
+    if (pathname === '/' || !pathname) {
+      return MENUINDEX.MOVIE;
+    }
+    if (['/login', '/profile'].includes(pathname)) {
+      return MENUINDEX.PROFILE;
+    }
+    if (pathname.includes('/news')) {
+      return MENUINDEX.NEWS;
+    } else {
+      console.log(pathname);
+    }
+  }, [location]);
+
+  const [activeIdx, setActiveIdx] = useState<string>(
+    () => parseMenuIndexByPathname() as string
+  );
+
   // 获取搜索框元素
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -27,7 +57,13 @@ const NavBar: FC<NavBarProps> = (props) => {
   };
 
   const onLogoutBtnClick = () => {
-    console.log('推出');
+    if (userModel.isLogin) {
+      console.log('推出');
+      userModel.logout();
+      localStorage.removeItem('user-token');
+    } else {
+      history.push('/login');
+    }
   };
 
   return (
@@ -51,15 +87,6 @@ const NavBar: FC<NavBarProps> = (props) => {
               placeholder="搜索电影剧集、影人、影视原声"
               ref={inputRef}
             ></input>
-            {/* <div className="navbar_search_btn" onClick={onSearchBtnClick}>
-              搜索
-              <FontAwesomeIcon
-                className="navbar_search_btn_icon"
-                icon="search"
-                size="2x"
-              />
-            </div> */}
-
             <Button
               className="navbar_search_btn"
               size="lg"
@@ -78,23 +105,27 @@ const NavBar: FC<NavBarProps> = (props) => {
 
       <div className="navbar_secondary">
         <ul>
-          <Menu selectedIndex="movie" trigger="click" vertical={false}>
-            <Menu.Item index="movie">
-              {/* item 1 */}
+          <Menu
+            selectedIndex={activeIdx}
+            onClick={(index: string) => {
+              setActiveIdx(index);
+            }}
+            trigger="click"
+            vertical={false}
+          >
+            <Menu.Item index={MENUINDEX.MOVIE}>
               <Link to={'/'} className="navbar_item">
                 电影
               </Link>
             </Menu.Item>
 
-            <Menu.Item index="profile">
-              {/* item 2 */}
+            <Menu.Item index={MENUINDEX.PROFILE}>
               <Link to={'/profile'} className="navbar_item">
                 个人中心
               </Link>
             </Menu.Item>
 
-            <Menu.Item index="news">
-              {/* item 4 */}
+            <Menu.Item index={MENUINDEX.NEWS}>
               <Link to={'/news/movie'} className="navbar_item">
                 行业资讯
               </Link>
@@ -102,12 +133,12 @@ const NavBar: FC<NavBarProps> = (props) => {
           </Menu>
 
           <Button className="navbar_logoutBtn" onClick={onLogoutBtnClick}>
-            登出
+            {userModel.isLogin ? '登出' : '登录'}
           </Button>
         </ul>
       </div>
     </div>
   );
-};
+});
 
 export default NavBar;

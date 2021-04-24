@@ -77,18 +77,17 @@ const Profile: FC = observer(() => {
     if (loginUserModel.isLogin || token) {
       token && fetchUserInfo(token);
     } else {
-      // TODO Alert 提示
-      console.log('未登录，正在跳转登录页');
-      setAlertVisible(true);
+      // console.log('未登录，正在跳转登录页');
       setAlertConf({
         title: PROFILE_ALERT_MSG.TITLE,
         description: PROFILE_ALERT_MSG.DESCRIPTION,
         type: 'warn'
       });
+      setAlertVisible(true);
 
-      // setTimeout(() => {
-      //   history.push('/login');
-      // }, 3000);
+      setTimeout(() => {
+        history.push('/login');
+      }, 3000);
     }
   }, [fetchUserInfo, history, loginUserModel]);
 

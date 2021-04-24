@@ -28,7 +28,8 @@
       "@network/*": ["network/*"],
       "@utils/*": ["utils/*"],
       "@constants/*": ["constants/*"],
-      "@route/*": ["route/*"]
+      "@route/*": ["route/*"],
+      "@store/*": ["store/*"]
     }
   },
   "include": [

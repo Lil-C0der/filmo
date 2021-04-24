@@ -337,7 +337,8 @@ module.exports = function (webpackEnv) {
         '@network': path.resolve(__dirname, '../src/network'),
         '@utils': path.resolve(__dirname, '../src/utils'),
         '@constants': path.resolve(__dirname, '../src/constants'),
-        '@route': path.resolve(__dirname, '../src/route')
+        '@route': path.resolve(__dirname, '../src/route'),
+        '@store': path.resolve(__dirname, '../src/store')
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

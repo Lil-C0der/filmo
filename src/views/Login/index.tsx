@@ -7,7 +7,10 @@ import { getCurrGreeting } from '@/utils';
 import { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 import logo from '../../logo.png';
 
-const Login: FC = () => {
+import { observer, useLocalStore } from 'mobx-react-lite';
+import store from '@store/index';
+
+const Login: FC = observer(() => {
   const [isRegister, setIsRegister] = useState<boolean>(false);
   const [usernameVal, setUsernameVal] = useState('');
   const [passwordVal, setPasswordVal] = useState('');
@@ -19,6 +22,9 @@ const Login: FC = () => {
     description: '',
     type: 'primary'
   });
+
+  // mobx store
+  const loginUserModel = useLocalStore(() => store);
 
   useEffect(() => {
     setUsernameVal('');
@@ -45,6 +51,8 @@ const Login: FC = () => {
 
     const { code, data, msg } = await login(usernameVal, passwordVal);
     if (code === 200) {
+      const { token, user } = data;
+      loginUserModel.login({ ...user, token });
       setAlertConf({
         title: msg,
         description: `${getCurrGreeting()}，${
@@ -185,6 +193,6 @@ const Login: FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Login;

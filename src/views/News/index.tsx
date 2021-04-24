@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { getEntNews, getMoviesNews } from '@/network/news';
 import { useParams } from 'react-router';
-import { useDebounce } from '@/utils/hooks';
+import { useDebounce } from '@hooks/index';
 
 import './_styles.scss';
 

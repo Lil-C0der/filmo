@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useCallback, useEffect, useRef } from 'react';
 
 export function useDebounce(fn: any, delay = 300): any {
   const { current } = useRef<{ fn: any; timer: NodeJS.Timeout | null } | null>({

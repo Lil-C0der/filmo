@@ -29,7 +29,8 @@
       "@utils/*": ["utils/*"],
       "@constants/*": ["constants/*"],
       "@route/*": ["route/*"],
-      "@store/*": ["store/*"]
+      "@store/*": ["store/*"],
+      "@hooks/*": ["hooks/*"],
     }
   },
   "include": [

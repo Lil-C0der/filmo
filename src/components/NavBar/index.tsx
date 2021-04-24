@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { searchSuggestion } from '@network/search';
 
 import './_style.scss';
+import { Button, Menu } from 'woo-ui-react';
 interface NavBarProps {
   // onSearchBtnClick?: () => {};
 }
@@ -23,6 +24,10 @@ const NavBar: FC<NavBarProps> = (props) => {
     searchSuggestion('唐人街').then((res) => {
       console.log(res);
     });
+  };
+
+  const onLogoutBtnClick = () => {
+    console.log('推出');
   };
 
   return (
@@ -46,33 +51,59 @@ const NavBar: FC<NavBarProps> = (props) => {
               placeholder="搜索电影剧集、影人、影视原声"
               ref={inputRef}
             ></input>
-            <div className="navbar_search_btn" onClick={onSearchBtnClick}>
+            {/* <div className="navbar_search_btn" onClick={onSearchBtnClick}>
               搜索
               <FontAwesomeIcon
                 className="navbar_search_btn_icon"
                 icon="search"
                 size="2x"
               />
-            </div>
+            </div> */}
+
+            <Button
+              className="navbar_search_btn"
+              size="lg"
+              onClick={onSearchBtnClick}
+            >
+              搜索
+              <FontAwesomeIcon
+                className="navbar_search_btn_icon"
+                icon="search"
+                size="2x"
+              />
+            </Button>
           </div>
         </div>
       </div>
 
       <div className="navbar_secondary">
         <ul>
-          <Link to={'/'} className="navbar_item">
-            电影
-          </Link>
-          {/* <li className="navbar_item">影人</li> */}
+          <Menu selectedIndex="movie" trigger="click" vertical={false}>
+            <Menu.Item index="movie">
+              {/* item 1 */}
+              <Link to={'/'} className="navbar_item">
+                电影
+              </Link>
+            </Menu.Item>
 
-          <Link to={'/profile'} className="navbar_item">
-            个人中心
-          </Link>
-          <Link to={'/news/movie'} className="navbar_item">
-            行业资讯
-          </Link>
-          {/* <li className="navbar_item">登录/注册</li> */}
-          <li className="navbar_item">留言</li>
+            <Menu.Item index="profile">
+              {/* item 2 */}
+              <Link to={'/profile'} className="navbar_item">
+                个人中心
+              </Link>
+            </Menu.Item>
+
+            <Menu.Item index="news">
+              {/* item 4 */}
+              <Link to={'/news/movie'} className="navbar_item">
+                行业资讯
+              </Link>
+            </Menu.Item>
+          </Menu>
+
+          <Button className="navbar_logoutBtn" onClick={onLogoutBtnClick}>
+            登出
+          </Button>
         </ul>
       </div>
     </div>

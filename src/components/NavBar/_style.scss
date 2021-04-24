@@ -3,7 +3,7 @@
 @import '~styles/extends';
 
 .navbar {
-  height: 144px;
+  height: 153px;
   min-width: 1200px;
   background-color: $headerBg;
   &_wrapper {
@@ -62,7 +62,7 @@
         line-height: 40px;
         margin-left: 8px;
         font-size: 16px;
-        @extend .btn;
+        // @extend .btn;
         svg {
           margin-left: 4px;
           font-size: 16px;
@@ -73,17 +73,32 @@
 
   // 导航栏下半部分 常用连接
   &_secondary {
-    height: 40px;
+    // height: 40px;
+    height: 48px;
     max-width: 1200px;
     margin: 0 auto;
     ul {
       display: flex;
       padding-left: 16px;
+      padding-right: 112px;
+      justify-content: space-between;
+      align-items: center;
     }
     .navbar_item {
       @extend .link;
+      border-bottom: none;
+      margin: 0 20px;
+      line-height: 48px;
+      height: 100%;
       color: $fontColor-white;
-      margin-right: 40px;
     }
+    .navbar_logoutBtn {
+    }
+  }
+}
+
+.woo-menu-item-active {
+  .navbar_item {
+    color: $fontColor-link-active;
   }
 }

@@ -1,11 +1,10 @@
 @import '~styles/var';
+@import '~styles/extends';
 
 .homepage {
+  @extend .container;
   display: flex;
   justify-content: space-between;
-  width: 1200px;
-  // padding: 0 20px;
-  min-width: 1200px;
   margin: 0 auto;
   &_movies {
     width: 800px;
@@ -17,12 +16,11 @@
 }
 
 .movies_title {
+  @extend .title;
   position: relative;
   height: 64px;
   margin-top: 16px;
   line-height: 64px;
-  font-size: 24px;
-  color: $fontColor-grey;
   border-bottom: 1px solid $borderColor;
 }
 

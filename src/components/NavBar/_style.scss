@@ -13,14 +13,13 @@
   }
   // 导航栏上半部分 logo & 搜索栏
   &_primary {
+    @extend .container;
     display: flex;
-    width: 1200px;
     min-width: 1200px;
     justify-content: flex-start;
     align-items: center;
     height: 88px;
     line-height: 88px;
-    margin: 0 auto;
     .navbar_logo {
       @include bg('~@/logo.png', 200px, 100%);
       padding: 4px 0;
@@ -91,8 +90,6 @@
       line-height: 48px;
       height: 100%;
       color: $fontColor-white;
-    }
-    .navbar_logoutBtn {
     }
   }
 }

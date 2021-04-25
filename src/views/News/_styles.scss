@@ -1,15 +1,13 @@
 @import '~styles/var';
+@import '~styles/extends';
 
 .news {
-  width: 1200px;
-  margin: 0 auto;
+  @extend .container;
   padding: 32px 24px;
   background-color: $white;
   &-title {
-    font-weight: 400;
+    @extend .title;
     margin-bottom: 24px;
-    font-size: 24px;
-    color: $grey;
   }
   &-item {
     margin-bottom: 32px;

@@ -1,9 +1,9 @@
 @import '~styles/var';
+@import '~styles/extends';
 
 .detail {
-  width: 1200px;
+  @extend .container;
   min-width: 1200px;
-  margin: 0 auto;
   padding-top: 24px;
   background-color: $white;
 }
@@ -105,10 +105,7 @@
 }
 
 .movieDetail_placeholder {
-  margin: 48px 0;
-  text-align: center;
-  font-size: 16px;
-  letter-spacing: 1px;
+  @extend .placeholder;
 }
 
 // 下半部分 Tabs 样式

@@ -13,7 +13,8 @@ import './_style.scss';
 export enum MENUINDEX {
   MOVIE = '/movie',
   NEWS = '/news',
-  PROFILE = '/profile'
+  PROFILE = '/profile',
+  COMMUNITY = '/community'
 }
 
 const NavBar: FC = observer(() => {
@@ -21,6 +22,7 @@ const NavBar: FC = observer(() => {
   const userModel = useLocalStore(() => store);
   const history = useHistory();
 
+  // 初始化时通过路由解析当前的 menu index
   const parseMenuIndexByPathname = useCallback(() => {
     const { pathname } = location;
     if (pathname === '/' || !pathname) {
@@ -31,6 +33,9 @@ const NavBar: FC = observer(() => {
     }
     if (pathname.includes('/news')) {
       return MENUINDEX.NEWS;
+    }
+    if (pathname.includes('/community')) {
+      return MENUINDEX.COMMUNITY;
     } else {
       console.log(pathname);
     }
@@ -128,6 +133,12 @@ const NavBar: FC = observer(() => {
             <Menu.Item index={MENUINDEX.NEWS}>
               <Link to={'/news/movie'} className="navbar_item">
                 行业资讯
+              </Link>
+            </Menu.Item>
+
+            <Menu.Item index={MENUINDEX.COMMUNITY}>
+              <Link to={'/community'} className="navbar_item">
+                社区
               </Link>
             </Menu.Item>
           </Menu>

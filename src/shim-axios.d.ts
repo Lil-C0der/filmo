@@ -303,17 +303,21 @@ declare global {
       pwd: string;
       createdAt: string;
     }
-    // 登录接口返回的结果
-    type loginResponseData = {
+
+    // 本地 nest api 响应类型
+    type localResponseData<T> = {
       code: number;
       success: boolean;
       msg: string;
-      data: {
-        error?: string;
-        user: IUser;
-        token: string;
-      };
+      data: T;
     };
+
+    // 登录接口返回的结果
+    type loginResponseData = localResponseData<{
+      error?: string;
+      user: IUser;
+      token: string;
+    }>;
 
     interface IUserDetail {
       posts: any[];
@@ -324,14 +328,23 @@ declare global {
       pwd: string;
       createdAt: string;
     }
-    // 登录接口返回的结果
-    type userDetailResponseData = {
-      code: number;
-      success: boolean;
-      msg: string;
-      data: {
-        user: IUserDetail;
-      };
-    };
+
+    // 用户信息返回的结果
+    type userDetailResponseData = localResponseData<{ user: IUserDetail }>;
+
+    interface IPost {
+      id: string;
+      title: string;
+      creatorId: string;
+      creatorUsername: string;
+      content: string;
+      createdAt: string;
+      updateAt: string;
+      replies: number;
+    }
+    // 所有帖子列表
+    type postsResponseData = localResponseData<{ posts: IPost[] }>;
+
+    // TODO 帖子详情
   }
 }

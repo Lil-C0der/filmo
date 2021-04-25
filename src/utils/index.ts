@@ -17,3 +17,15 @@ export const getCurrGreeting = (
   const idx = hoursList.findIndex((hour) => h <= hour);
   return greetingList[idx];
 };
+
+export const mongoDataParser = (date: string) => {
+  if (!date) {
+    return;
+  }
+  const dateArr = date.split('T');
+  // console.log(dateArr);
+  let timeArr = dateArr[1]?.split(':');
+  timeArr[0] = String(+timeArr[0] + 8);
+  console.log(timeArr);
+  return `${dateArr[0]} ${timeArr[0]}:${timeArr[1]}`;
+};

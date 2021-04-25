@@ -5,6 +5,7 @@ import Login from '@/views/Login';
 import Profile from '@/views/Profile';
 import { FC } from 'react';
 import News from '@/views/News';
+import Community from '@/views/Community';
 
 export interface IRouteCfg {
   name: string;
@@ -26,7 +27,8 @@ const routes: IRouteCfg[] = [
     auth: true,
     exact: false
   },
-  { name: 'news', path: '/news/:newsType', component: News, exact: false }
+  { name: 'news', path: '/news/:newsType', component: News, exact: false },
+  { name: 'community', path: '/community', component: Community, exact: false }
 ];
 
 export default routes;

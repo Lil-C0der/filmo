@@ -21,6 +21,9 @@
     &_username {
       margin-bottom: 16px;
     }
+    &_registerDate {
+      color: $fontColor-grey;
+    }
   }
   &-placeholder {
     @extend .placeholder;
@@ -30,6 +33,9 @@
     // width: 480px;
     width: 720px;
     margin: 0 auto;
+    &_content {
+      // color: $fontColor-black;
+    }
   }
 }
 

@@ -1,0 +1,32 @@
+@import '~styles/var';
+@import '~styles/extends';
+
+.community {
+  @extend .container;
+  padding-top: 32px;
+  &-title {
+    @extend .title;
+  }
+  &-post {
+    &-list {
+      padding-top: 64px;
+    }
+    &-item {
+      display: flex;
+      padding-left: 16px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid $borderColor;
+    }
+  }
+  .post {
+    &-title {
+      font-size: 16px;
+      display: block;
+      margin-bottom: 24px;
+    }
+    &-replies {
+      margin-right: 24px;
+      margin-left: auto;
+    }
+  }
+}

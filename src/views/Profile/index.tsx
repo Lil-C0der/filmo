@@ -7,6 +7,7 @@ import store, { IUser } from '@/store';
 import './_style.scss';
 import { Tabs, Alert } from 'woo-ui-react';
 import { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
+import { mongoDataParser } from '@/utils';
 
 const defaultUserInfo: IUser = {
   username: '',
@@ -21,18 +22,6 @@ enum PROFILE_ALERT_MSG {
   TITLE = '未登录',
   DESCRIPTION = '正在为您跳转登录页..'
 }
-
-const mongoDataTransform = (date: string) => {
-  if (!date) {
-    return;
-  }
-  const dateArr = date.split('T');
-  // console.log(dateArr);
-  let timeArr = dateArr[1]?.split(':');
-  timeArr[0] = String(+timeArr[0] + 8);
-  console.log(timeArr);
-  return `${dateArr[0]} ${timeArr[0]}:${timeArr[1]}`;
-};
 
 const placeholderEl = (
   <div className="profile-placeholder">暂时还没有内容~</div>
@@ -50,8 +39,8 @@ const Profile: FC = observer(() => {
 
   const loginUserModel = useLocalStore(() => store);
 
-  const fetchUserInfo = useCallback(async (token: string) => {
-    const { code, data } = await getUserDetail(token);
+  const fetchUserInfo = useCallback(async () => {
+    const { code, data } = await getUserDetail();
     if (code === 200 && data) {
       setUserInfo(data.user);
     }
@@ -75,7 +64,7 @@ const Profile: FC = observer(() => {
     console.log(loginUserModel.isLogin);
     const token = loginUserModel.token || localStorage.getItem('user-token');
     if (loginUserModel.isLogin || token) {
-      token && fetchUserInfo(token);
+      token && fetchUserInfo();
     } else {
       // console.log('未登录，正在跳转登录页');
       setAlertConf({
@@ -101,12 +90,16 @@ const Profile: FC = observer(() => {
           <div className="profile-intro">
             <h1 className="profile-intro_username">{userInfo.username}</h1>
             <span className="profile-intro_registerDate">
-              加入于 {mongoDataTransform(userInfo.createdAt)}
+              加入于 {mongoDataParser(userInfo.createdAt)}
             </span>
           </div>
 
           <Tabs activeIndex="1" className="profile-tab">
-            <Tabs.Item index="1" name="发表的内容">
+            <Tabs.Item
+              className="profile-tab_content"
+              index="1"
+              name="发表的内容"
+            >
               {userInfo.posts.length
                 ? userInfo.posts.map((post) => (
                     <li key={post.id}>{post.title}</li>
@@ -114,7 +107,11 @@ const Profile: FC = observer(() => {
                 : placeholderEl}
             </Tabs.Item>
 
-            <Tabs.Item index="2" name="收藏的电影">
+            <Tabs.Item
+              className="profile-tab_content"
+              index="2"
+              name="收藏的电影"
+            >
               {userInfo.posts.length
                 ? userInfo.posts.map((post) => (
                     <li key={post.id}>{post.title}</li>
@@ -122,7 +119,11 @@ const Profile: FC = observer(() => {
                 : placeholderEl}
             </Tabs.Item>
 
-            <Tabs.Item index="3" name="看过的电影">
+            <Tabs.Item
+              className="profile-tab_content"
+              index="3"
+              name="看过的电影"
+            >
               {userInfo.posts.length
                 ? userInfo.posts.map((post) => (
                     <li key={post.id}>{post.title}</li>

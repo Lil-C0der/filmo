@@ -36,7 +36,7 @@ class UserModel {
   constructor() {
     this.user = defaultUser;
     this.token = '';
-    this.isLogin = false;
+    this.isLogin = localStorage.getItem('user-token') ? true : false;
 
     makeObservable(this, {
       user: observable,

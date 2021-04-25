@@ -15,13 +15,9 @@ export function create(username: string, pwd: string) {
   });
 }
 
-export function getUserDetail(token: string) {
+export function getUserDetail() {
   return instance<dataTypes.userDetailResponseData>({
     url: `/local/auth/user`,
-    method: 'GET',
-    headers: {
-      // token
-      Authorization: `Bearer ${token}`
-    }
+    method: 'GET'
   });
 }

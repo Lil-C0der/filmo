@@ -25,7 +25,7 @@ export const mongoDataParser = (date: string) => {
   const dateArr = date.split('T');
   // console.log(dateArr);
   let timeArr = dateArr[1]?.split(':');
-  timeArr[0] = String(+timeArr[0] + 8);
+  const hrs = +timeArr[0] + 8;
   console.log(timeArr);
-  return `${dateArr[0]} ${timeArr[0]}:${timeArr[1]}`;
+  return `${dateArr[0]} ${hrs >= 24 ? hrs - 24 : hrs}:${timeArr[1]}`;
 };

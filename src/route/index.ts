@@ -6,6 +6,7 @@ import Profile from '@/views/Profile';
 import { FC } from 'react';
 import News from '@/views/News';
 import Community from '@/views/Community';
+import PostDetail from '@/views/Community/postDetail';
 
 export interface IRouteCfg {
   name: string;
@@ -28,7 +29,8 @@ const routes: IRouteCfg[] = [
     exact: false
   },
   { name: 'news', path: '/news/:newsType', component: News, exact: false },
-  { name: 'community', path: '/community', component: Community, exact: false }
+  { name: 'community', path: '/community', component: Community, exact: false },
+  { name: 'cast', path: '/post/:postId', component: PostDetail, exact: false }
 ];
 
 export default routes;

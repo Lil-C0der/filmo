@@ -7,7 +7,7 @@ import store, { IUser } from '@/store';
 import './_style.scss';
 import { Tabs, Alert } from 'woo-ui-react';
 import { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
-import { mongoDataParser } from '@/utils';
+import { parseMongoDate } from '@/utils';
 import Placeholder from '@/components/Placeholder';
 
 const defaultUserInfo: IUser = {
@@ -87,7 +87,7 @@ const Profile: FC = observer(() => {
           <div className="profile-intro">
             <h1 className="profile-intro_username">{userInfo.username}</h1>
             <span className="profile-intro_registerDate">
-              加入于 {mongoDataParser(userInfo.createdAt)}
+              加入于 {parseMongoDate(userInfo.createdAt)}
             </span>
           </div>
 

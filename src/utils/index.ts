@@ -18,7 +18,7 @@ export const getCurrGreeting = (
   return greetingList[idx];
 };
 
-export const mongoDataParser = (date: string) => {
+export const parseMongoDate = (date: string) => {
   if (!date) {
     return;
   }
@@ -28,4 +28,22 @@ export const mongoDataParser = (date: string) => {
   const hrs = +timeArr[0] + 8;
   console.log(timeArr);
   return `${dateArr[0]} ${hrs >= 24 ? hrs - 24 : hrs}:${timeArr[1]}`;
+};
+
+const fillLeft = (n: string | number) => (+n >= 10 ? String(n) : `0${+n}`);
+
+export const parseTimeStamp = (stampStr: string = String(Date.now())) => {
+  const stamp = +stampStr;
+  const d = new Date(stamp);
+  const yrs = d.getFullYear(),
+    month = d.getMonth() + 1,
+    date = d.getDate(),
+    hrs = d.getHours(),
+    min = d.getMinutes();
+
+  // 2021-04-25 0:47 +8:00
+
+  return `${yrs}-${fillLeft(month)}-${fillLeft(date)} ${fillLeft(
+    hrs
+  )}:${fillLeft(min)}`;
 };

@@ -6,10 +6,11 @@
   padding-top: 32px;
   &-title {
     @extend .title;
+    padding-left: 16px;
   }
   &-post {
     &-list {
-      padding-top: 64px;
+      padding-top: 48px;
     }
     &-item {
       display: flex;
@@ -18,15 +19,93 @@
       border-bottom: 1px solid $borderColor;
     }
   }
-  .post {
+  .postItem {
+    &-wrapper {
+      margin-bottom: 8px;
+      span {
+        margin-right: 8px;
+      }
+    }
     &-title {
       font-size: 16px;
       display: block;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
+    }
+    &-creator {
+      font-weight: 700;
+      color: $fontColor-grey;
     }
     &-replies {
-      margin-right: 24px;
+      height: 24px;
+      border-radius: 12px;
+      padding: 0 16px;
+      background-color: $siderBg;
+      font-size: 16px;
+      font-weight: 700;
+      color: $fontColor-white;
+      margin-right: 64px;
       margin-left: auto;
+    }
+  }
+}
+
+.post {
+  @extend .container;
+  min-height: 1000px;
+  margin-top: 16px;
+  padding: 0 16px;
+  border-left: 1px dashed $borderColor;
+  border-right: 1px dashed $borderColor;
+  &-wrapper {
+    padding-top: 24px;
+    background-color: $white;
+    box-shadow: 0 2px 4px 4px rgba($color: #000000, $alpha: 0.2);
+    margin-bottom: 64px;
+  }
+  &-header {
+    padding: 0 16px 16px;
+    border-bottom: 1px solid $borderColor-disabled;
+  }
+  &-title {
+    margin-bottom: 16px;
+    font-size: 24px;
+    font-weight: 500;
+  }
+  &-info {
+    .post-creator {
+      margin-right: 16px;
+      position: relative;
+      &::after {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        right: -10px;
+        transform: translateY(-50%);
+        content: '';
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: $fontColor-grey;
+      }
+    }
+    .post-date {
+      color: $fontColor-grey;
+    }
+  }
+  &-content {
+    padding: 16px;
+    font-size: 18px;
+  }
+  &-replies-wrapper {
+    min-height: 720px;
+    border: 1px solid $borderColor;
+    padding: 16px;
+    .reply-username {
+      font-weight: 700;
+      margin-right: 16px;
+    }
+    .reply-content {
+      margin-top: 24px;
     }
   }
 }

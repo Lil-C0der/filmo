@@ -339,12 +339,30 @@ declare global {
       creatorUsername: string;
       content: string;
       createdAt: string;
-      updateAt: string;
+      updatedAt: string;
       replies: number;
     }
     // 所有帖子列表
     type postsResponseData = localResponseData<{ posts: IPost[] }>;
 
+    interface IReply {
+      userId: string;
+      username: string;
+      replyAt: string;
+      content: string;
+    }
+
+    interface IPostDetail {
+      id: string;
+      title: string;
+      creatorId: string;
+      creatorUsername: string;
+      content: string;
+      createdAt: string;
+      updateAt: string;
+      replies: IReply[];
+    }
     // TODO 帖子详情
+    type postDetailResponseData = localResponseData<IPostDetail>;
   }
 }

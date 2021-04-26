@@ -6,3 +6,10 @@ export const getPostsList = () => {
     method: 'GET'
   });
 };
+
+export const getPostDetail = (id: string) => {
+  return instance<dataTypes.postDetailResponseData>({
+    url: `/local/posts/${id}`,
+    method: 'GET'
+  });
+};

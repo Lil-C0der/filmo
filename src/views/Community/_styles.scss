@@ -51,11 +51,13 @@
 
 .post {
   @extend .container;
+  position: relative;
   min-height: 1000px;
   margin-top: 16px;
-  padding: 0 16px;
-  border-left: 1px dashed $borderColor;
-  border-right: 1px dashed $borderColor;
+  padding: 0 16px 128px;
+  border: 1px dashed $borderColor;
+  border-top: none;
+  border-bottom: none;
   &-wrapper {
     padding-top: 24px;
     background-color: $white;
@@ -74,6 +76,7 @@
   &-info {
     .post-creator {
       margin-right: 16px;
+      margin-left: 4px;
       position: relative;
       &::after {
         display: inline-block;
@@ -97,10 +100,18 @@
     font-size: 18px;
   }
   &-replies-wrapper {
+    position: relative;
     min-height: 720px;
     border: 1px solid $borderColor;
-    padding: 16px;
-    .reply-username {
+    padding: 16px 24px;
+    margin-bottom: 48px;
+    .reply-index {
+      font-size: 16px;
+      position: absolute;
+      top: 16px;
+      right: 32px;
+    }
+    .reply-creator {
       font-weight: 700;
       margin-right: 16px;
     }
@@ -108,4 +119,20 @@
       margin-top: 24px;
     }
   }
+  &-reply {
+    padding-bottom: 16px;
+    border-bottom: 1px solid $borderColor;
+  }
+}
+
+.bf-container {
+  border: 1px solid $borderColor;
+  .bf-content {
+    height: 100%;
+  }
+}
+.reply-btn {
+  position: absolute;
+  margin-top: 32px;
+  right: 16px;
 }

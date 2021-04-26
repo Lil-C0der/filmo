@@ -4,6 +4,7 @@ import Slide from '@cpnt/Slide';
 import { Tabs } from 'woo-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import Placeholder from '@/components/Placeholder';
 
 interface IDetailTabsProps {
   movieDetail: dataTypes.IMovieInfo | null;
@@ -44,10 +45,6 @@ const DetailBTM: FC<IDetailTabsProps> = ({
     setIframeHeight(iFrameEl as HTMLIFrameElement);
   };
 
-  const placeholderEl = (
-    <div className="movieDetail_placeholder">暂时还没有内容~</div>
-  );
-
   const briefEl = (
     <div className="movieDetail_sum">
       <p className="movieDetail_sum_title">剧情简介</p>
@@ -69,7 +66,7 @@ const DetailBTM: FC<IDetailTabsProps> = ({
           </span>
         </div>
       ) : (
-        placeholderEl
+        <Placeholder />
       )}
 
       <p className="movieDetail_sum_title">热门影评 ({hcmtsArr?.length} 条)</p>
@@ -109,7 +106,7 @@ const DetailBTM: FC<IDetailTabsProps> = ({
           })}
         </ul>
       ) : (
-        placeholderEl
+        <Placeholder />
       )}
 
       <p className="movieDetail_sum_title">最新影评 ({cmtsArr?.length} 条)</p>
@@ -139,7 +136,7 @@ const DetailBTM: FC<IDetailTabsProps> = ({
           })}
         </ul>
       ) : (
-        placeholderEl
+        <Placeholder />
       )}
       {/* TODO 本站评论 */}
     </div>

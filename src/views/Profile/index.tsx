@@ -8,6 +8,7 @@ import './_style.scss';
 import { Tabs, Alert } from 'woo-ui-react';
 import { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 import { mongoDataParser } from '@/utils';
+import Placeholder from '@/components/Placeholder';
 
 const defaultUserInfo: IUser = {
   username: '',
@@ -22,10 +23,6 @@ enum PROFILE_ALERT_MSG {
   TITLE = '未登录',
   DESCRIPTION = '正在为您跳转登录页..'
 }
-
-const placeholderEl = (
-  <div className="profile-placeholder">暂时还没有内容~</div>
-);
 
 const Profile: FC = observer(() => {
   const history = useHistory();
@@ -100,11 +97,13 @@ const Profile: FC = observer(() => {
               index="1"
               name="发表的内容"
             >
-              {userInfo.posts.length
-                ? userInfo.posts.map((post) => (
-                    <li key={post.id}>{post.title}</li>
-                  ))
-                : placeholderEl}
+              {userInfo.posts.length ? (
+                userInfo.posts.map((post) => (
+                  <li key={post.id}>{post.title}</li>
+                ))
+              ) : (
+                <Placeholder />
+              )}
             </Tabs.Item>
 
             <Tabs.Item
@@ -112,11 +111,13 @@ const Profile: FC = observer(() => {
               index="2"
               name="收藏的电影"
             >
-              {userInfo.posts.length
-                ? userInfo.posts.map((post) => (
-                    <li key={post.id}>{post.title}</li>
-                  ))
-                : placeholderEl}
+              {userInfo.posts.length ? (
+                userInfo.posts.map((post) => (
+                  <li key={post.id}>{post.title}</li>
+                ))
+              ) : (
+                <Placeholder />
+              )}
             </Tabs.Item>
 
             <Tabs.Item
@@ -124,11 +125,13 @@ const Profile: FC = observer(() => {
               index="3"
               name="看过的电影"
             >
-              {userInfo.posts.length
-                ? userInfo.posts.map((post) => (
-                    <li key={post.id}>{post.title}</li>
-                  ))
-                : placeholderEl}
+              {userInfo.posts.length ? (
+                userInfo.posts.map((post) => (
+                  <li key={post.id}>{post.title}</li>
+                ))
+              ) : (
+                <Placeholder />
+              )}
             </Tabs.Item>
           </Tabs>
         </>

@@ -362,7 +362,7 @@ declare global {
       updateAt: string;
       replies: IReply[];
     }
-    // TODO 帖子详情
     type postDetailResponseData = localResponseData<IPostDetail>;
+    type postReplyResponseData = localResponseData<IPostDetail>;
   }
 }

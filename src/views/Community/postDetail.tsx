@@ -1,12 +1,14 @@
-import Placeholder from '@/components/Placeholder';
-import { getPostDetail } from '@/network/post';
-import { parseMongoDate, parseTimeStamp } from '@/utils';
 import React, { FC, useCallback, useEffect, useState } from 'react';
+import Placeholder from '@/components/Placeholder';
+import { getPostDetail, replyPost } from '@/network/post';
+import { parseMongoDate, parseTimeStamp } from '@/utils';
 import { useParams } from 'react-router';
-import 'braft-editor/dist/index.css';
-import BraftEditor, { ControlType } from 'braft-editor';
+import BraftEditor, { ControlType, EditorState } from 'braft-editor';
+import { ContentUtils } from 'braft-utils';
 import { Button } from 'woo-ui-react';
 
+import 'braft-editor/dist/index.css';
+import Alert, { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 interface IPostParams {
   postId: string;
 }
@@ -30,10 +32,24 @@ const editorControls: ControlType[] = [
   }
 ];
 
+enum POST_ALERT_MSG {
+  NOT_EMPTY = '回帖内容不能为空！',
+  UNAUTH = '请先登录！'
+}
+
 const PostDetail: FC = () => {
   const { postId } = useParams<IPostParams>();
   const [postDetail, setPostDetail] = useState<dataTypes.IPostDetail>();
-  const [editorState, setEditorState] = useState();
+  const [editorState, setEditorState] = useState<EditorState>(
+    BraftEditor.createEditorState(null)
+  );
+
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertConf, setAlertConf] = useState<IAlertProps>({
+    title: '',
+    description: '',
+    type: 'primary'
+  });
 
   const fetchPostDetail = useCallback(async () => {
     const { data } = await getPostDetail(postId);
@@ -41,20 +57,69 @@ const PostDetail: FC = () => {
     setPostDetail(data);
   }, [postId]);
 
+  const onReply = useCallback(async () => {
+    const content: string = editorState.toText();
+    if (!content.trim()) {
+      setAlertConf({
+        title: POST_ALERT_MSG.NOT_EMPTY,
+        type: 'danger'
+      });
+      setAlertVisible(true);
+      setTimeout(() => {
+        setAlertVisible(false);
+      }, 1000);
+      return;
+    }
+
+    try {
+      const { code, data, msg } = await replyPost(postId, content);
+      if (code === 200) {
+        // 发表后清空
+        setEditorState(ContentUtils.clear(editorState));
+        setPostDetail(data);
+        setAlertConf({
+          title: msg,
+          type: 'success'
+        });
+      }
+    } catch (error) {
+      setAlertConf({
+        title: POST_ALERT_MSG.UNAUTH,
+        type: 'danger'
+      });
+    }
+
+    setAlertVisible(true);
+    setTimeout(() => {
+      setAlertVisible(false);
+    }, 1000);
+  }, [postId, editorState]);
+
   useEffect(() => {
     fetchPostDetail();
   }, [fetchPostDetail]);
 
-  const handleChange = (e: any) => {
-    console.log(e);
+  const handleChange = (state: EditorState) => {
+    setEditorState(state);
   };
 
-  const onReply = () => {
-    console.log(editorState);
-  };
+  let alertEl = alertVisible ? (
+    <Alert
+      closable
+      className="post-alert"
+      title={alertConf.title}
+      description={alertConf.description}
+      type={alertConf.type}
+      onClose={() => {
+        alertEl = null;
+        setAlertVisible(false);
+      }}
+    />
+  ) : null;
 
   return (
     <div className="post">
+      {alertEl}
       <div className="post-wrapper">
         <div className="post-header">
           <h1 className="post-title">{postDetail?.title}</h1>
@@ -86,7 +151,7 @@ const PostDetail: FC = () => {
       </div>
 
       <BraftEditor
-        style={{ height: '400px' }}
+        style={{ height: '240px' }}
         className="post-reply-editor"
         value={editorState}
         controls={editorControls}

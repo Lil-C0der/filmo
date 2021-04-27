@@ -33,7 +33,7 @@ const Community: FC = () => {
                 <span className="postItem-date">
                   {parseMongoDate(post.createdAt)}
                 </span>
-                <span className="postItem-date">
+                <span className="postItem-date_update">
                   最后更新于 {parseMongoDate(post.updatedAt)}
                 </span>
               </div>

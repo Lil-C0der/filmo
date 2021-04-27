@@ -10,7 +10,7 @@
   }
   &-post {
     &-list {
-      padding-top: 48px;
+      padding-top: 32px;
     }
     &-item {
       display: flex;
@@ -24,6 +24,9 @@
       margin-bottom: 8px;
       span {
         margin-right: 8px;
+      }
+      .postItem-date {
+        margin-right: 32px;
       }
     }
     &-title {
@@ -97,11 +100,12 @@
   }
   &-content {
     padding: 16px;
+    padding-bottom: 48px;
     font-size: 18px;
   }
   &-replies-wrapper {
     position: relative;
-    min-height: 720px;
+    min-height: 640px;
     border: 1px solid $borderColor;
     padding: 16px 24px;
     margin-bottom: 48px;
@@ -120,6 +124,8 @@
     }
   }
   &-reply {
+    position: relative;
+    padding-top: 16px;
     padding-bottom: 16px;
     border-bottom: 1px solid $borderColor;
   }
@@ -135,4 +141,12 @@
   position: absolute;
   margin-top: 32px;
   right: 16px;
+}
+.post .post-alert {
+  position: fixed;
+  width: 320px;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99;
 }

@@ -26,13 +26,16 @@ export const parseMongoDate = (date: string) => {
   // console.log(dateArr);
   let timeArr = dateArr[1]?.split(':');
   const hrs = +timeArr[0] + 8;
-  console.log(timeArr);
+  // console.log(timeArr);
   return `${dateArr[0]} ${hrs >= 24 ? hrs - 24 : hrs}:${timeArr[1]}`;
 };
 
 const fillLeft = (n: string | number) => (+n >= 10 ? String(n) : `0${+n}`);
 
-export const parseTimeStamp = (stampStr: string = String(Date.now())) => {
+export const parseTimeStamp = (stampStr: string) => {
+  if (!stampStr) {
+    return;
+  }
   const stamp = +stampStr;
   const d = new Date(stamp);
   const yrs = d.getFullYear(),

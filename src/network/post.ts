@@ -13,3 +13,16 @@ export const getPostDetail = (id: string) => {
     method: 'GET'
   });
 };
+
+export const replyPost = (
+  id: string,
+  content: string,
+  replyAt: number = Date.now()
+) => {
+  // 带上时间戳
+  return instance<dataTypes.postDetailResponseData>({
+    url: `/local/posts/${id}`,
+    method: 'PUT',
+    data: { content, replyAt }
+  });
+};

@@ -25,6 +25,7 @@ const NavBar: FC = observer(() => {
   // 初始化时通过路由解析当前的 menu index
   const parseMenuIndexByPathname = useCallback(() => {
     const { pathname } = location;
+
     if (pathname === '/' || !pathname) {
       return MENUINDEX.MOVIE;
     }
@@ -34,7 +35,7 @@ const NavBar: FC = observer(() => {
     if (pathname.includes('/news')) {
       return MENUINDEX.NEWS;
     }
-    if (pathname.includes('/community')) {
+    if (pathname.includes('/community') || pathname.includes('/post')) {
       return MENUINDEX.COMMUNITY;
     } else {
       console.log(pathname);
@@ -61,15 +62,17 @@ const NavBar: FC = observer(() => {
     });
   };
 
-  const onLogoutBtnClick = () => {
+  const onLogoutBtnClick = useCallback(() => {
     if (userModel.isLogin) {
-      console.log('推出');
       userModel.logout();
       localStorage.removeItem('user-token');
+      history.push('/');
+      setActiveIdx(MENUINDEX.MOVIE);
     } else {
       history.push('/login');
+      setActiveIdx(MENUINDEX.PROFILE);
     }
-  };
+  }, [history, userModel]);
 
   return (
     <div className="navbar">

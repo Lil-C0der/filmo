@@ -319,6 +319,12 @@ declare global {
       token: string;
     }>;
 
+    // 注册接口返回的结果
+    type registerResponseData = localResponseData<{
+      error?: string;
+      user: IUser;
+    }>;
+
     interface IUserDetail {
       posts: any[];
       watchedList: any[];

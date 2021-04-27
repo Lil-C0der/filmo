@@ -53,7 +53,6 @@ const PostDetail: FC = () => {
 
   const fetchPostDetail = useCallback(async () => {
     const { data } = await getPostDetail(postId);
-    console.log(data);
     setPostDetail(data);
   }, [postId]);
 
@@ -112,7 +111,9 @@ const PostDetail: FC = () => {
       type={alertConf.type}
       onClose={() => {
         alertEl = null;
-        setAlertVisible(false);
+        setTimeout(() => {
+          setAlertVisible(false);
+        }, 300);
       }}
     />
   ) : null;

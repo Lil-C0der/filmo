@@ -1,8 +1,7 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, Button } from 'woo-ui-react';
 import Input from '@/components/Input';
-import './_style.scss';
-import { login } from '@/network/users';
+import { login, register } from '@/network/users';
 import { getCurrGreeting } from '@/utils';
 import { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 import logo from '../../logo.png';
@@ -10,6 +9,14 @@ import logo from '../../logo.png';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import store from '@store/index';
 import { useHistory } from 'react-router-dom';
+
+import './_style.scss';
+
+enum LOGIN_ALERT_MSG {
+  TITLE = '请重试',
+  DESCRIPTION = '输入项不能为空！',
+  DIFF_PWD_DESCRIPTION = '两次输入的密码不一致！'
+}
 
 const Login: FC = observer(() => {
   const history = useHistory();
@@ -36,19 +43,25 @@ const Login: FC = observer(() => {
   }, [isRegister]);
 
   // 验证登录和注册的输入项
-  const checkInputValidate = () =>
-    passwordVal2
-      ? passwordVal2 && passwordVal && usernameVal
-      : usernameVal && passwordVal;
+  const checkInputValidate = useCallback(
+    () =>
+      passwordVal2
+        ? passwordVal2 && passwordVal && usernameVal
+        : usernameVal && passwordVal,
+    [passwordVal, passwordVal2, usernameVal]
+  );
 
-  const onLogin = async () => {
-    // console.log('login', usernameVal, passwordVal);
+  const onLogin = useCallback(async () => {
     if (!checkInputValidate()) {
       setAlertConf({
-        title: '请重试',
-        description: '输入项不能为空！',
-        type: 'primary'
+        title: LOGIN_ALERT_MSG.TITLE,
+        description: LOGIN_ALERT_MSG.DESCRIPTION,
+        type: 'danger'
       });
+      setAlertVisible(true);
+      setTimeout(() => {
+        setAlertVisible(false);
+      }, 3000);
       return;
     }
 
@@ -64,7 +77,6 @@ const Login: FC = observer(() => {
         }，即将为您跳转个人中心...`!,
         type: 'success'
       });
-      // TODO 跳转 profile
       setTimeout(() => {
         history.push('/profile');
       }, 3000);
@@ -76,22 +88,67 @@ const Login: FC = observer(() => {
       });
     }
     setAlertVisible(true);
-  };
+    setTimeout(() => {
+      setAlertVisible(false);
+    }, 3000);
+  }, [checkInputValidate, history, loginUserModel, passwordVal, usernameVal]);
 
-  const onRegister = () => {
-    console.log('register');
+  const onRegister = useCallback(() => {
     setIsRegister(true);
-  };
+  }, []);
 
-  const onSubmit = () => {
-    console.log('submit register');
-    setIsRegister(false);
-  };
+  const onSubmit = useCallback(async () => {
+    if (!checkInputValidate()) {
+      setAlertConf({
+        title: LOGIN_ALERT_MSG.TITLE,
+        description: LOGIN_ALERT_MSG.DESCRIPTION,
+        type: 'danger'
+      });
+      setAlertVisible(true);
+      setTimeout(() => {
+        setAlertVisible(false);
+      }, 3000);
+      return;
+    }
 
-  const clearInput = () => {
+    if (passwordVal !== passwordVal2) {
+      setAlertConf({
+        title: LOGIN_ALERT_MSG.TITLE,
+        description: LOGIN_ALERT_MSG.DIFF_PWD_DESCRIPTION,
+        type: 'danger'
+      });
+      setAlertVisible(true);
+      setTimeout(() => {
+        setAlertVisible(false);
+      }, 3000);
+      return;
+    }
+
+    const { data, code, msg } = await register(usernameVal, passwordVal);
+    if (code === 200) {
+      setAlertConf({
+        title: msg,
+        type: 'success'
+      });
+    } else {
+      setAlertConf({
+        title: msg,
+        description: data.error!,
+        type: 'danger'
+      });
+    }
+
+    setAlertVisible(true);
+    setTimeout(() => {
+      setAlertVisible(false);
+    }, 3000);
+    return;
+  }, [checkInputValidate, passwordVal, passwordVal2, usernameVal]);
+
+  const clearInput = useCallback(() => {
     setUsernameVal('');
     setPasswordVal('');
-  };
+  }, []);
 
   const loginEl = (
     <div className="login-modal_content">
@@ -155,17 +212,21 @@ const Login: FC = observer(() => {
   );
 
   let alertEl = alertVisible ? (
-    <Alert
-      closable
-      className="login-alert"
-      title={alertConf.title}
-      description={alertConf.description}
-      type={alertConf.type}
-      onClose={() => {
-        alertEl = null;
-        setAlertVisible(false);
-      }}
-    />
+    <div>
+      <Alert
+        closable
+        className="login-alert"
+        title={alertConf.title}
+        description={alertConf.description}
+        type={alertConf.type}
+        onClose={() => {
+          alertEl = null;
+          setTimeout(() => {
+            setAlertVisible(false);
+          }, 300);
+        }}
+      />
+    </div>
   ) : null;
 
   return (

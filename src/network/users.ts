@@ -8,10 +8,11 @@ export function login(username: string, password: string) {
   });
 }
 
-export function create(username: string, pwd: string) {
-  return instance({
-    url: '/local/posts',
-    method: 'POST'
+export function register(username: string, password: string) {
+  return instance<dataTypes.registerResponseData>({
+    url: '/local/auth/register',
+    method: 'POST',
+    data: { username, password }
   });
 }
 

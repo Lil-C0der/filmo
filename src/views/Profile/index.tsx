@@ -52,7 +52,9 @@ const Profile: FC = observer(() => {
       type={alertConf.type}
       onClose={() => {
         alertEl = null;
-        setAlertVisible(false);
+        setTimeout(() => {
+          setAlertVisible(false);
+        }, 300);
       }}
     />
   ) : null;

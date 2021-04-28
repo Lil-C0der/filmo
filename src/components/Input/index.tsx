@@ -1,8 +1,11 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
+
 import './_style.scss';
 
 interface IProps {
+  classname?: string;
   disabled?: boolean;
   readonly?: boolean;
   value?: string;
@@ -39,8 +42,9 @@ const Input: FC<IProps> = (props) => {
     />
   );
 
+  const classes = classNames('input-wrapper', props?.classname);
   return (
-    <div className="input-wrapper">
+    <div className={classes}>
       {props.password ? (
         <input
           type={showPassword ? 'text' : 'password'}

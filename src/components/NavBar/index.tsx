@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { searchSuggestion } from '@network/search';
@@ -64,15 +64,18 @@ const NavBar: FC = observer(() => {
 
   const onLogoutBtnClick = useCallback(() => {
     if (userModel.isLogin) {
+      console.log('退出');
       userModel.logout();
       localStorage.removeItem('user-token');
-      history.push('/');
-      setActiveIdx(MENUINDEX.MOVIE);
+      if (activeIdx !== MENUINDEX.PROFILE) {
+        history.push('/');
+        setActiveIdx(MENUINDEX.MOVIE);
+      }
     } else {
       history.push('/login');
       setActiveIdx(MENUINDEX.PROFILE);
     }
-  }, [history, userModel]);
+  }, [history, userModel, activeIdx]);
 
   return (
     <div className="navbar">

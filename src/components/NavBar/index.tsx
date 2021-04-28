@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { searchSuggestion } from '@network/search';
@@ -46,6 +46,11 @@ const NavBar: FC = observer(() => {
     () => parseMenuIndexByPathname() as string
   );
 
+  useEffect(() => {
+    // menu 的 selectedIndex 受控
+    setActiveIdx(parseMenuIndexByPathname()!);
+  }, [parseMenuIndexByPathname]);
+
   // 获取搜索框元素
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -67,13 +72,11 @@ const NavBar: FC = observer(() => {
       console.log('退出');
       userModel.logout();
       localStorage.removeItem('user-token');
-      if (activeIdx !== MENUINDEX.PROFILE) {
+      if (activeIdx === MENUINDEX.PROFILE) {
         history.push('/');
-        setActiveIdx(MENUINDEX.MOVIE);
       }
     } else {
       history.push('/login');
-      setActiveIdx(MENUINDEX.PROFILE);
     }
   }, [history, userModel, activeIdx]);
 
@@ -116,14 +119,7 @@ const NavBar: FC = observer(() => {
 
       <div className="navbar_secondary">
         <ul>
-          <Menu
-            selectedIndex={activeIdx}
-            onClick={(index: string) => {
-              setActiveIdx(index);
-            }}
-            trigger="click"
-            vertical={false}
-          >
+          <Menu selectedIndex={activeIdx} trigger="click" vertical={false}>
             <Menu.Item index={MENUINDEX.MOVIE}>
               <Link to={'/'} className="navbar_item">
                 电影

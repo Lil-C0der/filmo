@@ -98,10 +98,6 @@ const PostDetail: FC = () => {
     fetchPostDetail();
   }, [fetchPostDetail]);
 
-  const handleChange = (state: EditorState) => {
-    setEditorState(state);
-  };
-
   let alertEl = alertVisible ? (
     <Alert
       closable
@@ -156,7 +152,7 @@ const PostDetail: FC = () => {
         className="post-reply-editor"
         value={editorState}
         controls={editorControls}
-        onChange={handleChange}
+        onChange={setEditorState}
       />
       <Button
         className="reply-btn"

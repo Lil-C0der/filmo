@@ -14,6 +14,20 @@ export const getPostDetail = (id: string) => {
   });
 };
 
+export const createNewPost = ({
+  title,
+  content
+}: {
+  title: string;
+  content: string;
+}) => {
+  return instance<dataTypes.postDetailResponseData>({
+    url: `/local/posts`,
+    method: 'POST',
+    data: { title, content }
+  });
+};
+
 export const replyPost = (
   id: string,
   content: string,

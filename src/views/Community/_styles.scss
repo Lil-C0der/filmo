@@ -4,13 +4,22 @@
 .community {
   @extend .container;
   padding-top: 32px;
+  position: relative;
   &-title {
     @extend .title;
     padding-left: 16px;
   }
+  &-post-btn {
+    position: absolute;
+    top: 28px;
+    right: 48px;
+  }
+  &-icon {
+    margin-left: 4px;
+  }
   &-post {
     &-list {
-      padding-top: 32px;
+      padding-top: 64px;
     }
     &-item {
       display: flex;
@@ -142,6 +151,8 @@
   margin-top: 32px;
   right: 16px;
 }
+
+.community .community-alert,
 .post .post-alert {
   position: fixed;
   width: 320px;
@@ -149,4 +160,36 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 99;
+}
+.community .community-alert {
+  position: absolute;
+  top: 16px;
+}
+
+.newPost {
+  @extend .container;
+  position: relative;
+  padding-top: 32px;
+  padding-bottom: 40px;
+  &-title {
+    @extend .title;
+  }
+  &-editor {
+    &_wrapper {
+      margin-top: 32px;
+    }
+    &_title {
+      width: 100%;
+      margin-bottom: 24px;
+    }
+  }
+  &-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  .bf-container {
+    border-radius: 4px;
+  }
 }

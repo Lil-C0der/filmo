@@ -63,6 +63,8 @@ const Profile: FC = observer(() => {
     console.log(loginUserModel.isLogin);
     const token = loginUserModel.token || localStorage.getItem('user-token');
     if (loginUserModel.isLogin || token) {
+      console.log('登录了');
+
       token && fetchUserInfo();
     } else {
       // console.log('未登录，正在跳转登录页');

@@ -15,7 +15,8 @@ import {
   IMovieInfo,
   IMovieListObj,
   INewsItem,
-  IPostDetail
+  IPostDetail,
+  ISearchRes
 } from './types/index';
 declare module 'axios' {
   export interface AxiosInstance {
@@ -141,5 +142,12 @@ declare global {
 
     type postDetailResponseData = localResponseData<IPostDetail>;
     type postReplyResponseData = localResponseData<IPostDetail>;
+
+    type searchSuggestionResponseData = {
+      movies: {
+        list: ISearchRes;
+        total: number;
+      };
+    };
   }
 }

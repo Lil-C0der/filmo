@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import './_style.scss';
 
 interface IProps {
-  classname?: string;
+  className?: string;
   disabled?: boolean;
   readonly?: boolean;
   value?: string;
@@ -42,7 +42,7 @@ const Input: FC<IProps> = (props) => {
     />
   );
 
-  const classes = classNames('input-wrapper', props?.classname);
+  const classes = classNames('input-wrapper', props?.className);
   return (
     <div className={classes}>
       {props.password ? (

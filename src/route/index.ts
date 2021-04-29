@@ -8,6 +8,7 @@ import News from '@/views/News';
 import Community from '@/views/Community';
 import PostDetail from '@/views/Community/postDetail';
 import newPost from '@/views/Community/newPost';
+import Search from '@/components/Search';
 
 export interface IRouteCfg {
   name: string;
@@ -41,6 +42,13 @@ const routes: IRouteCfg[] = [
     name: 'postDetail',
     path: '/post/:postId',
     component: PostDetail,
+    exact: false
+  },
+  {
+    name: 'search',
+    // path: '/search/:kw',
+    path: '/search',
+    component: Search,
     exact: false
   }
 ];

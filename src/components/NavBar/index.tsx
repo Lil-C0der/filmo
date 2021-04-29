@@ -3,12 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { searchSuggestion } from '@network/search';
 import { Button, Menu } from 'woo-ui-react';
-
+import Input from '../Input';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import store from '@store/index';
 
 import './_style.scss';
-// import { MENUINDEX, useActiveMenuItem } from '@/utils/hooks';
 
 export enum MENUINDEX {
   MOVIE = '/movie',
@@ -21,6 +20,7 @@ const NavBar: FC = observer(() => {
   const location = useLocation();
   const userModel = useLocalStore(() => store);
   const history = useHistory();
+  const [inputVal, setInputVal] = useState('');
 
   // 初始化时通过路由解析当前的 menu index
   const parseMenuIndexByPathname = useCallback(() => {
@@ -51,21 +51,15 @@ const NavBar: FC = observer(() => {
     setActiveIdx(parseMenuIndexByPathname()!);
   }, [parseMenuIndexByPathname]);
 
-  // 获取搜索框元素
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const onSearchBtnClick = () => {
-    // const inputVal = inputRef.current?.value;
-    // inputVal && console.log('搜索框的内容：', inputVal);
+    console.log('搜索框的内容：', inputVal);
 
     // getCurrLocation().then((res) => {
     //   console.log(res);
     // });
 
     // TODO 搜索
-    searchSuggestion('唐人街').then((res) => {
-      console.log(res);
-    });
+    history.push(`/search?kw=${inputVal}`);
   };
 
   const onLogoutBtnClick = useCallback(() => {
@@ -97,11 +91,12 @@ const NavBar: FC = observer(() => {
             {localStorage.getItem('cityName')}
           </span>
           <div className="navbar_search">
-            <input
+            <Input
               className="navbar_search_input"
-              placeholder="搜索电影剧集、影人、影视原声"
-              ref={inputRef}
-            ></input>
+              placeholder="搜索电影剧集、影人"
+              value={inputVal}
+              onChange={setInputVal}
+            />
             <Button
               className="navbar_search_btn"
               size="lg"

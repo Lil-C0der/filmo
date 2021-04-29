@@ -45,18 +45,9 @@
       color: $fontColor-black;
       &_input {
         width: 480px;
-        height: 100%;
-        padding: 8px;
-        outline: none;
-        border: 1px solid $borderColor;
-        border-radius: $borderRadius;
-        font-size: inherit;
-        &:hover {
-          border-color: $borderColor-hover;
-        }
-        &:focus {
-          border-color: $borderColor-hover;
-          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+        height: 40px;
+        input {
+          height: 100%;
         }
       }
       &_btn {

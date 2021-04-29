@@ -232,3 +232,23 @@ export interface IPostDetail {
   updateAt: string;
   replies: IReply[];
 }
+
+export interface ISearchRes {
+  cat: string;
+  dir: string;
+  // 时长
+  dur: number;
+  enm: string;
+  id: number;
+  img: string;
+  movieAlias: string;
+  nm: string;
+  // '2018-12-14中国大陆上映'
+  pubDesc: string;
+  rt: string;
+  sc: number;
+  // '约翰·赵,米切尔·拉,黛博拉·梅辛'
+  star: string;
+  // 想看的人
+  wish: number;
+}

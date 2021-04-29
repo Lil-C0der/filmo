@@ -120,7 +120,7 @@ const newPost: FC = observer(() => {
       <h2 className="newPost-title">发表主题帖</h2>
       <div className="newPost-editor_wrapper">
         <Input
-          classname="newPost-editor_title"
+          className="newPost-editor_title"
           placeholder="请输入标题"
           value={titleVal}
           onChange={setTitleVal}

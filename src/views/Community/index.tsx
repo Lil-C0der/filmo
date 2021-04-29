@@ -12,7 +12,7 @@ import { useLocalStore } from 'mobx-react-lite';
 import store from '@/store';
 import { IPost } from '@/types';
 
-enum PROFILE_ALERT_MSG {
+enum COMMUNITY_ALERT_MSG {
   TITLE = '未登录',
   DESCRIPTION = '正在为您跳转登录页..'
 }
@@ -58,8 +58,8 @@ const Community: FC = () => {
   const newPost = useCallback(() => {
     if (!userModel.isLogin) {
       setAlertConf({
-        title: '未登录',
-        description: '即将为您跳转登录页...',
+        title: COMMUNITY_ALERT_MSG.TITLE,
+        description: COMMUNITY_ALERT_MSG.DESCRIPTION,
         type: 'warn'
       });
       setAlertVisible(true);

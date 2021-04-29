@@ -5,14 +5,15 @@ import { getHotMovies, getCommingMovie } from '@network/movie';
 import { getEntNews, getMoviesNews } from '@network/news';
 import './_style.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IMovieListObj, INewsItem } from '@/types';
 
 interface IHotAndCommingMovieList {
-  hot: Array<dataTypes.IMovieListObj>;
-  coming: Array<dataTypes.IMovieListObj>;
+  hot: Array<IMovieListObj>;
+  coming: Array<IMovieListObj>;
 }
 interface INewsList {
-  entNews: dataTypes.INewsItem[];
-  moviesNews: dataTypes.INewsItem[];
+  entNews: INewsItem[];
+  moviesNews: INewsItem[];
 }
 const defaultMovieListObj: IHotAndCommingMovieList = {
   hot: [],
@@ -54,7 +55,7 @@ const Home: FC = () => {
    * @return {JSX.Element[]}
    */
   const renderSlideItem: (
-    movieList: dataTypes.IMovieListObj[],
+    movieList: IMovieListObj[],
     isComingMovieList: boolean
   ) => JSX.Element[] = (movieList, isComingMovieList) => {
     let slideItemArr: JSX.Element[] = [];
@@ -83,10 +84,7 @@ const Home: FC = () => {
    * @param {dataTypes.INewsItem[]} newsList
    * @return {JSX.Element[]}
    */
-  const renderNewsList = (
-    newsList: dataTypes.INewsItem[],
-    isMoviesNewsList = true
-  ) =>
+  const renderNewsList = (newsList: INewsItem[], isMoviesNewsList = true) =>
     newsList.map((newsItem) => (
       <li
         key={newsItem.id}

@@ -12,13 +12,14 @@ import {
 } from '@network/movie';
 
 import './_style.scss';
+import { IMovieInfo } from '@/types';
 
 interface IMovieDetailParams {
   id: string;
 }
 
 // default
-const defaultMovieDetail: dataTypes.IMovieInfo = {
+const defaultMovieDetail: IMovieInfo = {
   availableEpisodes: 0, // 可用的插曲
   awardUrl: '', // url 地址
   cat: '', // 分类
@@ -57,7 +58,7 @@ const defaultMovieDetail: dataTypes.IMovieInfo = {
 const Detail: FC = () => {
   let { id } = useParams<IMovieDetailParams>();
   // 电影详情
-  const [movieDetail, setMovieDetail] = useState<dataTypes.IMovieInfo>(
+  const [movieDetail, setMovieDetail] = useState<IMovieInfo>(
     defaultMovieDetail
   );
 

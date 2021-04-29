@@ -1,3 +1,4 @@
+import { ILocaltionInfo } from '@/types';
 import instance from './request';
 
 /**
@@ -6,7 +7,7 @@ import instance from './request';
  * @return {*}
  */
 export function getCurrLocation() {
-  return instance<dataTypes.ILocaltionInfo>({
+  return instance<ILocaltionInfo>({
     url: 'baidu/ip',
     method: 'GET',
     params: {

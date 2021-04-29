@@ -1,12 +1,13 @@
+import { IPost } from '@/types';
 import { action, makeObservable, observable } from 'mobx';
 
-export interface IUser {
+export interface IUserWithToken {
   username: string;
   token: string;
   createdAt: string;
   favoritesList: any[];
   watchedList: any[];
-  posts: any[];
+  posts: IPost[];
 }
 
 const defaultUser = {
@@ -30,7 +31,7 @@ class UserModel {
 
   // @action
 
-  user: IUser;
+  user: IUserWithToken;
   isLogin: boolean;
   token: string;
   constructor() {
@@ -47,7 +48,7 @@ class UserModel {
     });
   }
 
-  private initUser(userInfo?: IUser) {
+  private initUser(userInfo?: IUserWithToken) {
     //  this.user =  {
     //     username: '',
     //     token: '',
@@ -65,7 +66,7 @@ class UserModel {
     this.user = defaultUser;
   }
 
-  login(userInfo: IUser) {
+  login(userInfo: IUserWithToken) {
     this.initUser(userInfo);
     this.isLogin = true;
   }

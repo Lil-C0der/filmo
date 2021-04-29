@@ -31,11 +31,18 @@
     width: 720px;
     margin: 0 auto;
     &_content {
-      // color: $fontColor-black;
+      color: $fontColor-black;
     }
   }
 }
-
+.profile {
+  &-posts {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+}
 .profile .profile-alert {
   min-width: 320px;
   position: absolute;

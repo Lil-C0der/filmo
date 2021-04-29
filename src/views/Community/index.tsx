@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './_styles.scss';
 import { useLocalStore } from 'mobx-react-lite';
 import store from '@/store';
+import { IPost } from '@/types';
 
 enum PROFILE_ALERT_MSG {
   TITLE = '未登录',
@@ -18,7 +19,7 @@ enum PROFILE_ALERT_MSG {
 
 const Community: FC = () => {
   const history = useHistory();
-  const [postList, setPostList] = useState<dataTypes.IPost[]>([]);
+  const [postList, setPostList] = useState<IPost[]>([]);
 
   const [alertConf, setAlertConf] = useState<IAlertProps>({
     title: '',
@@ -102,7 +103,7 @@ const Community: FC = () => {
                   最后更新于 {parseMongoDate(post.updatedAt)}
                 </span>
               </div>
-              <div className="postItem-replies">{post.replies}</div>
+              <div className="postItem-replies">{post.repliesNum}</div>
             </li>
           ))
         ) : (

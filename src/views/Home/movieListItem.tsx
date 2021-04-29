@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { imgUrlParser } from '@/utils';
 import { Link } from 'react-router-dom';
+import { IMovieListObj } from '@/types';
 
 interface IMovieListItemProps {
-  movieItem: dataTypes.IMovieListObj;
+  movieItem: IMovieListObj;
   isComingMovie: boolean;
 }
 

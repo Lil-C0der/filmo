@@ -62,6 +62,7 @@ const NavBar: FC = observer(() => {
     //   console.log(res);
     // });
 
+    // TODO 搜索
     searchSuggestion('唐人街').then((res) => {
       console.log(res);
     });

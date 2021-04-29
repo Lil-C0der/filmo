@@ -5,13 +5,14 @@ import { Tabs } from 'woo-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import Placeholder from '@/components/Placeholder';
+import { IMovieCeleb, IMovieInfo, IRelatedMovie, IVideoInfo } from '@/types';
 
 interface IDetailTabsProps {
-  movieDetail: dataTypes.IMovieInfo | null;
-  movieCelebs: Array<dataTypes.IMovieCeleb> | null;
+  movieDetail: IMovieInfo | null;
+  movieCelebs: Array<IMovieCeleb> | null;
   movieComments: dataTypes.commentResponseData | null;
-  videos: Array<dataTypes.IVideoInfo> | null;
-  relatedMovies: Array<dataTypes.IRelatedMovie> | null;
+  videos: Array<IVideoInfo> | null;
+  relatedMovies: Array<IRelatedMovie> | null;
 }
 
 const DetailBTM: FC<IDetailTabsProps> = ({

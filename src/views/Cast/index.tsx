@@ -12,12 +12,13 @@ import Slide from '@cpnt/Slide';
 
 import './_style.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ICastDetail } from '@/types';
 
 interface ICastParams {
   id: '';
 }
 
-const defaultCastDetail: dataTypes.ICastDetail = {
+const defaultCastDetail: ICastDetail = {
   aliasName: '',
   avatar: '', // 头像 url
   birthday: '',

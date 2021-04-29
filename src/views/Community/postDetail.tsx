@@ -9,6 +9,7 @@ import { Button } from 'woo-ui-react';
 
 import 'braft-editor/dist/index.css';
 import Alert, { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
+import { IPostDetail } from '@/types';
 interface IPostParams {
   postId: string;
 }
@@ -39,7 +40,7 @@ enum POST_ALERT_MSG {
 
 const PostDetail: FC = () => {
   const { postId } = useParams<IPostParams>();
-  const [postDetail, setPostDetail] = useState<dataTypes.IPostDetail>();
+  const [postDetail, setPostDetail] = useState<IPostDetail>();
   const [editorState, setEditorState] = useState<EditorState>(
     BraftEditor.createEditorState(null)
   );

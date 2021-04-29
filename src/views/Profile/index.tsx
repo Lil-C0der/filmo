@@ -2,17 +2,19 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { getUserDetail } from '@/network/users';
 import { useHistory } from 'react-router';
 import { observer, useLocalStore } from 'mobx-react-lite';
-import store, { IUser } from '@/store';
-
-import './_style.scss';
+import store from '@/store';
 import { Tabs, Alert } from 'woo-ui-react';
 import { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 import { parseMongoDate } from '@/utils';
 import Placeholder from '@/components/Placeholder';
+import { Link } from 'react-router-dom';
+import { IUserDetail } from '@/types';
 
-const defaultUserInfo: IUser = {
+import './_style.scss';
+
+const defaultUserInfo: IUserDetail = {
+  id: '',
   username: '',
-  token: '',
   createdAt: '',
   watchedList: [],
   favoritesList: [],
@@ -26,7 +28,7 @@ enum PROFILE_ALERT_MSG {
 
 const Profile: FC = observer(() => {
   const history = useHistory();
-  const [userInfo, setUserInfo] = useState<IUser>(defaultUserInfo);
+  const [userInfo, setUserInfo] = useState<IUserDetail>(defaultUserInfo);
   const [alertConf, setAlertConf] = useState<IAlertProps>({
     title: '',
     description: '',
@@ -81,6 +83,19 @@ const Profile: FC = observer(() => {
     }
   }, [fetchUserInfo, history, loginUserModel]);
 
+  const postsEl = userInfo.posts.length ? (
+    userInfo.posts.map((post) => (
+      <li key={post.id} className="profile-posts">
+        <Link to={`/post/${post.id}`}>{post.title}</Link>
+        <span className="profile-posts_date">
+          {parseMongoDate(post.createdAt)}
+        </span>
+      </li>
+    ))
+  ) : (
+    <Placeholder />
+  );
+
   return (
     <div className="profile">
       {alertEl}
@@ -101,13 +116,7 @@ const Profile: FC = observer(() => {
               index="1"
               name="发表的内容"
             >
-              {userInfo.posts.length ? (
-                userInfo.posts.map((post) => (
-                  <li key={post.id}>{post.title}</li>
-                ))
-              ) : (
-                <Placeholder />
-              )}
+              {postsEl}
             </Tabs.Item>
 
             <Tabs.Item

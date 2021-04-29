@@ -2,9 +2,10 @@ import React, { FC } from 'react';
 import { imgUrlParser, numberParser } from '@utils/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'woo-ui-react';
+import { IMovieInfo } from '@/types';
 
 interface IDetailUpperProps {
-  movieDetail: dataTypes.IMovieInfo;
+  movieDetail: IMovieInfo;
 }
 
 const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {

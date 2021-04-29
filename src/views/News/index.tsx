@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { useDebounce } from '@hooks/index';
 
 import './_styles.scss';
+import { INewsItem } from '@/types';
 
 enum newsType {
   ENT = 'ent',
@@ -35,7 +36,7 @@ const titleMap = {
 
 const News: FC = () => {
   const { newsType } = useParams<INewsType>();
-  const [newsList, setNewsList] = useState<dataTypes.INewsItem[]>();
+  const [newsList, setNewsList] = useState<INewsItem[]>();
   const newWrapperRef = useRef<HTMLDivElement | null>(null);
 
   const fetchNews = useCallback(

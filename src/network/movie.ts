@@ -27,20 +27,6 @@ export function getCommingMovie() {
 }
 
 /**
- *
- * 获取国内外热门电影，豆瓣接口
- * @return {*}
- */
-export function getDoubanHotMovies() {
-  return instance<dataTypes.doubanHotMoviesResponseData>({
-    // url: 'maoyan/commingMovie',
-    // http://api.maoyan.com/mmdb/movie/v2/list/rt/order/coming.json
-    url: 'douban/?type=nowplaying',
-    method: 'GET'
-  });
-}
-
-/**
  * 获取电影的详细信息
  * @param {string} movieId
  * @return {*}

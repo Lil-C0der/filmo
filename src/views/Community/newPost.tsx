@@ -9,6 +9,9 @@ import { Button } from 'woo-ui-react';
 import { createNewPost } from '@/network/post';
 import { useSubmit } from '@/hooks';
 
+import styles from './_styles.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const editorControls: ControlType[] = [
   'undo',
   {
@@ -104,12 +107,18 @@ const newPost: FC = observer(() => {
     setTimeout(() => {
       setAlertVisible(false);
     }, 3000);
-  }, [editorState, history, titleVal]);
+  }, [
+    titleVal,
+    editorState,
+    userModel.isLogin,
+    createNewPostExecutor,
+    history
+  ]);
 
   let alertEl = alertVisible ? (
     <Alert
       closable
-      className="profile-alert"
+      className={styles['profile-alert']}
       title={alertConf.title}
       description={alertConf.description}
       type={alertConf.type}
@@ -123,25 +132,34 @@ const newPost: FC = observer(() => {
   ) : null;
 
   return (
-    <div className="newPost">
+    <div className={styles.newPost}>
       {alertEl}
-      <h2 className="newPost-title">发表主题帖</h2>
-      <div className="newPost-editor_wrapper">
+      <h2 className={styles['newPost-title']}>
+        发表主题帖
+        {isRunning ? (
+          <FontAwesomeIcon
+            style={{ marginLeft: '4px' }}
+            icon="spinner"
+            spin={isRunning}
+          />
+        ) : null}
+      </h2>
+      <div className={styles['newPost-editor_wrapper']}>
         <Input
-          className="newPost-editor_title"
+          className={styles['newPost-editor_title']}
           placeholder="请输入标题"
           value={titleVal}
           onChange={setTitleVal}
         />
         <BraftEditor
           style={{ height: '240px' }}
-          className="newPost-editor_title"
+          className={styles['newPost-editor_title']}
           value={editorState}
           controls={editorControls}
           onChange={setEditorState}
         />
       </div>
-      <Button className="newPost-btn" size="lg" onClick={onSubmit}>
+      <Button className={styles['newPost-btn']} size="lg" onClick={onSubmit}>
         发表
       </Button>
     </div>

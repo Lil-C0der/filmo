@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 
-import './_style.scss';
+import styles from './_style.module.scss';
 
 interface IProps {
   className?: string;
@@ -31,7 +31,7 @@ const Input: FC<IProps> = (props) => {
 
   const eyeIconEl = (
     <FontAwesomeIcon
-      className="input-icon input-icon_eye"
+      className={`${styles['input-icon']} ${styles['input-icon_eye']}`}
       icon={showPassword ? 'eye-slash' : 'eye'}
       onMouseDown={() => {
         setShowPassword(true);
@@ -42,7 +42,10 @@ const Input: FC<IProps> = (props) => {
     />
   );
 
-  const classes = classNames('input-wrapper', props?.className);
+  const classes = classNames(
+    styles['input-wrapper'],
+    styles[`${props?.className}`]
+  );
   return (
     <div className={classes}>
       {props.password ? (
@@ -71,7 +74,7 @@ const Input: FC<IProps> = (props) => {
 
       {props.showClear ? (
         <FontAwesomeIcon
-          className="input-icon input-icon_clear"
+          className={`${styles['input-icon']} ${styles['input-icon_clear']}`}
           icon="times"
           onClick={onClear}
         />

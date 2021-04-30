@@ -1,13 +1,12 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { searchSuggestion } from '@network/search';
 import { Button, Menu } from 'woo-ui-react';
 import Input from '../Input';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import store from '@store/index';
 
-import './_style.scss';
+import styles from './_style.module.scss';
 
 export enum MENUINDEX {
   MOVIE = '/movie',
@@ -52,13 +51,6 @@ const NavBar: FC = observer(() => {
   }, [parseMenuIndexByPathname]);
 
   const onSearchBtnClick = () => {
-    console.log('搜索框的内容：', inputVal);
-
-    // getCurrLocation().then((res) => {
-    //   console.log(res);
-    // });
-
-    // TODO 搜索
     history.push(`/search?kw=${inputVal}`);
   };
 
@@ -76,35 +68,35 @@ const NavBar: FC = observer(() => {
   }, [history, userModel, activeIdx]);
 
   return (
-    <div className="navbar">
-      <div className="navbar_wrapper">
-        <div className="navbar_primary">
+    <div className={styles.navbar}>
+      <div className={styles.navbar_wrapper}>
+        <div className={styles.navbar_primary}>
           <Link
             to={'/'}
-            className="navbar_logo"
+            className={styles.navbar_logo}
             onClick={() => {
               console.log('to homepage');
             }}
           />
-          <span className="navbar_city">
+          <span className={styles.navbar_city}>
             <FontAwesomeIcon icon="map-marked-alt" />
             {localStorage.getItem('cityName')}
           </span>
-          <div className="navbar_search">
+          <div className={styles.navbar_search}>
             <Input
-              className="navbar_search_input"
+              className={styles.navbar_search_input}
               placeholder="搜索电影剧集、影人"
               value={inputVal}
               onChange={setInputVal}
             />
             <Button
-              className="navbar_search_btn"
+              className={styles.navbar_search_btn}
               size="lg"
               onClick={onSearchBtnClick}
             >
               搜索
               <FontAwesomeIcon
-                className="navbar_search_btn_icon"
+                className={styles.navbar_search_btn_icon}
                 icon="search"
                 size="2x"
               />
@@ -113,35 +105,38 @@ const NavBar: FC = observer(() => {
         </div>
       </div>
 
-      <div className="navbar_secondary">
+      <div className={styles.navbar_secondary}>
         <ul>
           <Menu selectedIndex={activeIdx} trigger="click" vertical={false}>
             <Menu.Item index={MENUINDEX.MOVIE}>
-              <Link to={'/'} className="navbar_item">
+              <Link to={'/'} className={styles.navbar_item}>
                 电影
               </Link>
             </Menu.Item>
 
             <Menu.Item index={MENUINDEX.PROFILE}>
-              <Link to={'/profile'} className="navbar_item">
+              <Link to={'/profile'} className={styles.navbar_item}>
                 个人中心
               </Link>
             </Menu.Item>
 
             <Menu.Item index={MENUINDEX.NEWS}>
-              <Link to={'/news/movie'} className="navbar_item">
+              <Link to={'/news/movie'} className={styles.navbar_item}>
                 行业资讯
               </Link>
             </Menu.Item>
 
             <Menu.Item index={MENUINDEX.COMMUNITY}>
-              <Link to={'/community'} className="navbar_item">
+              <Link to={'/community'} className={styles.navbar_item}>
                 社区
               </Link>
             </Menu.Item>
           </Menu>
 
-          <Button className="navbar_logoutBtn" onClick={onLogoutBtnClick}>
+          <Button
+            className={styles.navbar_logoutBtn}
+            onClick={onLogoutBtnClick}
+          >
             {userModel.isLogin ? '登出' : '登录'}
           </Button>
         </ul>

@@ -10,6 +10,9 @@ import { Button } from 'woo-ui-react';
 import 'braft-editor/dist/index.css';
 import Alert, { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 import { IPostDetail } from '@/types';
+
+import styles from './_styles.module.scss';
+
 interface IPostParams {
   postId: string;
 }
@@ -102,7 +105,7 @@ const PostDetail: FC = () => {
   let alertEl = alertVisible ? (
     <Alert
       closable
-      className="post-alert"
+      className={styles['post-alert']}
       title={alertConf.title}
       description={alertConf.description}
       type={alertConf.type}
@@ -116,31 +119,33 @@ const PostDetail: FC = () => {
   ) : null;
 
   return (
-    <div className="post">
+    <div className={styles.post}>
       {alertEl}
-      <div className="post-wrapper">
-        <div className="post-header">
-          <h1 className="post-title">{postDetail?.title}</h1>
-          <div className="post-info">
-            <span className="post-creator">{postDetail?.creatorUsername}</span>
-            <span className="post-date">
+      <div className={styles['post-wrapper']}>
+        <div className={styles['post-header']}>
+          <h1 className={styles['post-title']}>{postDetail?.title}</h1>
+          <div className={styles['post-info']}>
+            <span className={styles['post-creator']}>
+              {postDetail?.creatorUsername}
+            </span>
+            <span className={styles['post-date']}>
               发表于 {parseMongoDate(postDetail?.createdAt || '')} +8:00
             </span>
           </div>
         </div>
-        <div className="post-content">{postDetail?.content}</div>
+        <div className={styles['post-content']}>{postDetail?.content}</div>
       </div>
 
-      <div className="post-replies-wrapper">
+      <div className={styles['post-replies-wrapper']}>
         {postDetail?.replies.length ? (
           postDetail?.replies.map((reply, index) => (
-            <div className="post-reply" key={index}>
-              <span className="reply-index">{index + 1} 楼</span>
-              <span className="reply-creator">{reply.username}</span>
-              <span className="reply-date">
+            <div className={styles['post-reply']} key={index}>
+              <span className={styles['reply-index']}>{index + 1} 楼</span>
+              <span className={styles['reply-creator']}>{reply.username}</span>
+              <span className={styles['reply-date']}>
                 {parseTimeStamp(reply.replyAt)}
               </span>
-              <p className="reply-content">{reply.content}</p>
+              <p className={styles['reply-content']}>{reply.content}</p>
             </div>
           ))
         ) : (
@@ -150,13 +155,13 @@ const PostDetail: FC = () => {
 
       <BraftEditor
         style={{ height: '240px' }}
-        className="post-reply-editor"
+        className={styles['post-reply-editor']}
         value={editorState}
         controls={editorControls}
         onChange={setEditorState}
       />
       <Button
-        className="reply-btn"
+        className={styles['reply-btn']}
         size="lg"
         btnType="primary"
         onClick={onReply}

@@ -10,7 +10,7 @@ import Placeholder from '@/components/Placeholder';
 import { Link } from 'react-router-dom';
 import { IUserDetail } from '@/types';
 
-import './_style.scss';
+import styles from './_style.module.scss';
 
 const defaultUserInfo: IUserDetail = {
   id: '',
@@ -48,7 +48,7 @@ const Profile: FC = observer(() => {
   let alertEl = alertVisible ? (
     <Alert
       closable
-      className="profile-alert"
+      className={styles['profile-alert']}
       title={alertConf.title}
       description={alertConf.description}
       type={alertConf.type}
@@ -62,7 +62,7 @@ const Profile: FC = observer(() => {
   ) : null;
 
   useEffect(() => {
-    console.log(loginUserModel.isLogin);
+    // console.log(loginUserModel.isLogin);
     const token = loginUserModel.token || localStorage.getItem('user-token');
     if (loginUserModel.isLogin || token) {
       console.log('登录了');
@@ -85,9 +85,9 @@ const Profile: FC = observer(() => {
 
   const postsEl = userInfo.posts.length ? (
     userInfo.posts.map((post) => (
-      <li key={post.id} className="profile-posts">
+      <li key={post.id} className={styles['profile-posts']}>
         <Link to={`/post/${post.id}`}>{post.title}</Link>
-        <span className="profile-posts_date">
+        <span className={styles['profile-posts_date']}>
           {parseMongoDate(post.createdAt)}
         </span>
       </li>
@@ -97,22 +97,24 @@ const Profile: FC = observer(() => {
   );
 
   return (
-    <div className="profile">
+    <div className={styles.profile}>
       {alertEl}
       {alertVisible ? (
         alertEl
       ) : (
         <>
-          <div className="profile-intro">
-            <h1 className="profile-intro_username">{userInfo.username}</h1>
-            <span className="profile-intro_registerDate">
+          <div className={styles['profile-intro']}>
+            <h1 className={styles['profile-intro_username']}>
+              {userInfo.username}
+            </h1>
+            <span className={styles['profile-intro_registerDate']}>
               加入于 {parseMongoDate(userInfo.createdAt)}
             </span>
           </div>
 
-          <Tabs activeIndex="1" className="profile-tab">
+          <Tabs activeIndex="1" className={styles['profile-tab']}>
             <Tabs.Item
-              className="profile-tab_content"
+              className={styles['profile-tab_content']}
               index="1"
               name="发表的内容"
             >
@@ -120,7 +122,7 @@ const Profile: FC = observer(() => {
             </Tabs.Item>
 
             <Tabs.Item
-              className="profile-tab_content"
+              className={styles['profile-tab_content']}
               index="2"
               name="收藏的电影"
             >
@@ -134,7 +136,7 @@ const Profile: FC = observer(() => {
             </Tabs.Item>
 
             <Tabs.Item
-              className="profile-tab_content"
+              className={styles['profile-tab_content']}
               index="3"
               name="看过的电影"
             >

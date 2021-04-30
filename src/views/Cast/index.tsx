@@ -10,9 +10,10 @@ import {
 import { imgUrlParser } from '@utils/index';
 import Slide from '@cpnt/Slide';
 
-import './_style.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ICastDetail } from '@/types';
+
+import styles from './_style.module.scss';
 
 interface ICastParams {
   id: '';
@@ -122,10 +123,10 @@ const Cast: FC = () => {
     for (let startIdx = 0; startIdx < itemList.length; startIdx += 5) {
       slideItemArr.push(
         <Slide.Item index={startIdx / 5} key={startIdx}>
-          <ul className="cast_photos_wrapper">
+          <ul className={styles.cast_photos_wrapper}>
             {itemList.slice(startIdx, startIdx + 5).map((itemUrl, i) => (
               <li key={i}>
-                <div className="img_wrapper">
+                <div className={styles.img_wrapper}>
                   <img src={imgUrlParser(itemUrl, 260, 340)} alt="" />
                 </div>
               </li>
@@ -144,53 +145,57 @@ const Cast: FC = () => {
   ) => (
     <>
       {experienceList?.length ? (
-        <p className="experience_title">{title}</p>
+        <p className={styles.experience_title}>{title}</p>
       ) : null}
       {experienceList?.map(({ year, content }, i) => (
         <div
-          className="experience_item"
+          className={styles.experience_item}
           key={`${experienceList.toString()}_${i}`}
         >
           {year ? (
-            <p className="experience_year">
+            <p className={styles.experience_year}>
               <FontAwesomeIcon
-                className="experience_year_icon"
+                className={styles.experience_year_icon}
                 icon={['far', 'clock']}
               ></FontAwesomeIcon>
               {year}
             </p>
           ) : null}
-          <p className="experience_content">{content}</p>
+          <p className={styles.experience_content}>{content}</p>
         </div>
       ))}
     </>
   );
 
   return (
-    <div className="cast">
-      <div className="detail_cast_infoWrap">
+    <div className={styles.cast}>
+      <div className={styles.detail_cast_infoWrap}>
         <img src={imgUrlParser(castDetail.avatar, 240, 330)} alt="" />
-        <div className="castDetail_info">
-          <h1 className="castDetail_name">{castDetail.cnm}</h1>
-          <p className="castDetail_name_en">{castDetail.enm}</p>
-          <p className="castDetail_more">
+        <div className={styles.castDetail_info}>
+          <h1 className={styles.castDetail_name}>{castDetail.cnm}</h1>
+          <p className={styles.castDetail_name_en}>{castDetail.enm}</p>
+          <p className={styles.castDetail_more}>
             {castDetail.titleList?.map((title) => (
-              <span className="castDetail_title" key={title}>
+              <span className={styles.castDetail_title} key={title}>
                 {title}
               </span>
             ))}
             {castDetail.birthday ? (
-              <span className="castDetail_birth">{castDetail.birthday}</span>
+              <span className={styles.castDetail_birth}>
+                {castDetail.birthday}
+              </span>
             ) : null}
-            <span className="castDetail_gender">{castDetail.sexy}</span>
+            <span className={styles.castDetail_gender}>{castDetail.sexy}</span>
           </p>
-          <p className="castDetail_birthPlace">{castDetail.birthplace}</p>
+          <p className={styles.castDetail_birthPlace}>
+            {castDetail.birthplace}
+          </p>
           {!!castDetail.evaluation ? (
-            <div className="castDetail_evaluation">
-              <span className="evaluation_content">
+            <div className={styles.castDetail_evaluation}>
+              <span className={styles.evaluation_content}>
                 “{castDetail.evaluation.content}”
               </span>
-              <p className="evaluation_source">
+              <p className={styles.evaluation_source}>
                 —— {castDetail.evaluation.spokesman}
               </p>
             </div>
@@ -198,18 +203,18 @@ const Cast: FC = () => {
         </div>
       </div>
       {/* 下半部分 */}
-      <div className="detail_cast_introWrap">
-        <div className="detail_cast_intro">
-          <p className="cast_intro_title">影人简介</p>
-          <p className="cast_intro_desc">{castDetail.desc}</p>
+      <div className={styles.detail_cast_introWrap}>
+        <div className={styles.detail_cast_intro}>
+          <p className={styles.cast_intro_title}>影人简介</p>
+          <p className={styles.cast_intro_desc}>{castDetail.desc}</p>
 
-          <p className="cast_intro_title">影人信息</p>
-          <div className="cast_intro_detail">
+          <p className={styles.cast_intro_title}>影人信息</p>
+          <div className={styles.cast_intro_detail}>
             {detailList.map((item) =>
               item.value ? (
-                <div className="detail_item" key={item.key}>
-                  <span className="detail_item_key">{item.key}：</span>
-                  <span className="detail_item_value">{item.value}</span>
+                <div className={styles.detail_item} key={item.key}>
+                  <span className={styles.detail_item_key}>{item.key}：</span>
+                  <span className={styles.detail_item_value}>{item.value}</span>
                 </div>
               ) : null
             )}
@@ -217,11 +222,11 @@ const Cast: FC = () => {
 
           {castDetail.photos.length ? (
             <>
-              <p className="cast_intro_title">相册</p>
+              <p className={styles.cast_intro_title}>相册</p>
               <Slide
                 interval={5000}
                 height="170px"
-                className="cast_intro_slide"
+                className={styles.cast_intro_slide}
               >
                 {renderSlideItem(castDetail.photos)}
               </Slide>
@@ -232,8 +237,8 @@ const Cast: FC = () => {
           castDetail.musicItems?.length ||
           castDetail.showItems?.length ? (
             <>
-              <p className="cast_intro_title">作品</p>
-              <div className="cast_intro_experience">
+              <p className={styles.cast_intro_title}>作品</p>
+              <div className={styles.cast_intro_experience}>
                 {renderExperienceItems(castDetail.movieItems, '影视作品')}
                 {renderExperienceItems(castDetail.musicItems, '音乐作品')}
                 {renderExperienceItems(castDetail.showItems, '其他')}
@@ -245,8 +250,8 @@ const Cast: FC = () => {
           castDetail.familyItems?.length ||
           castDetail.feelingItems?.length ? (
             <>
-              <p className="cast_intro_title">个人生活</p>
-              <div className="cast_intro_life">
+              <p className={styles.cast_intro_title}>个人生活</p>
+              <div className={styles.cast_intro_life}>
                 {renderExperienceItems(castDetail.experienceItems, '早年经历')}
                 {renderExperienceItems(castDetail.familyItems, '家庭背景')}
                 {renderExperienceItems(castDetail.feelingItems, '情感生活')}
@@ -256,10 +261,10 @@ const Cast: FC = () => {
 
           {castDetail.quotes?.length ? (
             <>
-              <p className="cast_intro_title">语录</p>
-              <div className="cast_intro_quotes">
+              <p className={styles.cast_intro_title}>语录</p>
+              <div className={styles.cast_intro_quotes}>
                 {castDetail.quotes.map((quote, i) => (
-                  <p className="cast_quote" key={i}>
+                  <p className={styles.cast_quote} key={i}>
                     “{quote.content}”
                   </p>
                 ))}

@@ -3,9 +3,12 @@ import MovieListItem from './movieListItem';
 import Slide from '@cpnt/Slide';
 import { getHotMovies, getCommingMovie } from '@network/movie';
 import { getEntNews, getMoviesNews } from '@network/news';
-import './_style.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IMovieListObj, INewsItem } from '@/types';
+import { IMovieListObj, INewsItem, IPost } from '@/types';
+import { getPostsList } from '@/network/post';
+import { Link } from 'react-router-dom';
+
+import styles from './_style.module.scss';
 
 interface IHotAndCommingMovieList {
   hot: Array<IMovieListObj>;
@@ -29,6 +32,12 @@ const Home: FC = () => {
   const [newsListObj, setNewsListObj] = useState(defaultNewsListObj);
   const [slideActiveIdx, setSlideActiveIdx] = useState<number>(1);
   const [slideActiveIdx2, setSlideActiveIdx2] = useState<number>(1);
+  const [postList, setPostList] = useState<IPost[]>([]);
+
+  const fetchPosts = useCallback(async () => {
+    const { data } = await getPostsList();
+    setPostList(data.posts);
+  }, []);
 
   const initMovieList = useCallback(async () => {
     const { hot } = await (await getHotMovies()).data;
@@ -46,7 +55,8 @@ const Home: FC = () => {
   useEffect(() => {
     initMovieList();
     initNewsList();
-  }, [initMovieList, initNewsList]);
+    fetchPosts();
+  }, [fetchPosts, initMovieList, initNewsList]);
 
   /**
    * 根据 list 渲染对应元素，返回结果是多个 SlideItem 组件
@@ -63,7 +73,7 @@ const Home: FC = () => {
     for (let startIdx = 0; startIdx < movieList.length; startIdx += 4) {
       slideItemArr.push(
         <Slide.Item index={startIdx / 4} key={startIdx}>
-          <ul className="hotMovies_list">
+          <ul className={styles.hotMovies_list}>
             {movieList.slice(startIdx, startIdx + 4).map((movieItem) => (
               <MovieListItem
                 movieItem={movieItem}
@@ -88,38 +98,40 @@ const Home: FC = () => {
     newsList.map((newsItem) => (
       <li
         key={newsItem.id}
-        className={`${
-          isMoviesNewsList ? 'newsList_item' : 'newsList_item newsList_item_ent'
-        }`}
+        className={
+          isMoviesNewsList
+            ? styles.newsList_item
+            : `${styles.newsList_item} ${styles.newsList_item_ent}`
+        }
       >
-        <div className="newsList_item_picWrapper">
+        <div className={styles.newsList_item_picWrapper}>
           <img src={newsItem.picUrl} alt="" />
         </div>
-        <div className="newsList_item_wrapper">
+        <div className={styles.newsList_item_wrapper}>
           <a
-            className="newsList_item_title"
+            className={styles.newsList_item_title}
             href={newsItem.url}
             target="__blank"
           >
             {newsItem.title}
           </a>
-          <p className="newsList_item_time">{newsItem.ctime}</p>
-          <p className="newsList_item_source">{newsItem.source}</p>
+          <p className={styles.newsList_item_time}>{newsItem.ctime}</p>
+          <p className={styles.newsList_item_source}>{newsItem.source}</p>
         </div>
       </li>
     ));
 
   return (
-    <div className="homepage">
-      <div className="homepage_movies">
-        <div className="movies_title hotMovies_title">
+    <div className={styles.homepage}>
+      <div className={styles.homepage_movies}>
+        <div className={`${styles.movies_title} ${styles.hotMovies_title}`}>
           正在热映
-          <span className="movies_slide_indicator">
+          <span className={styles.movies_slide_indicator}>
             {slideActiveIdx} / {movieListObj.hot.length / 4}
           </span>
         </div>
         <Slide
-          className="hotMovies_slide"
+          className={styles.hotMovies_slide}
           interval={5000}
           height="220px"
           onChange={(currIdx) => {
@@ -130,14 +142,14 @@ const Home: FC = () => {
           {renderSlideItem(movieListObj.hot, false)}
         </Slide>
 
-        <div className="movies_title comingMovies_title">
+        <div className={`${styles.movies_title} ${styles.comingMovies_title}`}>
           即将上映
-          <span className="movies_slide_indicator">
+          <span className={styles.movies_slide_indicator}>
             {slideActiveIdx2} / {movieListObj.coming.length / 4}
           </span>
         </div>
         <Slide
-          className="hotMovies_slide"
+          className={styles.hotMovies_slide}
           interval={5000}
           height="220px"
           onChange={(currIdx) => {
@@ -147,23 +159,34 @@ const Home: FC = () => {
         >
           {renderSlideItem(movieListObj.coming, true)}
         </Slide>
+
+        <div className={styles.homepage_posts}>
+          <div className={styles.movies_title}>社区热帖</div>
+          <ul>
+            {postList.reverse().map((p) => (
+              <li key={p.id} className={styles['post-wrapper']}>
+                <Link to={`post/${p.id}`}>{p.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <div className="homepage_news">
-        <ul className="newsList">
-          <div className="newsList_title_wrapper">
-            <h4 className="newsList_title">影视新闻</h4>
-            <a href="/news/movie" className="newsList_title_more">
+      <div className={styles.homepage_news}>
+        <ul className={styles.newsList}>
+          <div className={styles.newsList_title_wrapper}>
+            <h4 className={styles.newsList_title}>影视新闻</h4>
+            <a href="/news/movie" className={styles.newsList_title_more}>
               更多&nbsp;
-              <FontAwesomeIcon className="icon" icon="caret-right" />
+              <FontAwesomeIcon className={styles.icon} icon="caret-right" />
             </a>
           </div>
           {renderNewsList(newsListObj.moviesNews)}
-          <div className="newsList_title_wrapper">
-            <h4 className="newsList_title">娱乐新闻</h4>
-            <a href="/news/ent" className="newsList_title_more">
+          <div className={styles.newsList_title_wrapper}>
+            <h4 className={styles.newsList_title}>娱乐新闻</h4>
+            <a href="/news/ent" className={styles.newsList_title_more}>
               更多&nbsp;
-              <FontAwesomeIcon className="icon" icon="caret-right" />
+              <FontAwesomeIcon className={styles.icon} icon="caret-right" />
             </a>
           </div>
           {renderNewsList(newsListObj.entNews, false)}

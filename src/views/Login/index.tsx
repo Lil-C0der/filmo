@@ -10,9 +10,10 @@ import { observer, useLocalStore } from 'mobx-react-lite';
 import store from '@store/index';
 import { useHistory } from 'react-router-dom';
 
-import './_style.scss';
 import { useSubmit } from '@/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import styles from './_style.module.scss';
 
 enum LOGIN_ALERT_MSG {
   TITLE = '请重试',
@@ -161,9 +162,9 @@ const Login: FC = observer(() => {
   }, []);
 
   const loginEl = (
-    <div className="login-modal_content">
-      <div className="login-modal_row login-username">
-        <p className="login-modal_label">用户名</p>
+    <div className={styles['login-modal_content']}>
+      <div className={styles['login-modal_row login-username']}>
+        <p className={styles['login-modal_label']}>用户名</p>
         <Input
           placeholder="请输入用户名"
           password={false}
@@ -174,8 +175,8 @@ const Login: FC = observer(() => {
         />
       </div>
 
-      <div className="login-modal_row login-password">
-        <p className="login-modal_label">密码</p>
+      <div className={styles['login-modal_row login-password']}>
+        <p className={styles['login-modal_label']}>密码</p>
         <Input
           placeholder="请输入密码"
           value={passwordVal}
@@ -187,9 +188,11 @@ const Login: FC = observer(() => {
   );
 
   const ResgiterEl = (
-    <div className="login-modal_content">
-      <div className="login-modal_row login-username">
-        <p className="login-modal_label">用户名</p>
+    <div className={styles['login-modal_content']}>
+      <div
+        className={`${styles['login-modal_row']} ${styles['login-username']}`}
+      >
+        <p className={styles['login-modal_label']}>用户名</p>
         <Input
           placeholder="请输入用户名"
           showClear={true}
@@ -199,8 +202,10 @@ const Login: FC = observer(() => {
         />
       </div>
 
-      <div className="login-modal_row login-password">
-        <p className="login-modal_label">密码</p>
+      <div
+        className={`${styles['login-modal_row']} ${styles['login-password']}`}
+      >
+        <p className={styles['login-modal_label']}>密码</p>
         <Input
           placeholder="请输入密码"
           value={passwordVal}
@@ -209,8 +214,10 @@ const Login: FC = observer(() => {
         />
       </div>
 
-      <div className="login-modal_row login-password">
-        <p className="login-modal_label">再次输入</p>
+      <div
+        className={`${styles['login-modal_row']} ${styles['login-password']}`}
+      >
+        <p className={styles['login-modal_label']}>再次输入</p>
         <Input
           placeholder="请再次输入密码"
           value={passwordVal2}
@@ -225,7 +232,7 @@ const Login: FC = observer(() => {
     <div>
       <Alert
         closable
-        className="login-alert"
+        className={styles['login-alert']}
         title={alertConf.title}
         description={alertConf.description}
         type={alertConf.type}
@@ -240,28 +247,29 @@ const Login: FC = observer(() => {
   ) : null;
 
   return (
-    <div className="login">
+    <div className={styles['login']}>
       {alertEl}
 
-      <div className="login-modal">
-        <img src={logo} alt="" className="login-modal_logo" />
-        <h2 className="login-modal_title">{isRegister ? '注册' : '登录'}</h2>
+      <div className={styles['login-modal']}>
+        <img src={logo} alt="" className={styles['login-modal_logo']} />
+        <h2 className={styles['login-modal_title']}>
+          {isRegister ? '注册' : '登录'}
+        </h2>
 
         {isRegister ? ResgiterEl : loginEl}
 
-        {/* TODO 按钮点击回调 */}
-        <div className="login-modal_btns">
+        <div className={styles['login-modal_btns']}>
           {isRegister ? null : (
             <Button
               btnType="primary"
-              className="login-modal_btn"
+              className={styles['login-modal_btn']}
               onClick={onLogin}
               disabled={isLoginRunning}
             >
               登录
               {isLoginRunning ? (
                 <FontAwesomeIcon
-                  className="login-icon"
+                  className={styles['login-icon']}
                   icon="spinner"
                   spin={isLoginRunning}
                 />
@@ -270,7 +278,7 @@ const Login: FC = observer(() => {
           )}
 
           <Button
-            className="login-modal_btn"
+            className={styles['login-modal_btn']}
             onClick={isRegister ? onSubmit : onRegister}
           >
             {isRegister ? '确定' : '注册'}

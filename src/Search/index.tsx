@@ -1,23 +1,18 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router';
+import { useLocation } from 'react-router';
 import queryString from 'query-string';
 
-import './_styles.scss';
 import { getMoreSearchRes, searchSuggestion } from '@/network/search';
 import { ISearchMovieItem } from '@/types';
 import MovieItem from './movieItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSubmit } from '@/hooks';
 
+import styles from './_styles.module.scss';
+
 interface IQuery {
   kw: string;
 }
-
-const sortMovieByTime = (movies: ISearchMovieItem[]) => {
-  const yearParser = (timeStr: string): number => +timeStr.split('-')[0];
-
-  return movies.sort((a, b) => yearParser(a.rt) - yearParser(b.rt));
-};
 
 const Search: FC = () => {
   const location = useLocation();
@@ -51,7 +46,7 @@ const Search: FC = () => {
   }, [currPageNum, executor, kw, resList, total]);
 
   const loadMoreEl = (
-    <div className="search-loadmore" onClick={loadMoreData}>
+    <div className={styles['search-loadmore']} onClick={loadMoreData}>
       加载更多（剩余 {total} 项）
       <FontAwesomeIcon
         icon={isRunning ? 'spinner' : 'chevron-right'}
@@ -61,9 +56,10 @@ const Search: FC = () => {
   );
 
   return (
-    <div className="search">
-      <h2 className="search-title">
-        关键字 “<i className="search-title_keyword">{kw}</i>” 的搜索结果：
+    <div className={styles.search}>
+      <h2 className={styles['search-title']}>
+        关键字 “<i className={styles['search-title_keyword']}>{kw}</i>”
+        的搜索结果：
       </h2>
       <ul>
         {resList.map((movie) => (

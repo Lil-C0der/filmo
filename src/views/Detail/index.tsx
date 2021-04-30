@@ -11,8 +11,9 @@ import {
   getMovieVideos
 } from '@network/movie';
 
-import './_style.scss';
 import { IMovieInfo } from '@/types';
+
+import styles from './_style.module.scss';
 
 interface IMovieDetailParams {
   id: string;
@@ -77,7 +78,7 @@ const Detail: FC = () => {
   }, [initMovieDetail]);
 
   return (
-    <div className="detail">
+    <div className={styles.detail}>
       {/* 详情页上半部分，包括电影的基本信息如中英文名、评分等 */}
       <DetailTop movieDetail={movieDetail}></DetailTop>
       {/* 详情页下半部分，包括电影基本剧情、演员表等 */}

@@ -3,7 +3,7 @@ import { getEntNews, getMoviesNews } from '@/network/news';
 import { useParams } from 'react-router';
 import { useDebounce } from '@hooks/index';
 
-import './_styles.scss';
+import styles from './_styles.module.scss';
 import { INewsItem } from '@/types';
 
 enum newsType {
@@ -74,24 +74,28 @@ const News: FC = () => {
   }, [onScroll, newWrapperRef]);
 
   return (
-    <div className="news">
-      <h2 className="news-title">{titleMap[newsType]}资讯</h2>
+    <div className={styles.news}>
+      <h2 className={styles['news-title']}>{titleMap[newsType]}资讯</h2>
       {newsList?.map((news) => (
-        <div key={news.id} className="news-item">
-          <div className="news-item_intro">
-            <div className="news-item_picWrapper">
+        <div key={news.id} className={styles['news-item']}>
+          <div className={styles['news-item_intro']}>
+            <div className={styles['news-item_picWrapper']}>
               <img src={news.picUrl} alt="" />
             </div>
-            <div className="news-item_wrapper">
-              <a className="news-item_title" href={news.url} target="__blank">
+            <div className={styles['news-item_wrapper']}>
+              <a
+                className={styles['news-item_title']}
+                href={news.url}
+                target="__blank"
+              >
                 {news.title}
               </a>
-              <p className="news-item_time">{news.ctime}</p>
-              <p className="news-item_source">来源：{news.source}</p>
+              <p className={styles['news-item_time']}>{news.ctime}</p>
+              <p className={styles['news-item_source']}>来源：{news.source}</p>
             </div>
           </div>
 
-          <div className="news-item_desc">{news.description}</div>
+          <div className={styles['news-item_desc']}>{news.description}</div>
         </div>
       ))}
     </div>

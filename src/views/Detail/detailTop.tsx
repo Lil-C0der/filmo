@@ -4,34 +4,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'woo-ui-react';
 import { IMovieInfo } from '@/types';
 
+import styles from './_style.module.scss';
+
 interface IDetailUpperProps {
   movieDetail: IMovieInfo;
 }
 
 const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
   return (
-    <div className="movieDetail_top">
+    <div className={styles.movieDetail_top}>
       <img
-        className="movieDetail_top_pic"
+        className={styles.movieDetail_top_pic}
         src={imgUrlParser(movieDetail.img, 240, 330)}
         alt=""
       />
-      <div className="movieDetail_info">
-        <h1 className="movieDetail_title">{movieDetail.nm}</h1>
-        <p className="movieDetail_title_en">{movieDetail.enm}</p>
-        <p className="movieDetail_director">导演 {movieDetail.dir}</p>
-        <p className="movieDetail_brief">
+      <div className={styles.movieDetail_info}>
+        <h1 className={styles.movieDetail_title}>{movieDetail.nm}</h1>
+        <p className={styles.movieDetail_title_en}>{movieDetail.enm}</p>
+        <p className={styles.movieDetail_director}>导演 {movieDetail.dir}</p>
+        <p className={styles.movieDetail_brief}>
           {`${movieDetail.src} - 片长 ${movieDetail.dur} 分钟 - ${movieDetail.oriLang}`}
         </p>
-        <p className="movieDetail_pubDesc">{movieDetail.pubDesc}</p>
-        <div className="movieDetail_action">
-          <div className="btns">
+        <p className={styles.movieDetail_pubDesc}>{movieDetail.pubDesc}</p>
+        <div className={styles.movieDetail_action}>
+          <div className={styles.btns}>
             {/* TODO 通过 movieDetail.id 实现看过和收藏功能 */}
-            <Button btnType="danger" className="btn" size="lg">
+            <Button btnType="danger" className={styles.btn} size="lg">
               看过
               <FontAwesomeIcon icon={['far', 'eye']}></FontAwesomeIcon>
             </Button>
-            <Button btnType="danger" className="btn" size="lg">
+            <Button btnType="danger" className={styles.btn} size="lg">
               收藏
               <FontAwesomeIcon icon={['far', 'heart']}></FontAwesomeIcon>
             </Button>
@@ -39,30 +41,33 @@ const DetailTop: FC<IDetailUpperProps> = ({ movieDetail }) => {
         </div>
       </div>
 
-      <div className="movieDetail_rate">
-        <div className="rate_sc">
+      <div className={styles.movieDetail_rate}>
+        <div className={styles.rate_sc}>
           {movieDetail.sc ? `${movieDetail.sc} 分` : '暂无评分'}
         </div>
-        <div className="rate_num">
+        <div className={styles.rate_num}>
           {numberParser(movieDetail.snum, 10000)} 万人评分
         </div>
         {/* 电影评分分布情况 */}
-        <ul className="rate_dist">
+        <ul className={styles.rate_dist}>
           {movieDetail.distributions.map(({ movieScoreLevel, proportion }) => (
-            <li className="rate_dist_item" key={movieScoreLevel}>
-              <span className="level">{movieScoreLevel}</span>
-              <span className="bar" style={{ width: `${proportion}px` }}></span>
-              <span className="proportion">{proportion}%</span>
+            <li className={styles.rate_dist_item} key={movieScoreLevel}>
+              <span className={styles.level}>{movieScoreLevel}</span>
+              <span
+                className={styles.bar}
+                style={{ width: `${proportion}px` }}
+              ></span>
+              <span className={styles.proportion}>{proportion}%</span>
             </li>
           ))}
         </ul>
         {movieDetail.scm ? (
-          <h2 className="rate_desc">“{movieDetail.scm}“</h2>
+          <h2 className={styles.rate_desc}>“{movieDetail.scm}“</h2>
         ) : null}
-        <div className="rate_tags">
+        <div className={styles.rate_tags}>
           {movieDetail.cat &&
             movieDetail.cat.split(',').map((cat, i) => (
-              <span className="cat_tag" key={i}>
+              <span className={styles.cat_tag} key={i}>
                 {cat}
               </span>
             ))}

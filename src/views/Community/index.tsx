@@ -7,10 +7,11 @@ import { Alert, Button } from 'woo-ui-react';
 import { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import './_styles.scss';
 import { useLocalStore } from 'mobx-react-lite';
 import store from '@/store';
 import { IPost } from '@/types';
+
+import styles from './_styles.module.scss';
 
 enum COMMUNITY_ALERT_MSG {
   TITLE = '未登录',
@@ -33,7 +34,7 @@ const Community: FC = () => {
   let alertEl = alertVisible ? (
     <Alert
       closable
-      className="community-alert"
+      className={styles['community-alert']}
       title={alertConf.title}
       description={alertConf.description}
       type={alertConf.type}
@@ -46,14 +47,14 @@ const Community: FC = () => {
     />
   ) : null;
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     const { data } = await getPostsList();
     setPostList(data.posts);
-  };
+  }, []);
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
 
   const newPost = useCallback(() => {
     if (!userModel.isLogin) {
@@ -72,38 +73,45 @@ const Community: FC = () => {
   }, [history, userModel.isLogin]);
 
   return (
-    <div className="community">
-      <h2 className="community-title">社区热帖</h2>
+    <div className={styles.community}>
+      <h2 className={styles['community-title']}>社区热帖</h2>
       {alertEl}
       <Button
         size="lg"
         btnType="primary"
-        className="community-post-btn"
+        className={styles['community-post-btn']}
         onClick={newPost}
       >
         发表主题帖
         <FontAwesomeIcon
-          className="community-icon"
+          className={styles['community-icon']}
           icon={['far', 'plus-square']}
         />
       </Button>
-      <ul className="community-post-list">
+      <ul className={styles['community-post-list']}>
         {postList.length ? (
           postList.map((post) => (
-            <li key={post.id} className="community-post-item">
-              <div className="postItem-wrapper">
-                <Link className="postItem-title" to={`post/${post.id}`}>
+            <li key={post.id} className={styles['community-post-item']}>
+              <div className={styles['postItem-wrapper']}>
+                <Link
+                  className={styles['postItem-title']}
+                  to={`post/${post.id}`}
+                >
                   {post.title}
                 </Link>
-                <span className="postItem-creator">{post.creatorUsername}</span>
-                <span className="postItem-date">
+                <span className={styles['postItem-creator']}>
+                  {post.creatorUsername}
+                </span>
+                <span className={styles['postItem-date']}>
                   {parseMongoDate(post.createdAt)}
                 </span>
-                <span className="postItem-date_update">
+                <span className={styles['postItem-date_update']}>
                   最后更新于 {parseMongoDate(post.updatedAt)}
                 </span>
               </div>
-              <div className="postItem-replies">{post.repliesNum}</div>
+              <div className={styles['postItem-replies']}>
+                {post.repliesNum}
+              </div>
             </li>
           ))
         ) : (

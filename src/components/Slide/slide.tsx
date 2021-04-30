@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 
-import './_style.scss';
+import styles from './_style.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -36,7 +36,7 @@ const Slide: FC<ISlideProps> = (props) => {
   const [currIdx, setCurrIdx] = useState<number>(0);
   const [reverseAnimation, setReverseAnimation] = useState<boolean>(false);
 
-  const classes = classNames('slide', className);
+  const classes = classNames(styles.slide, className);
   const { length } = props.children as Array<React.ReactNode>;
 
   // 切换时触发 onChange 回调
@@ -113,17 +113,17 @@ const Slide: FC<ISlideProps> = (props) => {
         value={{ activeIdx: currIdx, reverseAnimation: reverseAnimation }}
       >
         <FontAwesomeIcon
-          className="slide_arrow slide_arrow_l"
+          className={`${styles.slide_arrow} ${styles.slide_arrow_l}`}
           icon="chevron-circle-left"
           onClick={handleLBtnClick}
         />
         <FontAwesomeIcon
-          className="slide_arrow slide_arrow_r"
+          className={`${styles.slide_arrow} ${styles.slide_arrow_r}`}
           icon="chevron-circle-right"
           onClick={handleRBtnClick}
         />
 
-        <div className="slide_wrapper">{props.children}</div>
+        <div className={styles.slide_wrapper}>{props.children}</div>
       </SlideCtx.Provider>
     </div>
   );

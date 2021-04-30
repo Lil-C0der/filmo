@@ -3,7 +3,7 @@ import { SlideCtx } from './slide';
 import classNames from 'classnames';
 import Transition from '@cpnt/Transition';
 
-import './_style.scss';
+import styles from './_style.module.scss';
 
 export interface ISlideItemProps {
   index: number;
@@ -28,7 +28,9 @@ const SlideItem: FC<ISlideItemProps> = ({
       appear
       timeout={300}
       unmountOnExit={false}
-      classNames={reverseAnimation ? 'slideFromLToR' : 'slideFromRToL'}
+      classNames={
+        styles[`${reverseAnimation ? 'slideFromLToR' : 'slideFromRToL'}`]
+      }
     >
       <div className={classes} style={style}>
         {children}

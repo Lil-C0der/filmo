@@ -2,6 +2,16 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
   app.use(
+    '/api/maoyanv1',
+    createProxyMiddleware({
+      target: 'https://m.maoyan.com',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api/maoyanv1': ''
+      }
+    })
+  );
+  app.use(
     '/api/maoyan',
     createProxyMiddleware({
       target: 'https://m.maoyan.com/ajax',

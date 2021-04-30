@@ -233,7 +233,7 @@ export interface IPostDetail {
   replies: IReply[];
 }
 
-export interface ISearchRes {
+export interface ISearchMovieItem {
   cat: string;
   dir: string;
   // 时长

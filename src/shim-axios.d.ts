@@ -145,9 +145,13 @@ declare global {
 
     type searchSuggestionResponseData = {
       movies: {
-        list: ISearchRes;
+        list: ISearchRes[];
         total: number;
       };
+    };
+
+    type totalSearchResResponseData = {
+      movies: ISearchRes[];
     };
   }
 }

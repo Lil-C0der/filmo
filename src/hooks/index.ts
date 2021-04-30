@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useDebounce(fn: any, delay = 300): any {
   const { current } = useRef<{ fn: any; timer: NodeJS.Timeout | null } | null>({
@@ -26,4 +26,17 @@ export function useDebounce(fn: any, delay = 300): any {
   );
 
   return debounceFn;
+}
+
+export function useSubmit(asyncFn: any) {
+  const [res, setRes] = useState();
+  const [isRunning, setIsRunning] = useState(false);
+
+  const executor = async () => {
+    setIsRunning(true);
+    setRes(await asyncFn());
+    setIsRunning(false);
+  };
+
+  return { executor, res };
 }

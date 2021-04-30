@@ -1,5 +1,50 @@
+@import '~styles/var';
 @import '~styles/extends';
 
 .search {
   @extend .container;
+  &-title {
+    @extend .title;
+    margin-bottom: 48px;
+    &_keyword {
+      font-style: normal;
+      color: $pink;
+    }
+  }
+  &-loadmore {
+    font-size: 18px;
+    margin: 24px 0;
+    text-align: center;
+    color: $pink;
+    cursor: pointer;
+  }
+  .movie-item {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid $borderColor;
+    &:last-of-type {
+      border-bottom: none;
+    }
+    .movie-info {
+      margin-left: 24px;
+      .movie-name {
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+      .movie-enm,
+      .movie-cate,
+      .movie-date {
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: $fontColor-grey;
+      }
+      .movie-cateItem,
+      .movie-castItem {
+        margin-right: 4px;
+      }
+    }
+  }
 }

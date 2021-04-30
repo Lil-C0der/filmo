@@ -2,6 +2,9 @@
 
 .login {
   position: relative;
+  &-icon {
+    margin-left: 4px;
+  }
   &-modal {
     position: absolute;
     width: 560px;

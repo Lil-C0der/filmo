@@ -16,7 +16,7 @@ import {
   IMovieListObj,
   INewsItem,
   IPostDetail,
-  ISearchRes
+  ISearchMovieItem
 } from './types/index';
 declare module 'axios' {
   export interface AxiosInstance {
@@ -145,13 +145,13 @@ declare global {
 
     type searchSuggestionResponseData = {
       movies: {
-        list: ISearchRes[];
+        list: ISearchMovieItem[];
         total: number;
       };
     };
 
     type totalSearchResResponseData = {
-      movies: ISearchRes[];
+      movies: ISearchMovieItem[];
     };
   }
 }

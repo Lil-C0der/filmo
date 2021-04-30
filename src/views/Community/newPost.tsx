@@ -7,6 +7,7 @@ import BraftEditor, { ControlType, EditorState } from 'braft-editor';
 import Input from '@/components/Input';
 import { Button } from 'woo-ui-react';
 import { createNewPost } from '@/network/post';
+import { useSubmit } from '@/hooks';
 
 const editorControls: ControlType[] = [
   'undo',
@@ -47,6 +48,10 @@ const newPost: FC = observer(() => {
   );
   const [titleVal, setTitleVal] = useState('');
 
+  const { executor: createNewPostExecutor, isRunning } = useSubmit(
+    createNewPost
+  );
+
   const onSubmit = useCallback(async () => {
     const title = titleVal;
     const content: string = editorState.toText();
@@ -77,7 +82,10 @@ const newPost: FC = observer(() => {
     }
 
     try {
-      const { data, msg, code } = await createNewPost({ title, content });
+      // const { data, msg, code } = await createNewPost({ title, content });
+      const { data, msg, code } = await (
+        await createNewPostExecutor({ title, content })
+      ).res;
       if (code === 200) {
         setAlertConf({
           title: msg,

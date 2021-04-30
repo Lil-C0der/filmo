@@ -5,6 +5,7 @@
   @extend .container;
   &-title {
     @extend .title;
+    margin-top: 32px;
     margin-bottom: 48px;
     &_keyword {
       font-style: normal;
@@ -19,6 +20,7 @@
     cursor: pointer;
   }
   .movie-item {
+    position: relative;
     display: flex;
     justify-content: flex-start;
     margin-bottom: 24px;
@@ -44,6 +46,14 @@
       .movie-cateItem,
       .movie-castItem {
         margin-right: 4px;
+      }
+      .movie-rate {
+        position: absolute;
+        bottom: 32px;
+        right: 128px;
+        font-size: 24px;
+        color: $orange;
+        font-style: italic;
       }
     }
   }

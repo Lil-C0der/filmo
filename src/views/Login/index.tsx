@@ -11,6 +11,8 @@ import store from '@store/index';
 import { useHistory } from 'react-router-dom';
 
 import './_style.scss';
+import { useSubmit } from '@/hooks';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 enum LOGIN_ALERT_MSG {
   TITLE = '请重试',
@@ -32,6 +34,11 @@ const Login: FC = observer(() => {
     description: '',
     type: 'primary'
   });
+
+  const { executor: loginExecutor, isRunning: isLoginRunning } = useSubmit(
+    login,
+    3000
+  );
 
   // mobx store
   const loginUserModel = useLocalStore(() => store);
@@ -65,7 +72,10 @@ const Login: FC = observer(() => {
       return;
     }
 
-    const { code, data, msg } = await login(usernameVal, passwordVal);
+    // const { code, data, msg } = await login(usernameVal, passwordVal);
+    const { code, data, msg } = await (
+      await loginExecutor(usernameVal, passwordVal)
+    ).res;
     if (code === 200) {
       const { token, user } = data;
       loginUserModel.login({ ...user, token });
@@ -246,8 +256,16 @@ const Login: FC = observer(() => {
               btnType="primary"
               className="login-modal_btn"
               onClick={onLogin}
+              disabled={isLoginRunning}
             >
               登录
+              {isLoginRunning ? (
+                <FontAwesomeIcon
+                  className="login-icon"
+                  icon="spinner"
+                  spin={isLoginRunning}
+                />
+              ) : null}
             </Button>
           )}
 

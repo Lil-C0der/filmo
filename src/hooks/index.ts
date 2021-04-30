@@ -28,15 +28,28 @@ export function useDebounce(fn: any, delay = 300): any {
   return debounceFn;
 }
 
-export function useSubmit(asyncFn: any) {
-  const [res, setRes] = useState();
+export function useSubmit<T, P extends any[]>(
+  asyncFn: (...args: P) => Promise<T>,
+  delay: number = 0
+) {
   const [isRunning, setIsRunning] = useState(false);
 
-  const executor = async () => {
-    setIsRunning(true);
-    setRes(await asyncFn());
-    setIsRunning(false);
-  };
+  const executor = useCallback(
+    async (...args: P) => {
+      setIsRunning(true);
+      let res, err;
+      try {
+        res = await asyncFn(...args);
+      } catch (error) {
+        err = error;
+      }
+      setTimeout(() => {
+        setIsRunning(false);
+      }, delay);
+      return { res, err } as { res: T };
+    },
+    [asyncFn, delay]
+  );
 
-  return { executor, res };
+  return { executor, isRunning };
 }

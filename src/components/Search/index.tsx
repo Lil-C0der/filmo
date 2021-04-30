@@ -7,6 +7,7 @@ import { getMoreSearchRes, searchSuggestion } from '@/network/search';
 import { ISearchMovieItem } from '@/types';
 import MovieItem from './movieItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSubmit } from '@/hooks';
 
 interface IQuery {
   kw: string;
@@ -23,12 +24,9 @@ const Search: FC = () => {
   const [kw, setKw] = useState('');
   const [total, setTotal] = useState(0);
   const [resList, setResList] = useState<ISearchMovieItem[]>([]);
-  const [totalResList, setTotalResList] = useState<ISearchMovieItem[]>([]);
   const [currPageNum, setCurrPageNum] = useState(3);
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  // console.log('location', location);
+  const { executor, isRunning } = useSubmit(getMoreSearchRes);
 
   const getSeachSuggestion = useCallback(async () => {
     // @ts-ignore
@@ -43,21 +41,22 @@ const Search: FC = () => {
     getSeachSuggestion();
   }, [getSeachSuggestion]);
 
-  const loadMoreData = async () => {
+  const loadMoreData = useCallback(async () => {
     if (kw) {
-      setIsLoading(true);
-      const { movies } = await getMoreSearchRes(kw, currPageNum);
+      const { movies } = await (await executor(kw, currPageNum)).res;
       setCurrPageNum(currPageNum + 20);
-      setIsLoading(false);
       setResList([...resList, ...movies]);
       setTotal(total - 20);
     }
-  };
+  }, [currPageNum, executor, kw, resList, total]);
 
   const loadMoreEl = (
     <div className="search-loadmore" onClick={loadMoreData}>
       加载更多（剩余 {total} 项）
-      {isLoading ? <FontAwesomeIcon icon="spinner" spin={isLoading} /> : ''}
+      <FontAwesomeIcon
+        icon={isRunning ? 'spinner' : 'chevron-right'}
+        spin={isRunning}
+      />
     </div>
   );
 

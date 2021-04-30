@@ -111,6 +111,7 @@
     padding: 16px;
     padding-bottom: 48px;
     font-size: 18px;
+    line-height: 1.5;
   }
   &-replies-wrapper {
     position: relative;
@@ -130,6 +131,7 @@
     }
     .reply-content {
       margin-top: 24px;
+      line-height: 1.5;
     }
   }
   &-reply {

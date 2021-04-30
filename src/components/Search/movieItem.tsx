@@ -31,6 +31,7 @@ const MovieItem: FC<ISearchMovieItem> = (props) => {
         <div className="movie-cate">{renderCateEl()}</div>
         <div className="movie-date">{props.rt}</div>
         <div className="movie-cast">{renderCastEl()}</div>
+        <div className="movie-rate">{props.sc} 分</div>
       </div>
     </li>
   );

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import store from '@/store';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import Alert, { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';

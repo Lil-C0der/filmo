@@ -42,10 +42,7 @@ const Input: FC<IProps> = (props) => {
     />
   );
 
-  const classes = classNames(
-    styles['input-wrapper'],
-    styles[`${props?.className}`]
-  );
+  const classes = classNames(styles['input-wrapper'], props.className);
   return (
     <div className={classes}>
       {props.password ? (

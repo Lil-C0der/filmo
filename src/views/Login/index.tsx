@@ -102,7 +102,14 @@ const Login: FC = observer(() => {
     setTimeout(() => {
       setAlertVisible(false);
     }, 3000);
-  }, [checkInputValidate, history, loginUserModel, passwordVal, usernameVal]);
+  }, [
+    checkInputValidate,
+    history,
+    loginExecutor,
+    loginUserModel,
+    passwordVal,
+    usernameVal
+  ]);
 
   const onRegister = useCallback(() => {
     setIsRegister(true);

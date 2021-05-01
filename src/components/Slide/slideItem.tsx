@@ -18,8 +18,9 @@ const SlideItem: FC<ISlideItemProps> = ({
   children
 }) => {
   const { activeIdx, reverseAnimation } = useContext(SlideCtx);
-  const classes = classNames('slide_item', className, {
-    slide_item_active: index === activeIdx
+
+  const classes = classNames(styles.slide_item, className, {
+    [styles.slide_item_active]: index === activeIdx
   });
 
   return (

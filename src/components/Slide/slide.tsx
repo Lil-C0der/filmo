@@ -36,6 +36,7 @@ const Slide: FC<ISlideProps> = (props) => {
   const [currIdx, setCurrIdx] = useState<number>(0);
   const [reverseAnimation, setReverseAnimation] = useState<boolean>(false);
 
+  // @
   const classes = classNames(styles.slide, className);
   const { length } = props.children as Array<React.ReactNode>;
 

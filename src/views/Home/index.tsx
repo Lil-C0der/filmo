@@ -9,6 +9,7 @@ import { getPostsList } from '@/network/post';
 import { Link } from 'react-router-dom';
 
 import styles from './_style.module.scss';
+import { parseMongoDate } from '@/utils';
 
 interface IHotAndCommingMovieList {
   hot: Array<IMovieListObj>;
@@ -124,7 +125,7 @@ const Home: FC = () => {
   return (
     <div className={styles.homepage}>
       <div className={styles.homepage_movies}>
-        <div className={`${styles.movies_title} ${styles.hotMovies_title}`}>
+        <div className={styles.movies_title}>
           正在热映
           <span className={styles.movies_slide_indicator}>
             {slideActiveIdx} / {movieListObj.hot.length / 4}
@@ -142,7 +143,7 @@ const Home: FC = () => {
           {renderSlideItem(movieListObj.hot, false)}
         </Slide>
 
-        <div className={`${styles.movies_title} ${styles.comingMovies_title}`}>
+        <div className={styles.movies_title}>
           即将上映
           <span className={styles.movies_slide_indicator}>
             {slideActiveIdx2} / {movieListObj.coming.length / 4}
@@ -162,12 +163,18 @@ const Home: FC = () => {
 
         <div className={styles.homepage_posts}>
           <div className={styles.movies_title}>社区热帖</div>
-          <ul>
-            {postList.reverse().map((p) => (
-              <li key={p.id} className={styles['post-wrapper']}>
-                <Link to={`post/${p.id}`}>{p.title}</Link>
-              </li>
-            ))}
+          <ul className={styles['post-list']}>
+            {postList
+              .reverse()
+              .slice(0, 5)
+              .map((p) => (
+                <li key={p.id} className={styles['post-wrapper']}>
+                  <Link to={`post/${p.id}`}>{p.title}</Link>
+                  <span className="post-date">
+                    {parseMongoDate(p.createdAt)}
+                  </span>
+                </li>
+              ))}
           </ul>
         </div>
       </div>

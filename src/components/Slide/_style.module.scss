@@ -19,41 +19,6 @@
   }
 }
 
-.slideFromRToL-enter {
-  transition: all 0.3s;
-  transform: translateX(100%);
-}
-.slideFromRToL-enter-active {
-  transform: translateX(0);
-}
-
-.slideFromRToL-exit {
-  // 注意：如果不加 display: block，则切换后受 display: none 影响，不能显示动画
-  display: block;
-  transition: all 0.3s;
-  transform: translateX(0);
-}
-.slideFromRToL-exit-active {
-  transition: all 0.3s;
-  transform: translateX(-100%);
-}
-
-.slideFromLToR-enter {
-  transition: all 0.3s;
-  transform: translateX(-100%);
-}
-.slideFromLToR-enter-active {
-  transform: translateX(0);
-}
-.slideFromLToR-exit {
-  display: block;
-  transition: all 0.3s;
-  transform: translateX(0);
-}
-.slideFromLToR-exit-active {
-  transform: translateX(100%);
-}
-
 .slide_arrow {
   display: flex;
   opacity: 0;

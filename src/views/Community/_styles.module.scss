@@ -142,12 +142,6 @@
   }
 }
 
-.bf-container {
-  border: 1px solid $borderColor;
-  .bf-content {
-    height: 100%;
-  }
-}
 .reply-btn {
   position: absolute;
   margin-top: 32px;
@@ -168,11 +162,18 @@
   top: 16px;
 }
 
+:global(.bf-container) {
+  border: 1px solid $borderColor;
+}
+:global(.bf-content) {
+  height: 200px;
+}
+
 .newPost {
   @extend .container;
   position: relative;
   padding-top: 32px;
-  padding-bottom: 40px;
+  padding-bottom: 80px;
   &-title {
     @extend .title;
   }
@@ -184,14 +185,20 @@
       width: 100%;
       margin-bottom: 24px;
     }
+    &_content {
+      border-radius: 4px;
+    }
   }
   &-btn {
     position: absolute;
     bottom: 0;
     right: 0;
   }
-
-  .bf-container {
-    border-radius: 4px;
+  &-alert {
+    min-width: 320px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 16px;
   }
 }

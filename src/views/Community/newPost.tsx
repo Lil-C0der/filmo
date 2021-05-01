@@ -118,7 +118,7 @@ const newPost: FC = observer(() => {
   let alertEl = alertVisible ? (
     <Alert
       closable
-      className={styles['profile-alert']}
+      className={styles['newPost-alert']}
       title={alertConf.title}
       description={alertConf.description}
       type={alertConf.type}
@@ -153,7 +153,7 @@ const newPost: FC = observer(() => {
         />
         <BraftEditor
           style={{ height: '240px' }}
-          className={styles['newPost-editor_title']}
+          className={styles['newPost-editor_content']}
           value={editorState}
           controls={editorControls}
           onChange={setEditorState}

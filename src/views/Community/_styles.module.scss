@@ -1,6 +1,10 @@
 @import '~styles/var';
 @import '~styles/extends';
 
+:global(.bf-container) {
+  border: 1px solid $borderColor;
+}
+
 .community {
   @extend .container;
   padding-top: 32px;
@@ -140,6 +144,9 @@
     padding-bottom: 16px;
     border-bottom: 1px solid $borderColor;
   }
+  .reply-tips {
+    margin: 16px 0;
+  }
 }
 
 .reply-btn {
@@ -160,13 +167,6 @@
 .community .community-alert {
   position: absolute;
   top: 16px;
-}
-
-:global(.bf-container) {
-  border: 1px solid $borderColor;
-}
-:global(.bf-content) {
-  height: 200px;
 }
 
 .newPost {

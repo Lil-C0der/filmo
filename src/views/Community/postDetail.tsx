@@ -12,9 +12,16 @@ import Alert, { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 import { IPostDetail } from '@/types';
 
 import styles from './_styles.module.scss';
+import { Link } from 'react-router-dom';
+import { observer, useLocalStore } from 'mobx-react-lite';
+import store from '@/store';
 
 interface IPostParams {
   postId: string;
+}
+enum POST_ALERT_MSG {
+  NOT_EMPTY = '回帖内容不能为空！',
+  UNAUTH = '请先登录！'
 }
 
 const editorControls: ControlType[] = [
@@ -36,13 +43,9 @@ const editorControls: ControlType[] = [
   }
 ];
 
-enum POST_ALERT_MSG {
-  NOT_EMPTY = '回帖内容不能为空！',
-  UNAUTH = '请先登录！'
-}
-
-const PostDetail: FC = () => {
+const PostDetail: FC = observer(() => {
   const { postId } = useParams<IPostParams>();
+  const userModel = useLocalStore(() => store);
   const [postDetail, setPostDetail] = useState<IPostDetail>();
   const [editorState, setEditorState] = useState<EditorState>(
     BraftEditor.createEditorState(null)
@@ -61,6 +64,17 @@ const PostDetail: FC = () => {
   }, [postId]);
 
   const onReply = useCallback(async () => {
+    if (!userModel.isLogin) {
+      setAlertConf({
+        title: POST_ALERT_MSG.UNAUTH,
+        type: 'danger'
+      });
+      setAlertVisible(true);
+      setTimeout(() => {
+        setAlertVisible(false);
+      }, 1000);
+      return;
+    }
     const content: string = editorState.toText();
     if (!content.trim()) {
       setAlertConf({
@@ -96,7 +110,7 @@ const PostDetail: FC = () => {
     setTimeout(() => {
       setAlertVisible(false);
     }, 1000);
-  }, [postId, editorState]);
+  }, [userModel.isLogin, editorState, postId]);
 
   useEffect(() => {
     fetchPostDetail();
@@ -153,8 +167,16 @@ const PostDetail: FC = () => {
         )}
       </div>
 
+      {!userModel.isLogin ? (
+        <p className={styles['reply-tips']}>
+          回帖请先
+          <Link to="/login">登录或注册</Link>
+        </p>
+      ) : null}
+
       <BraftEditor
         style={{ height: '240px' }}
+        contentStyle={{ height: '200px' }}
         className={styles['post-reply-editor']}
         value={editorState}
         controls={editorControls}
@@ -170,6 +192,6 @@ const PostDetail: FC = () => {
       </Button>
     </div>
   );
-};
+});
 
 export default PostDetail;

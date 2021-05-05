@@ -23,10 +23,8 @@ export const parseMongoDate = (date: string) => {
     return;
   }
   const dateArr = date.split('T');
-  // console.log(dateArr);
   let timeArr = dateArr[1]?.split(':');
   const hrs = +timeArr[0] + 8;
-  // console.log(timeArr);
   return `${dateArr[0]} ${hrs >= 24 ? hrs - 24 : hrs}:${timeArr[1]}`;
 };
 

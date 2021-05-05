@@ -11,13 +11,14 @@ import { Link } from 'react-router-dom';
 import { IUserDetail } from '@/types';
 
 import styles from './_style.module.scss';
+import MovieCard from '@/components/MovieCard';
 
 const defaultUserInfo: IUserDetail = {
   id: '',
   username: '',
   createdAt: '',
   watchedList: [],
-  favoritesList: [],
+  collectionList: [],
   posts: []
 };
 
@@ -42,6 +43,7 @@ const Profile: FC = observer(() => {
     const { code, data } = await getUserDetail();
     if (code === 200 && data) {
       setUserInfo(data.user);
+      // loginUserModel.user = data.user;
     }
   }, []);
 
@@ -62,14 +64,10 @@ const Profile: FC = observer(() => {
   ) : null;
 
   useEffect(() => {
-    // console.log(loginUserModel.isLogin);
     const token = loginUserModel.token || localStorage.getItem('user-token');
     if (loginUserModel.isLogin || token) {
-      console.log('登录了');
-
       token && fetchUserInfo();
     } else {
-      // console.log('未登录，正在跳转登录页');
       setAlertConf({
         title: PROFILE_ALERT_MSG.TITLE,
         description: PROFILE_ALERT_MSG.DESCRIPTION,
@@ -90,6 +88,25 @@ const Profile: FC = observer(() => {
         <span className={styles['profile-posts_date']}>
           {parseMongoDate(post.createdAt)}
         </span>
+      </li>
+    ))
+  ) : (
+    <Placeholder />
+  );
+
+  const collectionListEl = userInfo.collectionList.length ? (
+    // userInfo.collectionList.map((m) => <li key={m.id}>{m.id}</li>)
+    userInfo.collectionList.map((m) => (
+      <li key={m.id}>
+        <MovieCard
+          width="160px"
+          height="220px"
+          imgWidth={160}
+          imgHeight={220}
+          className={styles.movieList_item}
+          movieItem={{ ...m, img: m.imgUrl }}
+          isComingMovie={false}
+        />
       </li>
     ))
   ) : (
@@ -126,13 +143,7 @@ const Profile: FC = observer(() => {
               index="2"
               name="收藏的电影"
             >
-              {userInfo.posts.length ? (
-                userInfo.posts.map((post) => (
-                  <li key={post.id}>{post.title}</li>
-                ))
-              ) : (
-                <Placeholder />
-              )}
+              {collectionListEl}
             </Tabs.Item>
 
             <Tabs.Item
@@ -140,10 +151,8 @@ const Profile: FC = observer(() => {
               index="3"
               name="看过的电影"
             >
-              {userInfo.posts.length ? (
-                userInfo.posts.map((post) => (
-                  <li key={post.id}>{post.title}</li>
-                ))
+              {userInfo.watchedList.length ? (
+                userInfo.watchedList.map((m) => <li key={m.id}>{m.title}</li>)
               ) : (
                 <Placeholder />
               )}

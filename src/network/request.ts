@@ -16,9 +16,11 @@ axiosInstance.interceptors.request.use((resquestConf: AxiosRequestConfig) => {
     resquestConf.params.key = tianAK;
   }
   // 统一配置 token
-  if (store.token || localStorage.getItem('user-token')) {
+  if (
+    (store.token || localStorage.getItem('user-token')) &&
+    url?.match(/^local/)
+  ) {
     const token = store.token || localStorage.getItem('user-token');
-    console.log('token', token);
     resquestConf.headers = {
       // token
       Authorization: `Bearer ${token}`

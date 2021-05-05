@@ -36,14 +36,12 @@ const DetailBTM: FC<IDetailTabsProps> = ({
           (iframeWin.document.documentElement.scrollHeight ||
             iframeWin.document.body.scrollHeight) - 50
         );
-        console.log(123, iframe.height);
       }
     }
   };
 
   window.onload = function () {
     const iFrameEl = document.getElementById('external-frame');
-    console.log(iFrameEl);
     setIframeHeight(iFrameEl as HTMLIFrameElement);
   };
 
@@ -241,7 +239,6 @@ const DetailBTM: FC<IDetailTabsProps> = ({
     'http://localhost:3000/api/iframe/apollo'
   );
 
-  console.log(movieDetail?.awardUrl, awardUrl);
   return (
     <div className={styles.movieDetail_bottom}>
       <Tabs activeIndex="1" className={styles.movieDetail_bottom_tab}>
@@ -263,7 +260,6 @@ const DetailBTM: FC<IDetailTabsProps> = ({
             scrolling="no"
             id="external-frame"
             onLoad={(e) => {
-              console.log();
               const frame = e.currentTarget;
               setIframeHeight(frame);
             }}

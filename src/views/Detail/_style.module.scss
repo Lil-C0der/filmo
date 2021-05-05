@@ -9,6 +9,7 @@
 }
 
 .movieDetail_top {
+  position: relative;
   display: flex;
   width: 1200px;
   height: 330px;
@@ -17,6 +18,14 @@
   &_pic {
     width: 240px;
     height: 330px;
+  }
+  .movieDetail-alert {
+    position: fixed;
+    width: 320px;
+    top: 128px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
   }
 }
 

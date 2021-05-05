@@ -73,12 +73,12 @@ const Login: FC = observer(() => {
       return;
     }
 
-    // const { code, data, msg } = await login(usernameVal, passwordVal);
     const { code, data, msg } = await (
       await loginExecutor(usernameVal, passwordVal)
     ).res;
     if (code === 200) {
       const { token, user } = data;
+
       loginUserModel.login({ ...user, token });
       localStorage.setItem('user-token', token);
       setAlertConf({

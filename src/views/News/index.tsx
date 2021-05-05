@@ -95,7 +95,9 @@ const News: FC = () => {
             </div>
           </div>
 
-          <div className={styles['news-item_desc']}>{news.description}</div>
+          {news.description ? (
+            <div className={styles['news-item_desc']}>{news.description}</div>
+          ) : null}
         </div>
       ))}
     </div>

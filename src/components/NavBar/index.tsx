@@ -36,8 +36,6 @@ const NavBar: FC = observer(() => {
     }
     if (pathname.includes('/community') || pathname.includes('/post')) {
       return MENUINDEX.COMMUNITY;
-    } else {
-      console.log(pathname);
     }
   }, [location]);
 
@@ -56,7 +54,6 @@ const NavBar: FC = observer(() => {
 
   const onLogoutBtnClick = useCallback(() => {
     if (userModel.isLogin) {
-      console.log('退出');
       userModel.logout();
       localStorage.removeItem('user-token');
       if (activeIdx === MENUINDEX.PROFILE) {

@@ -2,14 +2,14 @@ import instance from './request';
 
 export const getPostsList = () => {
   return instance<dataTypes.postsResponseData>({
-    url: '/local/posts',
+    url: 'local/posts',
     method: 'GET'
   });
 };
 
 export const getPostDetail = (id: string) => {
   return instance<dataTypes.postDetailResponseData>({
-    url: `/local/posts/${id}`,
+    url: `local/posts/${id}`,
     method: 'GET'
   });
 };
@@ -22,7 +22,7 @@ export const createNewPost = ({
   content: string;
 }) => {
   return instance<dataTypes.postDetailResponseData>({
-    url: `/local/posts`,
+    url: `local/posts`,
     method: 'POST',
     data: { title, content }
   });
@@ -35,7 +35,7 @@ export const replyPost = (
 ) => {
   // 带上时间戳
   return instance<dataTypes.postDetailResponseData>({
-    url: `/local/posts/${id}`,
+    url: `local/posts/${id}`,
     method: 'PUT',
     data: { content, replyAt }
   });

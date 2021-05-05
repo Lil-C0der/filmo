@@ -207,11 +207,24 @@ export interface IPost {
   repliesNum: number;
 }
 
+export interface IMovieOfUser {
+  // id: string;
+  id: number;
+  nm: string;
+  enm: string;
+  imgUrl: string;
+  star: string; // 主演
+  fra: string; // 地区
+  rt: string; //	上映时间
+  sc: number; //	评分
+  wish: number;
+}
+
 // 用户模型
 export interface IUser {
   posts: IPost[];
   watchedList: any[];
-  favoritesList: any[];
+  collectionList: IMovieOfUser[];
   id: string;
   username: string;
   createdAt: string;

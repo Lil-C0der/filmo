@@ -58,7 +58,6 @@ const newPost: FC = observer(() => {
   const onSubmit = useCallback(async () => {
     const title = titleVal;
     const content: string = editorState.toText();
-    console.log(userModel.isLogin);
 
     if (!userModel.isLogin) {
       setAlertConf({
@@ -153,6 +152,7 @@ const newPost: FC = observer(() => {
         />
         <BraftEditor
           style={{ height: '240px' }}
+          contentStyle={{ height: '200px' }}
           className={styles['newPost-editor_content']}
           value={editorState}
           controls={editorControls}

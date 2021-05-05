@@ -7,7 +7,7 @@ import { Alert, Button } from 'woo-ui-react';
 import { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useLocalStore } from 'mobx-react-lite';
+import { observer, useLocalStore } from 'mobx-react-lite';
 import store from '@/store';
 import { IPost } from '@/types';
 
@@ -18,7 +18,7 @@ enum COMMUNITY_ALERT_MSG {
   DESCRIPTION = '正在为您跳转登录页..'
 }
 
-const Community: FC = () => {
+const Community: FC = observer(() => {
   const history = useHistory();
   const [postList, setPostList] = useState<IPost[]>([]);
 
@@ -120,6 +120,6 @@ const Community: FC = () => {
       </ul>
     </div>
   );
-};
+});
 
 export default Community;

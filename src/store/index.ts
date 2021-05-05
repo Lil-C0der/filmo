@@ -1,12 +1,12 @@
-import { IPost } from '@/types';
-import { action, makeObservable, observable } from 'mobx';
+import { IMovieOfUser, IPost } from '@/types';
+import { action, makeObservable, observable, toJS } from 'mobx';
 
 export interface IUserWithToken {
   username: string;
   token: string;
   createdAt: string;
-  favoritesList: any[];
-  watchedList: any[];
+  collectionList: IMovieOfUser[];
+  watchedList: IMovieOfUser[];
   posts: IPost[];
 }
 
@@ -14,23 +14,12 @@ const defaultUser = {
   username: '',
   token: '',
   createdAt: '',
-  favoritesList: [],
+  collectionList: [],
   posts: [],
   watchedList: []
 };
 
 class UserModel {
-  // @observable
-  // isLogin: boolean = false;
-
-  // @observable
-  // user: IUser = {
-  //   username: '',
-  //   token: ''
-  // };
-
-  // @action
-
   user: IUserWithToken;
   isLogin: boolean;
   token: string;
@@ -44,7 +33,8 @@ class UserModel {
       user: observable,
       isLogin: observable,
       login: action.bound,
-      logout: action.bound
+      logout: action.bound,
+      addToCollection: action.bound
     });
   }
 
@@ -53,7 +43,7 @@ class UserModel {
     //     username: '',
     //     token: '',
     //     createdAt: '',
-    //     favoritesList: [],
+    //     collectionList: [],
     //     posts: [],
     //     watchedList: []
     //   }
@@ -62,6 +52,7 @@ class UserModel {
       this.user = userInfo;
       this.token = userInfo.token;
       return;
+    } else {
     }
     this.user = defaultUser;
   }
@@ -69,11 +60,21 @@ class UserModel {
   login(userInfo: IUserWithToken) {
     this.initUser(userInfo);
     this.isLogin = true;
+    console.log('store collection', toJS(this.user.collectionList));
   }
 
   logout() {
     this.initUser();
     this.isLogin = false;
+  }
+
+  addToCollection(movie: IMovieOfUser) {
+    const ids = this.user.collectionList.map((m) => m.id);
+    if (!ids.includes(movie.id)) {
+      console.log('pushing');
+
+      this.user.collectionList.push(movie);
+    }
   }
 }
 

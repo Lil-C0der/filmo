@@ -1,5 +1,4 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
-import MovieListItem from './movieListItem';
 import Slide from '@cpnt/Slide';
 import { getHotMovies, getCommingMovie } from '@network/movie';
 import { getEntNews, getMoviesNews } from '@network/news';
@@ -10,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './_style.module.scss';
 import { parseMongoDate } from '@/utils';
+import MovieCard from '@/components/MovieCard';
 
 interface IHotAndCommingMovieList {
   hot: Array<IMovieListObj>;
@@ -76,7 +76,12 @@ const Home: FC = () => {
         <Slide.Item index={startIdx / 4} key={startIdx}>
           <ul className={styles.hotMovies_list}>
             {movieList.slice(startIdx, startIdx + 4).map((movieItem) => (
-              <MovieListItem
+              <MovieCard
+                width="160px"
+                height="220px"
+                imgWidth={160}
+                imgHeight={220}
+                className={styles.movieList_item}
                 movieItem={movieItem}
                 isComingMovie={isComingMovieList}
                 key={movieItem.id}

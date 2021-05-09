@@ -5,9 +5,9 @@ import { Button } from 'woo-ui-react';
 import { IMovieInfo, IMovieOfUser } from '@/types';
 
 import styles from './_style.module.scss';
-import { addToCollection } from '@/network/users';
+import { addToList, removeFromList } from '@/network/users';
 import { observer, useLocalStore } from 'mobx-react-lite';
-import store from '@/store';
+import store, { ListSource } from '@/store';
 import Alert, { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 import { toJS } from 'mobx';
 
@@ -17,11 +17,6 @@ interface IDetailUpperProps {
 
 enum MOVIE_ALERT_MSG {
   UNAUTH = '请先登录！'
-}
-
-enum ListSource {
-  collectionList = 1,
-  watchedList = 2
 }
 
 const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
@@ -34,24 +29,51 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
     type: 'primary'
   });
 
-  const isCollected = useCallback(() => {
-    console.log('collection', toJS(userModel.user.collectionList));
-
-    return toJS(userModel.user.collectionList)
-      .map((m) => m.id)
-      .includes(movieDetail.id);
-  }, [movieDetail.id, userModel.user.collectionList]);
+  const isCollected = useCallback(
+    () =>
+      toJS(userModel.user.collectionList)
+        .map((m) => m.id)
+        .includes(movieDetail.id),
+    [movieDetail.id, userModel.user.collectionList]
+  );
 
   const onWatchBtnClick = () => {
     console.log('watched');
   };
 
-  const removeMovie = useCallback((source: ListSource) => {
-    if (source === ListSource.collectionList) {
-      console.log('remove from collection list');
-    } else {
-    }
-  }, []);
+  const removeMovie = useCallback(
+    async (source: ListSource) => {
+      if (source === ListSource.collectionList) {
+        console.log('remove from collection list');
+        try {
+          const { code, msg } = await removeFromList(
+            // @ts-ignore
+            { id: movieDetail.id },
+            source
+          );
+          if (code === 200) {
+            setAlertConf({
+              title: msg,
+              type: 'success'
+            });
+            userModel.removeFromCollection(movieDetail.id, source);
+          }
+        } catch (error) {
+          setAlertConf({
+            title: MOVIE_ALERT_MSG.UNAUTH,
+            type: 'danger'
+          });
+        }
+
+        setAlertVisible(true);
+        setTimeout(() => {
+          setAlertVisible(false);
+        }, 1000);
+      } else {
+      }
+    },
+    [movieDetail.id, userModel]
+  );
 
   const onCollectBtnClick = async () => {
     if (!userModel.isLogin) {
@@ -67,10 +89,12 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
     }
 
     if (movieDetail.id && movieDetail.nm) {
+      // 取消收藏
       if (isCollected()) {
         removeMovie(ListSource.collectionList);
         return;
       }
+
       const {
         id,
         nm,
@@ -94,14 +118,14 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
         wish
       };
       try {
-        const { msg, code } = await addToCollection(movieDto);
+        const { msg, code } = await addToList(movieDto, 10);
         if (code === 200) {
           setAlertConf({
             title: msg,
             type: 'success'
           });
         }
-        userModel.addToCollection(movieDto);
+        userModel.addToList(movieDto, ListSource.collectionList);
       } catch (error) {
         setAlertConf({
           title: MOVIE_ALERT_MSG.UNAUTH,

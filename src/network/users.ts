@@ -24,10 +24,18 @@ export function getUserDetail() {
   });
 }
 
-export function addToCollection(movie: IMovieOfUser) {
+export function addToList(movie: IMovieOfUser, targetList: 10 | 20) {
   return instance<dataTypes.userDetailResponseData>({
-    url: `local/auth/addToCollection`,
+    url: 'local/auth/addToList',
     method: 'POST',
-    data: { movie }
+    data: { movie, targetList }
+  });
+}
+
+export function removeFromList(movie: IMovieOfUser, targetList: 10 | 20) {
+  return instance<dataTypes.userDetailResponseData>({
+    url: 'local/auth/removeFromList',
+    method: 'POST',
+    data: { movie, targetList }
   });
 }

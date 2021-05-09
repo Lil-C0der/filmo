@@ -10,6 +10,11 @@ export interface IUserWithToken {
   posts: IPost[];
 }
 
+export enum ListSource {
+  collectionList = 10,
+  watchedList = 20
+}
+
 const defaultUser = {
   username: '',
   token: '',
@@ -34,7 +39,7 @@ class UserModel {
       isLogin: observable,
       login: action.bound,
       logout: action.bound,
-      addToCollection: action.bound
+      addToList: action.bound
     });
   }
 
@@ -68,12 +73,46 @@ class UserModel {
     this.isLogin = false;
   }
 
-  addToCollection(movie: IMovieOfUser) {
-    const ids = this.user.collectionList.map((m) => m.id);
-    if (!ids.includes(movie.id)) {
-      console.log('pushing');
+  addToList(
+    movie: IMovieOfUser,
+    source: ListSource.collectionList | ListSource.watchedList
+  ) {
+    if (source === ListSource.collectionList) {
+      const ids = this.user.collectionList.map((m) => m.id);
+      if (!ids.includes(movie.id)) {
+        console.log('pushing');
 
-      this.user.collectionList.push(movie);
+        this.user.collectionList.push(movie);
+      }
+    }
+    if (source === ListSource.watchedList) {
+      const ids = this.user.watchedList.map((m) => m.id);
+      if (!ids.includes(movie.id)) {
+        console.log('pushing watchedList');
+
+        this.user.watchedList.push(movie);
+      }
+    }
+  }
+
+  removeFromCollection(
+    id: number,
+    source: ListSource.collectionList | ListSource.watchedList
+  ) {
+    if (source === ListSource.collectionList) {
+      const ids = this.user.collectionList.map((m) => m.id);
+      const idx = ids.indexOf(id);
+      if (idx >= 0) {
+        this.user.collectionList.splice(idx, 1);
+      }
+    }
+
+    if (source === ListSource.watchedList) {
+      const ids = this.user.watchedList.map((m) => m.id);
+      const idx = ids.indexOf(id);
+      if (idx >= 0) {
+        this.user.watchedList.splice(idx, 1);
+      }
     }
   }
 }

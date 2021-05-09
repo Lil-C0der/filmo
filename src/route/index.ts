@@ -8,7 +8,7 @@ import News from '@/views/News';
 import Community from '@/views/Community';
 import PostDetail from '@/views/Community/postDetail';
 import newPost from '@/views/Community/newPost';
-import Search from '@/Search';
+import Search from '@/views/Search';
 
 export interface IRouteCfg {
   name: string;

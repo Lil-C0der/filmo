@@ -95,19 +95,34 @@ const Profile: FC = observer(() => {
   );
 
   const collectionListEl = userInfo.collectionList.length ? (
-    // userInfo.collectionList.map((m) => <li key={m.id}>{m.id}</li>)
     userInfo.collectionList.map((m) => (
-      <li key={m.id}>
-        <MovieCard
-          width="160px"
-          height="220px"
-          imgWidth={160}
-          imgHeight={220}
-          className={styles.movieList_item}
-          movieItem={{ ...m, img: m.imgUrl }}
-          isComingMovie={false}
-        />
-      </li>
+      <MovieCard
+        key={m.id}
+        width="160px"
+        height="220px"
+        imgWidth={160}
+        imgHeight={220}
+        className={styles.movieList_item}
+        movieItem={{ ...m, img: m.imgUrl }}
+        isComingMovie={false}
+      />
+    ))
+  ) : (
+    <Placeholder />
+  );
+
+  const watchedListEl = userInfo.watchedList.length ? (
+    userInfo.watchedList.map((m) => (
+      <MovieCard
+        key={m.id}
+        width="160px"
+        height="220px"
+        imgWidth={160}
+        imgHeight={220}
+        className={styles.movieList_item}
+        movieItem={{ ...m, img: m.imgUrl }}
+        isComingMovie={false}
+      />
     ))
   ) : (
     <Placeholder />
@@ -139,7 +154,9 @@ const Profile: FC = observer(() => {
             </Tabs.Item>
 
             <Tabs.Item
-              className={styles['profile-tab_content']}
+              className={
+                (styles['profile-tab_content'], styles['profile-tab_movieList'])
+              }
               index="2"
               name="收藏的电影"
             >
@@ -147,15 +164,13 @@ const Profile: FC = observer(() => {
             </Tabs.Item>
 
             <Tabs.Item
-              className={styles['profile-tab_content']}
+              className={
+                (styles['profile-tab_content'], styles['profile-tab_movieList'])
+              }
               index="3"
               name="看过的电影"
             >
-              {userInfo.watchedList.length ? (
-                userInfo.watchedList.map((m) => <li key={m.id}>{m.title}</li>)
-              ) : (
-                <Placeholder />
-              )}
+              {watchedListEl}
             </Tabs.Item>
           </Tabs>
         </>

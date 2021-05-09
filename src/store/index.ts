@@ -95,7 +95,7 @@ class UserModel {
     }
   }
 
-  removeFromCollection(
+  removeFromList(
     id: number,
     source: ListSource.collectionList | ListSource.watchedList
   ) {

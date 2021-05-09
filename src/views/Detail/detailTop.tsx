@@ -29,103 +29,33 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
     type: 'primary'
   });
 
-  const isCollected = useCallback(
-    () =>
-      toJS(userModel.user.collectionList)
+  const isExistInList = useCallback(
+    (source: ListSource.watchedList | ListSource.collectionList) =>
+      toJS(
+        source === ListSource.collectionList
+          ? userModel.user.collectionList
+          : userModel.user.watchedList
+      )
         .map((m) => m.id)
         .includes(movieDetail.id),
-    [movieDetail.id, userModel.user.collectionList]
+    [movieDetail.id, userModel.user.collectionList, userModel.user.watchedList]
   );
-
-  const onWatchBtnClick = () => {
-    console.log('watched');
-  };
 
   const removeMovie = useCallback(
     async (source: ListSource) => {
-      if (source === ListSource.collectionList) {
-        console.log('remove from collection list');
-        try {
-          const { code, msg } = await removeFromList(
-            // @ts-ignore
-            { id: movieDetail.id },
-            source
-          );
-          if (code === 200) {
-            setAlertConf({
-              title: msg,
-              type: 'success'
-            });
-            userModel.removeFromCollection(movieDetail.id, source);
-          }
-        } catch (error) {
-          setAlertConf({
-            title: MOVIE_ALERT_MSG.UNAUTH,
-            type: 'danger'
-          });
-        }
-
-        setAlertVisible(true);
-        setTimeout(() => {
-          setAlertVisible(false);
-        }, 1000);
-      } else {
-      }
-    },
-    [movieDetail.id, userModel]
-  );
-
-  const onCollectBtnClick = async () => {
-    if (!userModel.isLogin) {
-      setAlertConf({
-        title: MOVIE_ALERT_MSG.UNAUTH,
-        type: 'danger'
-      });
-      setAlertVisible(true);
-      setTimeout(() => {
-        setAlertVisible(false);
-      }, 1000);
-      return;
-    }
-
-    if (movieDetail.id && movieDetail.nm) {
-      // 取消收藏
-      if (isCollected()) {
-        removeMovie(ListSource.collectionList);
-        return;
-      }
-
-      const {
-        id,
-        nm,
-        enm,
-        img: imgUrl,
-        rt,
-        star,
-        src: fra,
-        sc,
-        wish
-      } = movieDetail;
-      const movieDto: IMovieOfUser = {
-        id,
-        nm,
-        enm,
-        imgUrl,
-        rt,
-        fra,
-        star,
-        sc,
-        wish
-      };
       try {
-        const { msg, code } = await addToList(movieDto, 10);
+        const { code, msg } = await removeFromList(
+          // @ts-ignore
+          { id: movieDetail.id },
+          source
+        );
         if (code === 200) {
           setAlertConf({
             title: msg,
             type: 'success'
           });
+          userModel.removeFromList(movieDetail.id, source);
         }
-        userModel.addToList(movieDto, ListSource.collectionList);
       } catch (error) {
         setAlertConf({
           title: MOVIE_ALERT_MSG.UNAUTH,
@@ -137,8 +67,78 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
       setTimeout(() => {
         setAlertVisible(false);
       }, 1000);
-    }
-  };
+    },
+    [movieDetail.id, userModel]
+  );
+
+  const onBtnClick = useCallback(
+    async (source: ListSource.collectionList | ListSource.watchedList) => {
+      console.log('watched');
+      if (!userModel.isLogin) {
+        setAlertConf({
+          title: MOVIE_ALERT_MSG.UNAUTH,
+          type: 'danger'
+        });
+        setAlertVisible(true);
+        setTimeout(() => {
+          setAlertVisible(false);
+        }, 1000);
+        return;
+      }
+
+      if (movieDetail.id && movieDetail.nm) {
+        // 取消收藏 / 看过
+        if (isExistInList(source)) {
+          removeMovie(source);
+          return;
+        }
+
+        const {
+          id,
+          nm,
+          enm,
+          img: imgUrl,
+          rt,
+          star,
+          src: fra,
+          sc,
+          wish
+        } = movieDetail;
+        const movieDto: IMovieOfUser = {
+          id,
+          nm,
+          enm,
+          imgUrl,
+          rt,
+          fra,
+          star,
+          sc,
+          wish
+        };
+        try {
+          const { msg, code } = await addToList(movieDto, source);
+          if (code === 200) {
+            setAlertConf({
+              title: msg,
+              type: 'success'
+            });
+          }
+          userModel.addToList(movieDto, source);
+        } catch (error) {
+          setAlertConf({
+            title: MOVIE_ALERT_MSG.UNAUTH,
+            type: 'danger'
+          });
+        }
+
+        setAlertVisible(true);
+        setTimeout(() => {
+          setAlertVisible(false);
+        }, 1000);
+      }
+    },
+    [isExistInList, movieDetail, removeMovie, userModel]
+  );
 
   let alertEl = alertVisible ? (
     <Alert
@@ -179,21 +179,30 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
               btnType="danger"
               className={styles.btn}
               size="lg"
-              onClick={onWatchBtnClick}
+              onClick={() => onBtnClick(ListSource.watchedList)}
             >
               看过
-              <FontAwesomeIcon icon={['far', 'eye']}></FontAwesomeIcon>
+              {isExistInList(ListSource.watchedList) + ''}
+              <FontAwesomeIcon
+                icon={
+                  isExistInList(ListSource.watchedList) ? 'eye' : ['far', 'eye']
+                }
+              ></FontAwesomeIcon>
             </Button>
             <Button
               btnType="danger"
               className={styles.btn}
               size="lg"
-              onClick={onCollectBtnClick}
+              onClick={() => onBtnClick(ListSource.collectionList)}
             >
               收藏
-              {isCollected() + ''}
+              {isExistInList(ListSource.collectionList) + ''}
               <FontAwesomeIcon
-                icon={isCollected() ? 'heart' : ['far', 'heart']}
+                icon={
+                  isExistInList(ListSource.collectionList)
+                    ? 'heart'
+                    : ['far', 'heart']
+                }
               />
             </Button>
           </div>

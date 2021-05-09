@@ -33,6 +33,14 @@
     &_content {
       color: $fontColor-black;
     }
+    .profile-tab_movieList {
+      display: flex;
+      flex-wrap: wrap;
+      .movieList_item {
+        margin-right: 8px;
+        margin-bottom: 8px;
+      }
+    }
   }
 }
 .profile {

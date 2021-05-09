@@ -50,6 +50,7 @@ const NavBar: FC = observer(() => {
 
   const onSearchBtnClick = () => {
     history.push(`/search?kw=${inputVal}`);
+    setInputVal('');
   };
 
   const onLogoutBtnClick = useCallback(() => {

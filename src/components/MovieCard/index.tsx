@@ -53,7 +53,7 @@ const MovieCard: FC<IMovieCardProps> = ({
         <p className={styles.movieCard_title}>{movieItem.nm}</p>
         {isComingMovie ? null : (
           <p className={styles.movieCard_rate}>
-            {movieItem.sc ? movieItem.sc : '暂无评分'}
+            {movieItem.sc > 0 ? movieItem.sc : '暂无评分'}
           </p>
         )}
       </span>
@@ -68,7 +68,7 @@ const MovieCard: FC<IMovieCardProps> = ({
           主演：{movieItem.star?.replaceAll(',', ' / ')}
         </p>
         <p className={styles.movieCard_detail_wish}>{movieItem.wish} 人想看</p>
-        {movieItem.sc && !isComingMovie ? (
+        {movieItem.sc > 0 && !isComingMovie ? (
           <i className={styles.movieCard_detail_rate}>{movieItem.sc}</i>
         ) : null}
       </div>

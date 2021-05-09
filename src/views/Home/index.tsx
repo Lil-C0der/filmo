@@ -169,17 +169,12 @@ const Home: FC = () => {
         <div className={styles.homepage_posts}>
           <div className={styles.movies_title}>社区热帖</div>
           <ul className={styles['post-list']}>
-            {postList
-              .reverse()
-              .slice(0, 5)
-              .map((p) => (
-                <li key={p.id} className={styles['post-wrapper']}>
-                  <Link to={`post/${p.id}`}>{p.title}</Link>
-                  <span className="post-date">
-                    {parseMongoDate(p.createdAt)}
-                  </span>
-                </li>
-              ))}
+            {postList.slice(0, 5).map((p) => (
+              <li key={p.id} className={styles['post-wrapper']}>
+                <Link to={`post/${p.id}`}>{p.title}</Link>
+                <span className="post-date">{parseMongoDate(p.createdAt)}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

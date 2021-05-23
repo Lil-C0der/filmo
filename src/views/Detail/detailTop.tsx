@@ -170,7 +170,6 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
         <p className={styles.movieDetail_pubDesc}>{movieDetail.pubDesc}</p>
         <div className={styles.movieDetail_action}>
           <div className={styles.btns}>
-            {/* TODO 通过 movieDetail.id 实现看过和收藏功能 */}
             <Button
               btnType="danger"
               className={styles.btn}
@@ -178,7 +177,6 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
               onClick={() => onBtnClick(ListSource.watchedList)}
             >
               看过
-              {isExistInList(ListSource.watchedList) + ''}
               <FontAwesomeIcon icon={isExistInList(ListSource.watchedList) ? 'eye' : ['far', 'eye']}></FontAwesomeIcon>
             </Button>
             <Button
@@ -188,7 +186,6 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
               onClick={() => onBtnClick(ListSource.collectionList)}
             >
               收藏
-              {isExistInList(ListSource.collectionList) + ''}
               <FontAwesomeIcon icon={isExistInList(ListSource.collectionList) ? 'heart' : ['far', 'heart']} />
             </Button>
           </div>

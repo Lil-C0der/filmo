@@ -1,0 +1,12 @@
+@import '~styles/var';
+
+.spinner-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($color: $grey, $alpha: 0.08);
+  .spinner-icon {
+    position: absolute;
+  }
+}

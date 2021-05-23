@@ -10,32 +10,31 @@ import { observer, useLocalStore } from 'mobx-react-lite';
 import store, { ListSource } from '@/store';
 import Alert, { IAlertProps } from 'woo-ui-react/dist/components/Alert/alert';
 import { toJS } from 'mobx';
+import Spinner from '@/components/Spinner';
 
 interface IDetailUpperProps {
   movieDetail: IMovieInfo;
 }
 
 enum MOVIE_ALERT_MSG {
-  UNAUTH = '请先登录！'
+  UNAUTH = '请先登录！',
 }
 
 const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
   const userModel = useLocalStore(() => store);
 
+  const [isLoading, setIsLoading] = useState(!!!movieDetail.img);
+
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertConf, setAlertConf] = useState<IAlertProps>({
     title: '',
     description: '',
-    type: 'primary'
+    type: 'primary',
   });
 
   const isExistInList = useCallback(
     (source: ListSource.watchedList | ListSource.collectionList) =>
-      toJS(
-        source === ListSource.collectionList
-          ? userModel.user.collectionList
-          : userModel.user.watchedList
-      )
+      toJS(source === ListSource.collectionList ? userModel.user.collectionList : userModel.user.watchedList)
         .map((m) => m.id)
         .includes(movieDetail.id),
     [movieDetail.id, userModel.user.collectionList, userModel.user.watchedList]
@@ -52,14 +51,14 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
         if (code === 200) {
           setAlertConf({
             title: msg,
-            type: 'success'
+            type: 'success',
           });
           userModel.removeFromList(movieDetail.id, source);
         }
       } catch (error) {
         setAlertConf({
           title: MOVIE_ALERT_MSG.UNAUTH,
-          type: 'danger'
+          type: 'danger',
         });
       }
 
@@ -77,7 +76,7 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
       if (!userModel.isLogin) {
         setAlertConf({
           title: MOVIE_ALERT_MSG.UNAUTH,
-          type: 'danger'
+          type: 'danger',
         });
         setAlertVisible(true);
         setTimeout(() => {
@@ -93,17 +92,7 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
           return;
         }
 
-        const {
-          id,
-          nm,
-          enm,
-          img: imgUrl,
-          rt,
-          star,
-          src: fra,
-          sc,
-          wish
-        } = movieDetail;
+        const { id, nm, enm, img: imgUrl, rt, star, src: fra, sc, wish } = movieDetail;
         const movieDto: IMovieOfUser = {
           id,
           nm,
@@ -113,21 +102,21 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
           fra,
           star,
           sc,
-          wish
+          wish,
         };
         try {
           const { msg, code } = await addToList(movieDto, source);
           if (code === 200) {
             setAlertConf({
               title: msg,
-              type: 'success'
+              type: 'success',
             });
           }
           userModel.addToList(movieDto, source);
         } catch (error) {
           setAlertConf({
             title: MOVIE_ALERT_MSG.UNAUTH,
-            type: 'danger'
+            type: 'danger',
           });
         }
 
@@ -159,11 +148,18 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
   return (
     <div className={styles.movieDetail_top}>
       {alertEl}
-      <img
-        className={styles.movieDetail_top_pic}
-        src={imgUrlParser(movieDetail.img, 240, 330)}
-        alt=""
-      />
+
+      <Spinner spinner={isLoading}>
+        <img
+          className={styles.movieDetail_top_pic}
+          onLoad={() => {
+            setIsLoading(false);
+          }}
+          src={imgUrlParser(movieDetail.img, 240, 330)}
+          alt=""
+        />
+      </Spinner>
+
       <div className={styles.movieDetail_info}>
         <h1 className={styles.movieDetail_title}>{movieDetail.nm}</h1>
         <p className={styles.movieDetail_title_en}>{movieDetail.enm}</p>
@@ -183,11 +179,7 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
             >
               看过
               {isExistInList(ListSource.watchedList) + ''}
-              <FontAwesomeIcon
-                icon={
-                  isExistInList(ListSource.watchedList) ? 'eye' : ['far', 'eye']
-                }
-              ></FontAwesomeIcon>
+              <FontAwesomeIcon icon={isExistInList(ListSource.watchedList) ? 'eye' : ['far', 'eye']}></FontAwesomeIcon>
             </Button>
             <Button
               btnType="danger"
@@ -197,41 +189,26 @@ const DetailTop: FC<IDetailUpperProps> = observer(({ movieDetail }) => {
             >
               收藏
               {isExistInList(ListSource.collectionList) + ''}
-              <FontAwesomeIcon
-                icon={
-                  isExistInList(ListSource.collectionList)
-                    ? 'heart'
-                    : ['far', 'heart']
-                }
-              />
+              <FontAwesomeIcon icon={isExistInList(ListSource.collectionList) ? 'heart' : ['far', 'heart']} />
             </Button>
           </div>
         </div>
       </div>
 
       <div className={styles.movieDetail_rate}>
-        <div className={styles.rate_sc}>
-          {movieDetail.sc ? `${movieDetail.sc} 分` : '暂无评分'}
-        </div>
-        <div className={styles.rate_num}>
-          {numberParser(movieDetail.snum, 10000)} 万人评分
-        </div>
+        <div className={styles.rate_sc}>{movieDetail.sc ? `${movieDetail.sc} 分` : '暂无评分'}</div>
+        <div className={styles.rate_num}>{numberParser(movieDetail.snum, 10000)} 万人评分</div>
         {/* 电影评分分布情况 */}
         <ul className={styles.rate_dist}>
           {movieDetail.distributions.map(({ movieScoreLevel, proportion }) => (
             <li className={styles.rate_dist_item} key={movieScoreLevel}>
               <span className={styles.level}>{movieScoreLevel}</span>
-              <span
-                className={styles.bar}
-                style={{ width: `${proportion}px` }}
-              ></span>
+              <span className={styles.bar} style={{ width: `${proportion}px` }}></span>
               <span className={styles.proportion}>{proportion}%</span>
             </li>
           ))}
         </ul>
-        {movieDetail.scm ? (
-          <h2 className={styles.rate_desc}>“{movieDetail.scm}“</h2>
-        ) : null}
+        {movieDetail.scm ? <h2 className={styles.rate_desc}>“{movieDetail.scm}“</h2> : null}
         <div className={styles.rate_tags}>
           {movieDetail.cat &&
             movieDetail.cat.split(',').map((cat, i) => (

@@ -18,7 +18,7 @@ import styles from './_style.module.scss';
 enum LOGIN_ALERT_MSG {
   TITLE = '请重试',
   DESCRIPTION = '输入项不能为空！',
-  DIFF_PWD_DESCRIPTION = '两次输入的密码不一致！'
+  DIFF_PWD_DESCRIPTION = '两次输入的密码不一致！',
 }
 
 const Login: FC = observer(() => {
@@ -33,13 +33,10 @@ const Login: FC = observer(() => {
   const [alertConf, setAlertConf] = useState<IAlertProps>({
     title: '',
     description: '',
-    type: 'primary'
+    type: 'primary',
   });
 
-  const { executor: loginExecutor, isRunning: isLoginRunning } = useSubmit(
-    login,
-    3000
-  );
+  const { executor: loginExecutor, isRunning: isLoginRunning } = useSubmit(login, 3000);
 
   // mobx store
   const loginUserModel = useLocalStore(() => store);
@@ -52,10 +49,7 @@ const Login: FC = observer(() => {
 
   // 验证登录和注册的输入项
   const checkInputValidate = useCallback(
-    () =>
-      passwordVal2
-        ? passwordVal2 && passwordVal && usernameVal
-        : usernameVal && passwordVal,
+    () => (passwordVal2 ? passwordVal2 && passwordVal && usernameVal : usernameVal && passwordVal),
     [passwordVal, passwordVal2, usernameVal]
   );
 
@@ -64,7 +58,7 @@ const Login: FC = observer(() => {
       setAlertConf({
         title: LOGIN_ALERT_MSG.TITLE,
         description: LOGIN_ALERT_MSG.DESCRIPTION,
-        type: 'danger'
+        type: 'danger',
       });
       setAlertVisible(true);
       setTimeout(() => {
@@ -73,9 +67,7 @@ const Login: FC = observer(() => {
       return;
     }
 
-    const { code, data, msg } = await (
-      await loginExecutor(usernameVal, passwordVal)
-    ).res;
+    const { code, data, msg } = await (await loginExecutor(usernameVal, passwordVal)).res;
     if (code === 200) {
       const { token, user } = data;
 
@@ -83,10 +75,8 @@ const Login: FC = observer(() => {
       localStorage.setItem('user-token', token);
       setAlertConf({
         title: msg,
-        description: `${getCurrGreeting()}，${
-          data.user.username
-        }，即将为您跳转个人中心...`!,
-        type: 'success'
+        description: `${getCurrGreeting()}，${data.user.username}，即将为您跳转个人中心...`!,
+        type: 'success',
       });
       setTimeout(() => {
         history.push('/profile');
@@ -95,21 +85,14 @@ const Login: FC = observer(() => {
       setAlertConf({
         title: msg,
         description: data.error!,
-        type: 'danger'
+        type: 'danger',
       });
     }
     setAlertVisible(true);
     setTimeout(() => {
       setAlertVisible(false);
     }, 3000);
-  }, [
-    checkInputValidate,
-    history,
-    loginExecutor,
-    loginUserModel,
-    passwordVal,
-    usernameVal
-  ]);
+  }, [checkInputValidate, history, loginExecutor, loginUserModel, passwordVal, usernameVal]);
 
   const onRegister = useCallback(() => {
     setIsRegister(true);
@@ -120,7 +103,7 @@ const Login: FC = observer(() => {
       setAlertConf({
         title: LOGIN_ALERT_MSG.TITLE,
         description: LOGIN_ALERT_MSG.DESCRIPTION,
-        type: 'danger'
+        type: 'danger',
       });
       setAlertVisible(true);
       setTimeout(() => {
@@ -133,7 +116,7 @@ const Login: FC = observer(() => {
       setAlertConf({
         title: LOGIN_ALERT_MSG.TITLE,
         description: LOGIN_ALERT_MSG.DIFF_PWD_DESCRIPTION,
-        type: 'danger'
+        type: 'danger',
       });
       setAlertVisible(true);
       setTimeout(() => {
@@ -146,19 +129,20 @@ const Login: FC = observer(() => {
     if (code === 200) {
       setAlertConf({
         title: msg,
-        type: 'success'
+        type: 'success',
       });
     } else {
       setAlertConf({
         title: msg,
         description: data.error!,
-        type: 'danger'
+        type: 'danger',
       });
     }
 
     setAlertVisible(true);
     setTimeout(() => {
       setAlertVisible(false);
+      setIsRegister(false);
     }, 3000);
     return;
   }, [checkInputValidate, passwordVal, passwordVal2, usernameVal]);
@@ -184,21 +168,14 @@ const Login: FC = observer(() => {
 
       <div className={styles['login-modal_row login-password']}>
         <p className={styles['login-modal_label']}>密码</p>
-        <Input
-          placeholder="请输入密码"
-          value={passwordVal}
-          onChange={setPasswordVal}
-          password
-        />
+        <Input placeholder="请输入密码" value={passwordVal} onChange={setPasswordVal} password />
       </div>
     </div>
   );
 
   const ResgiterEl = (
     <div className={styles['login-modal_content']}>
-      <div
-        className={`${styles['login-modal_row']} ${styles['login-username']}`}
-      >
+      <div className={`${styles['login-modal_row']} ${styles['login-username']}`}>
         <p className={styles['login-modal_label']}>用户名</p>
         <Input
           placeholder="请输入用户名"
@@ -209,28 +186,14 @@ const Login: FC = observer(() => {
         />
       </div>
 
-      <div
-        className={`${styles['login-modal_row']} ${styles['login-password']}`}
-      >
+      <div className={`${styles['login-modal_row']} ${styles['login-password']}`}>
         <p className={styles['login-modal_label']}>密码</p>
-        <Input
-          placeholder="请输入密码"
-          value={passwordVal}
-          onChange={setPasswordVal}
-          password
-        />
+        <Input placeholder="请输入密码" value={passwordVal} onChange={setPasswordVal} password />
       </div>
 
-      <div
-        className={`${styles['login-modal_row']} ${styles['login-password']}`}
-      >
+      <div className={`${styles['login-modal_row']} ${styles['login-password']}`}>
         <p className={styles['login-modal_label']}>再次输入</p>
-        <Input
-          placeholder="请再次输入密码"
-          value={passwordVal2}
-          onChange={setPasswordVal2}
-          password
-        />
+        <Input placeholder="请再次输入密码" value={passwordVal2} onChange={setPasswordVal2} password />
       </div>
     </div>
   );
@@ -259,37 +222,45 @@ const Login: FC = observer(() => {
 
       <div className={styles['login-modal']}>
         <img src={logo} alt="" className={styles['login-modal_logo']} />
-        <h2 className={styles['login-modal_title']}>
-          {isRegister ? '注册' : '登录'}
-        </h2>
+        <h2 className={styles['login-modal_title']}>{isRegister ? '注册' : '登录'}</h2>
 
         {isRegister ? ResgiterEl : loginEl}
 
         <div className={styles['login-modal_btns']}>
-          {isRegister ? null : (
-            <Button
-              btnType="primary"
-              className={styles['login-modal_btn']}
-              onClick={onLogin}
-              disabled={isLoginRunning}
-            >
-              登录
-              {isLoginRunning ? (
-                <FontAwesomeIcon
-                  className={styles['login-icon']}
-                  icon="spinner"
-                  spin={isLoginRunning}
-                />
-              ) : null}
-            </Button>
-          )}
+          {isRegister ? (
+            <>
+              <Button
+                className={styles['login-modal_btn']}
+                onClick={() => {
+                  setIsRegister(false);
+                }}
+              >
+                返回
+              </Button>
 
-          <Button
-            className={styles['login-modal_btn']}
-            onClick={isRegister ? onSubmit : onRegister}
-          >
-            {isRegister ? '确定' : '注册'}
-          </Button>
+              <Button btnType="success" className={styles['login-modal_btn']} onClick={onSubmit}>
+                确定
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button className={styles['login-modal_btn']} onClick={onRegister}>
+                注册
+              </Button>
+
+              <Button
+                btnType="primary"
+                className={styles['login-modal_btn']}
+                onClick={onLogin}
+                disabled={isLoginRunning}
+              >
+                登录
+                {isLoginRunning ? (
+                  <FontAwesomeIcon className={styles['login-icon']} icon="spinner" spin={isLoginRunning} />
+                ) : null}
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </div>

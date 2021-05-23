@@ -79,7 +79,7 @@
     .navbar_item {
       @extend .link;
       border-bottom: none;
-      margin: 0 20px;
+      padding: 0 56px;
       line-height: 48px;
       height: 100%;
       color: $fontColor-white;
@@ -87,6 +87,9 @@
   }
 }
 
+.navbar_menu .menuItem {
+  padding: 0;
+}
 .woo-menu-item-active {
   .navbar_item {
     color: $fontColor-link-active;

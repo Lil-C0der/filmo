@@ -12,7 +12,7 @@ export enum MENUINDEX {
   MOVIE = '/movie',
   NEWS = '/news',
   PROFILE = '/profile',
-  COMMUNITY = '/community'
+  COMMUNITY = '/community',
 }
 
 const NavBar: FC = observer(() => {
@@ -39,9 +39,7 @@ const NavBar: FC = observer(() => {
     }
   }, [location]);
 
-  const [activeIdx, setActiveIdx] = useState<string>(
-    () => parseMenuIndexByPathname() as string
-  );
+  const [activeIdx, setActiveIdx] = useState<string>(() => parseMenuIndexByPathname() as string);
 
   useEffect(() => {
     // menu 的 selectedIndex 受控
@@ -87,17 +85,9 @@ const NavBar: FC = observer(() => {
               value={inputVal}
               onChange={setInputVal}
             />
-            <Button
-              className={styles.navbar_search_btn}
-              size="lg"
-              onClick={onSearchBtnClick}
-            >
+            <Button className={styles.navbar_search_btn} size="lg" onClick={onSearchBtnClick}>
               搜索
-              <FontAwesomeIcon
-                className={styles.navbar_search_btn_icon}
-                icon="search"
-                size="2x"
-              />
+              <FontAwesomeIcon className={styles.navbar_search_btn_icon} icon="search" size="2x" />
             </Button>
           </div>
         </div>
@@ -105,36 +95,33 @@ const NavBar: FC = observer(() => {
 
       <div className={styles.navbar_secondary}>
         <ul>
-          <Menu selectedIndex={activeIdx} trigger="click" vertical={false}>
-            <Menu.Item index={MENUINDEX.MOVIE}>
+          <Menu className={styles.navbar_menu} selectedIndex={activeIdx} trigger="click" vertical={false}>
+            <Menu.Item index={MENUINDEX.MOVIE} className={styles.menuItem}>
               <Link to={'/'} className={styles.navbar_item}>
                 电影
               </Link>
             </Menu.Item>
 
-            <Menu.Item index={MENUINDEX.PROFILE}>
+            <Menu.Item index={MENUINDEX.PROFILE} className={styles.menuItem}>
               <Link to={'/profile'} className={styles.navbar_item}>
                 个人中心
               </Link>
             </Menu.Item>
 
-            <Menu.Item index={MENUINDEX.NEWS}>
+            <Menu.Item index={MENUINDEX.NEWS} className={styles.menuItem}>
               <Link to={'/news/movie'} className={styles.navbar_item}>
                 行业资讯
               </Link>
             </Menu.Item>
 
-            <Menu.Item index={MENUINDEX.COMMUNITY}>
+            <Menu.Item index={MENUINDEX.COMMUNITY} className={styles.menuItem}>
               <Link to={'/community'} className={styles.navbar_item}>
                 社区
               </Link>
             </Menu.Item>
           </Menu>
 
-          <Button
-            className={styles.navbar_logoutBtn}
-            onClick={onLogoutBtnClick}
-          >
+          <Button className={styles.navbar_logoutBtn} onClick={onLogoutBtnClick}>
             {userModel.isLogin ? '登出' : '登录'}
           </Button>
         </ul>
